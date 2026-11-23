@@ -1,0 +1,190 @@
+{
+  "_meta": {
+    "purpose": "合成求职者的专业清单。用于生成跨专业的简历样本，测试工具在不同专业下的泛化行为。",
+    "source": "教育部《普通高等学校本科专业目录》12 个学科门类 + 新兴/交叉专业补充",
+    "fields": {
+      "discipline": "学科门类",
+      "major": "专业名（按目录原名）",
+      "jobs": "该专业主要投的岗位关键词，用来从 JD 池召回对口岗位",
+      "market": "招聘市场体量估计：large / medium / small",
+      "itAdjacent": "是否常进 IT/互联网公司（用于构造'专业不对口'的测试场景）",
+      "note": "测试时的注意点"
+    },
+    "excluded": "军事学门类不纳入：军校毕业生就业路径不同，且招聘平台样本极少"
+  },
+
+  "majorGroups": [
+    {
+      "discipline": "哲学",
+      "note": "岗位量最小的一类，主要用来测「专业完全不对口」时的表现",
+      "majors": [
+        { "major": "哲学", "jobs": ["行政", "文秘", "编辑", "教师"], "market": "small", "itAdjacent": false },
+        { "major": "逻辑学", "jobs": ["教师", "研究", "数据分析"], "market": "small", "itAdjacent": false },
+        { "major": "宗教学", "jobs": ["行政", "文化", "研究"], "market": "small", "itAdjacent": false },
+        { "major": "伦理学", "jobs": ["行政", "教师", "合规"], "market": "small", "itAdjacent": false }
+      ]
+    },
+    {
+      "discipline": "经济学",
+      "majors": [
+        { "major": "经济学", "jobs": ["经济分析", "研究员", "投资", "运营"], "market": "large", "itAdjacent": false },
+        { "major": "金融学", "jobs": ["金融", "证券", "银行", "风控", "投行"], "market": "large", "itAdjacent": false },
+        { "major": "国际经济与贸易", "jobs": ["外贸", "单证", "跨境", "采购"], "market": "large", "itAdjacent": false },
+        { "major": "财政学", "jobs": ["财务", "税务", "会计", "预算"], "market": "medium", "itAdjacent": false },
+        { "major": "保险学", "jobs": ["保险", "核保", "理赔", "精算"], "market": "medium", "itAdjacent": false },
+        { "major": "经济统计学", "jobs": ["数据分析", "统计", "运营分析"], "market": "medium", "itAdjacent": true },
+        { "major": "投资学", "jobs": ["投资", "基金", "风控"], "market": "medium", "itAdjacent": false },
+        { "major": "数字经济", "jobs": ["数据运营", "产品运营", "商业分析"], "market": "medium", "itAdjacent": true }
+      ]
+    },
+    {
+      "discipline": "法学",
+      "majors": [
+        { "major": "法学", "jobs": ["法务", "律师", "合规", "风控"], "market": "large", "itAdjacent": false },
+        { "major": "知识产权", "jobs": ["专利", "知识产权", "法务"], "market": "medium", "itAdjacent": false },
+        { "major": "社会学", "jobs": ["用户研究", "运营", "社工"], "market": "small", "itAdjacent": false },
+        { "major": "社会工作", "jobs": ["社工", "公益", "行政"], "market": "small", "itAdjacent": false },
+        { "major": "政治学与行政学", "jobs": ["行政", "公务员", "企划"], "market": "small", "itAdjacent": false },
+        { "major": "侦查学", "jobs": ["安保", "合规", "风控"], "market": "small", "itAdjacent": false }
+      ]
+    },
+    {
+      "discipline": "教育学",
+      "note": "师范类是重要的「跨专业」测试素材：客户常投非教师岗",
+      "majors": [
+        { "major": "教育学", "jobs": ["教师", "教研", "课程顾问", "培训"], "market": "large", "itAdjacent": false },
+        { "major": "学前教育", "jobs": ["幼教", "早教", "课程顾问"], "market": "large", "itAdjacent": false },
+        { "major": "小学教育", "jobs": ["小学教师", "教研", "培训"], "market": "large", "itAdjacent": false },
+        { "major": "特殊教育", "jobs": ["特教", "康复", "教研"], "market": "small", "itAdjacent": false },
+        { "major": "教育技术学", "jobs": ["教学设计", "课程开发", "产品运营"], "market": "medium", "itAdjacent": true },
+        { "major": "体育教育", "jobs": ["体育教师", "教练", "体能训练"], "market": "medium", "itAdjacent": false },
+        { "major": "汉语国际教育", "jobs": ["对外汉语", "教师", "翻译"], "market": "small", "itAdjacent": false }
+      ]
+    },
+    {
+      "discipline": "文学",
+      "majors": [
+        { "major": "汉语言文学", "jobs": ["文案", "编辑", "运营", "行政", "教师"], "market": "large", "itAdjacent": false },
+        { "major": "英语", "jobs": ["翻译", "外贸", "跨境电商", "英语教师"], "market": "large", "itAdjacent": false },
+        { "major": "日语", "jobs": ["翻译", "外贸", "对日外包"], "market": "medium", "itAdjacent": false },
+        { "major": "新闻学", "jobs": ["记者", "编辑", "新媒体运营", "内容"], "market": "medium", "itAdjacent": true },
+        { "major": "传播学", "jobs": ["品牌", "公关", "新媒体", "市场"], "market": "medium", "itAdjacent": true },
+        { "major": "广告学", "jobs": ["广告", "策划", "文案", "新媒体运营"], "market": "medium", "itAdjacent": false },
+        { "major": "网络与新媒体", "jobs": ["新媒体运营", "短视频", "内容运营"], "market": "medium", "itAdjacent": true },
+        { "major": "翻译", "jobs": ["翻译", "本地化", "外贸"], "market": "medium", "itAdjacent": false }
+      ]
+    },
+    {
+      "discipline": "历史学",
+      "majors": [
+        { "major": "历史学", "jobs": ["教师", "编辑", "文博", "行政"], "market": "small", "itAdjacent": false },
+        { "major": "世界史", "jobs": ["教师", "研究", "编辑"], "market": "small", "itAdjacent": false },
+        { "major": "考古学", "jobs": ["文博", "考古", "研究"], "market": "small", "itAdjacent": false },
+        { "major": "文物与博物馆学", "jobs": ["文博", "策展", "文化"], "market": "small", "itAdjacent": false }
+      ]
+    },
+    {
+      "discipline": "理学",
+      "note": "数学/统计/心理是「跨进 IT」最多的一类，用来测专业与岗位错配",
+      "majors": [
+        { "major": "数学与应用数学", "jobs": ["算法", "数据分析", "教师", "金融"], "market": "large", "itAdjacent": true },
+        { "major": "物理学", "jobs": ["研发", "教师", "工艺工程师"], "market": "medium", "itAdjacent": false },
+        { "major": "化学", "jobs": ["化学分析", "质检", "工艺", "教师"], "market": "large", "itAdjacent": false },
+        { "major": "应用化学", "jobs": ["工艺工程师", "质检", "研发"], "market": "large", "itAdjacent": false },
+        { "major": "生物科学", "jobs": ["生物技术", "实验员", "医药代表"], "market": "medium", "itAdjacent": false },
+        { "major": "统计学", "jobs": ["数据分析", "数据挖掘", "风控"], "market": "medium", "itAdjacent": true },
+        { "major": "地理信息科学", "jobs": ["GIS", "测绘", "数据处理"], "market": "small", "itAdjacent": true },
+        { "major": "心理学", "jobs": ["用户研究", "人力", "心理咨询"], "market": "medium", "itAdjacent": false },
+        { "major": "应用心理学", "jobs": ["用户研究", "人力", "培训"], "market": "medium", "itAdjacent": false }
+      ]
+    },
+    {
+      "discipline": "工学",
+      "note": "最大的门类，也是招聘市场主力；需要同时覆盖「对口 IT」与「传统工科」两种场景",
+      "majors": [
+        { "major": "机械设计制造及其自动化", "jobs": ["机械工程师", "结构设计", "工艺", "设备"], "market": "large", "itAdjacent": false },
+        { "major": "电气工程及其自动化", "jobs": ["电气工程师", "电力", "自动化"], "market": "large", "itAdjacent": false },
+        { "major": "电子信息工程", "jobs": ["嵌入式", "硬件工程师", "电子", "技术支持"], "market": "large", "itAdjacent": true },
+        { "major": "通信工程", "jobs": ["通信工程师", "网络优化", "射频"], "market": "large", "itAdjacent": true },
+        { "major": "自动化", "jobs": ["自动化工程师", "PLC", "运动控制"], "market": "large", "itAdjacent": false },
+        { "major": "计算机科学与技术", "jobs": ["软件开发", "后端开发", "算法", "前端"], "market": "large", "itAdjacent": true },
+        { "major": "软件工程", "jobs": ["软件开发", "前端开发", "测试开发", "全栈"], "market": "large", "itAdjacent": true },
+        { "major": "土木工程", "jobs": ["土建", "施工", "结构设计", "造价"], "market": "large", "itAdjacent": false },
+        { "major": "材料科学与工程", "jobs": ["材料工程师", "工艺", "品质"], "market": "medium", "itAdjacent": false },
+        { "major": "化学工程与工艺", "jobs": ["化工工艺", "生产管理", "安全"], "market": "medium", "itAdjacent": false },
+        { "major": "车辆工程", "jobs": ["汽车", "整车", "底盘", "三电"], "market": "medium", "itAdjacent": false },
+        { "major": "安全工程", "jobs": ["安全员", "EHS", "安全管理"], "market": "medium", "itAdjacent": false },
+        { "major": "生物医学工程", "jobs": ["医疗器械", "注册", "临床应用"], "market": "small", "itAdjacent": false },
+        { "major": "工业设计", "jobs": ["工业设计", "产品设计", "UX"], "market": "medium", "itAdjacent": true }
+      ]
+    },
+    {
+      "discipline": "农学",
+      "majors": [
+        { "major": "农学", "jobs": ["农业技术", "种植", "农资"], "market": "medium", "itAdjacent": false },
+        { "major": "园艺", "jobs": ["园林", "园艺", "景观"], "market": "medium", "itAdjacent": false },
+        { "major": "植物保护", "jobs": ["植保", "农药", "农资", "作物", "病虫害"], "market": "small", "itAdjacent": false },
+        { "major": "动物医学", "jobs": ["兽医", "宠物", "兽药", "动物营养", "养殖"], "market": "medium", "itAdjacent": false },
+        { "major": "动物科学", "jobs": ["养殖", "饲料", "畜牧"], "market": "small", "itAdjacent": false },
+        { "major": "林学", "jobs": ["林业", "园林", "生态"], "market": "small", "itAdjacent": false },
+        { "major": "水产养殖学", "jobs": ["水产", "养殖技术"], "market": "small", "itAdjacent": false },
+        { "major": "农业资源与环境", "jobs": ["农业技术", "环保", "土壤"], "market": "small", "itAdjacent": false }
+      ]
+    },
+    {
+      "discipline": "医学",
+      "note": "专业门槛最高的一类，用来测「不对口时工具会不会硬凑」",
+      "majors": [
+        { "major": "临床医学", "jobs": ["临床医生", "住院医师", "全科"], "market": "large", "itAdjacent": false },
+        { "major": "护理学", "jobs": ["护士", "护理", "健康管理"], "market": "large", "itAdjacent": false },
+        { "major": "药学", "jobs": ["药店", "药品注册", "医药代表", "质检"], "market": "large", "itAdjacent": false },
+        { "major": "口腔医学", "jobs": ["口腔", "牙科", "牙医", "齿科"], "market": "medium", "itAdjacent": false },
+        { "major": "预防医学", "jobs": ["公卫", "疾控", "健康管理"], "market": "small", "itAdjacent": false },
+        { "major": "医学影像学", "jobs": ["影像科", "超声", "技师"], "market": "medium", "itAdjacent": false },
+        { "major": "中医学", "jobs": ["中医", "针灸", "推拿"], "market": "medium", "itAdjacent": false },
+        { "major": "康复治疗学", "jobs": ["康复治疗", "理疗"], "market": "medium", "itAdjacent": false }
+      ]
+    },
+    {
+      "discipline": "管理学",
+      "majors": [
+        { "major": "工商管理", "jobs": ["运营", "管理培训生", "行政", "市场"], "market": "large", "itAdjacent": false },
+        { "major": "会计学", "jobs": ["会计", "总账", "财务", "审计", "税务"], "market": "large", "itAdjacent": false },
+        { "major": "人力资源管理", "jobs": ["HR", "招聘", "薪酬", "培训"], "market": "large", "itAdjacent": false },
+        { "major": "市场营销", "jobs": ["市场", "销售", "品牌", "运营"], "market": "large", "itAdjacent": false },
+        { "major": "物流管理", "jobs": ["物流", "供应链", "仓储", "采购"], "market": "large", "itAdjacent": false },
+        { "major": "电子商务", "jobs": ["电商运营", "店铺运营", "推广"], "market": "large", "itAdjacent": true },
+        { "major": "信息管理与信息系统", "jobs": ["产品经理", "数据分析", "系统实施"], "market": "medium", "itAdjacent": true },
+        { "major": "公共事业管理", "jobs": ["行政", "公务员", "项目管理"], "market": "medium", "itAdjacent": false },
+        { "major": "工程管理", "jobs": ["项目管理", "造价", "工程"], "market": "medium", "itAdjacent": false },
+        { "major": "旅游管理", "jobs": ["旅游", "酒店", "运营", "导游"], "market": "medium", "itAdjacent": false }
+      ]
+    },
+    {
+      "discipline": "艺术学",
+      "majors": [
+        { "major": "视觉传达设计", "jobs": ["平面设计", "视觉设计", "UI设计"], "market": "large", "itAdjacent": true },
+        { "major": "环境设计", "jobs": ["室内设计", "景观设计", "软装"], "market": "large", "itAdjacent": false },
+        { "major": "产品设计", "jobs": ["产品设计", "工业设计", "外观设计"], "market": "medium", "itAdjacent": true },
+        { "major": "数字媒体艺术", "jobs": ["UI设计", "交互设计", "动效", "游戏美术"], "market": "medium", "itAdjacent": true },
+        { "major": "音乐学", "jobs": ["音乐教师", "演出", "艺术培训"], "market": "small", "itAdjacent": false },
+        { "major": "美术学", "jobs": ["美术教师", "绘画", "艺术培训"], "market": "small", "itAdjacent": false },
+        { "major": "表演", "jobs": ["演员", "表演教师", "艺人"], "market": "small", "itAdjacent": false },
+        { "major": "播音与主持艺术", "jobs": ["主持", "配音", "新媒体运营"], "market": "small", "itAdjacent": true }
+      ]
+    },
+    {
+      "discipline": "新兴 / 交叉",
+      "note": "官方归入工学，但招聘市场上是独立的热门方向；用来测「新专业名」在旧规则下会不会被误判",
+      "majors": [
+        { "major": "人工智能", "jobs": ["算法工程师", "AI应用", "大模型", "机器学习"], "market": "large", "itAdjacent": true },
+        { "major": "数据科学与大数据技术", "jobs": ["数据分析", "大数据开发", "数据仓库"], "market": "large", "itAdjacent": true },
+        { "major": "网络空间安全", "jobs": ["安全工程师", "渗透测试", "等保"], "market": "medium", "itAdjacent": true },
+        { "major": "集成电路设计与集成系统", "jobs": ["IC设计", "数字前端", "版图"], "market": "medium", "itAdjacent": true },
+        { "major": "智能制造工程", "jobs": ["智能制造", "自动化", "工艺工程师"], "market": "medium", "itAdjacent": false },
+        { "major": "新能源材料与器件", "jobs": ["电池", "材料工程师", "工艺"], "market": "medium", "itAdjacent": false },
+        { "major": "机器人工程", "jobs": ["机器人", "运动控制", "算法"], "market": "medium", "itAdjacent": true }
+      ]
+    }
+  ]
+}

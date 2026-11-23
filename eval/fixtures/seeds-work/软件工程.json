@@ -1,0 +1,933 @@
+{
+ "major": "软件工程",
+ "discipline": "工学",
+ "provider": "qwen",
+ "model": "qwen3.8-flash",
+ "seed": {
+  "meta": {
+   "headline": "软件工程本科，3 年后端、前端与测试开发项目经验",
+   "years": 3,
+   "level": "中级"
+  },
+  "skills": [
+   "Java",
+   "Spring Boot",
+   "MySQL",
+   "Redis",
+   "Vue.js",
+   "JavaScript",
+   "TypeScript",
+   "Node.js",
+   "Python",
+   "RESTful API",
+   "Git",
+   "Jenkins",
+   "Docker",
+   "接口测试",
+   "自动化测试"
+  ],
+  "education": [
+   {
+    "school": "某大学",
+    "major": "软件工程",
+    "degree": "本科",
+    "year": "2022"
+   }
+  ],
+  "experiences": [
+   {
+    "id": "exp1",
+    "org": "某电商互联网公司",
+    "role": "后端开发工程师",
+    "period": "2023.07-2025.06",
+    "bullets": [
+     {
+      "id": "b1",
+      "text": "负责商品与订单模块的后端接口开发，基于 Spring Boot 和 MySQL 完成 12 个核心接口，支撑日均订单请求约 8 万次。",
+      "metrics": [
+       "12",
+       "8 万次"
+      ],
+      "skills": [
+       "Java",
+       "Spring Boot",
+       "MySQL"
+      ]
+     },
+     {
+      "id": "b2",
+      "text": "参与订单查询接口性能优化，引入 Redis 缓存和数据库索引，将 P95 响应时间从 480 ms 降至 160 ms。",
+      "metrics": [
+       "480 ms",
+       "160 ms"
+      ],
+      "skills": [
+       "Redis",
+       "MySQL",
+       "性能优化"
+      ]
+     },
+     {
+      "id": "b3",
+      "text": "编写单元测试和接口文档，维护 3 个微服务的 Jenkins 流水线，使版本发布失败率从 9% 降至 3%。",
+      "metrics": [
+       "3",
+       "9%",
+       "3%"
+      ],
+      "skills": [
+       "Jenkins",
+       "单元测试",
+       "微服务"
+      ]
+     },
+     {
+      "id": "b4",
+      "text": "配合前端完成购物车和优惠券联调，使用 Git 管理 4 人协作分支，合并冲突减少约 60%。",
+      "metrics": [
+       "4",
+       "60%"
+      ],
+      "skills": [
+       "Git",
+       "RESTful API"
+      ]
+     }
+    ]
+   },
+   {
+    "id": "exp2",
+    "org": "某企业软件服务公司",
+    "role": "前端开发工程师",
+    "period": "2022.07-2023.06",
+    "bullets": [
+     {
+      "id": "b5",
+      "text": "参与后台管理系统前端开发，使用 Vue.js 和 Element UI 完成 35 个页面组件，覆盖客户、工单和报表模块。",
+      "metrics": [
+       "35"
+      ],
+      "skills": [
+       "Vue.js",
+       "Element UI"
+      ]
+     },
+     {
+      "id": "b6",
+      "text": "实现工单筛选和批量导出功能，将运营人员单次任务处理时间从 20 分钟缩短到 6 分钟。",
+      "metrics": [
+       "20 分钟",
+       "6 分钟"
+      ],
+      "skills": [
+       "JavaScript",
+       "前端性能优化"
+      ]
+     },
+     {
+      "id": "b7",
+      "text": "与后端约定 RESTful 接口并处理异常状态，将页面接口报错率从 7% 降至 2%。",
+      "metrics": [
+       "7%",
+       "2%"
+      ],
+      "skills": [
+       "RESTful API",
+       "调试"
+      ]
+     },
+     {
+      "id": "b8",
+      "text": "维护前端构建脚本和 ESLint 规则，使构建时间从 6 分钟降至 3 分钟。",
+      "metrics": [
+       "6 分钟",
+       "3 分钟"
+      ],
+      "skills": [
+       "ESLint",
+       "构建工具"
+      ]
+     }
+    ]
+   },
+   {
+    "id": "exp3",
+    "org": "某互联网测试外包公司",
+    "role": "测试开发实习生",
+    "period": "2021.07-2022.05",
+    "bullets": [
+     {
+      "id": "b9",
+      "text": "参与移动端 App 接口测试，编写 80 条用例，覆盖登录、支付和订单查询流程。",
+      "metrics": [
+       "80"
+      ],
+      "skills": [
+       "测试用例",
+       "接口测试"
+      ]
+     },
+     {
+      "id": "b10",
+      "text": "使用 Python 和 requests 编写自动化脚本，将回归测试执行时间从 3 小时缩短到 45 分钟。",
+      "metrics": [
+       "3 小时",
+       "45 分钟"
+      ],
+      "skills": [
+       "Python",
+       "自动化测试"
+      ]
+     },
+     {
+      "id": "b11",
+      "text": "记录缺陷并跟进修复，累计提交 56 个有效缺陷，推动 12 个高频问题上线前关闭。",
+      "metrics": [
+       "56",
+       "12"
+      ],
+      "skills": [
+       "缺陷管理",
+       "Jira"
+      ]
+     },
+     {
+      "id": "b12",
+      "text": "协助搭建测试数据环境，整理 200 条测试样本，减少环境准备时间约 40%。",
+      "metrics": [
+       "200",
+       "40%"
+      ],
+      "skills": [
+       "测试数据",
+       "Linux"
+      ]
+     }
+    ]
+   }
+  ],
+  "personas": [
+   {
+    "id": "p1",
+    "name": "后端开发方向",
+    "jobs": [
+     "后端开发工程师",
+     "Java 开发工程师"
+    ],
+    "focus": [
+     "订单接口开发",
+     "缓存与性能优化",
+     "持续交付"
+    ],
+    "thesis": "以订单接口交付和查询性能优化匹配后端开发岗位。",
+    "strength": 4,
+    "bulletIds": [
+     "b1",
+     "b2",
+     "b3"
+    ]
+   },
+   {
+    "id": "p2",
+    "name": "前端开发方向",
+    "jobs": [
+     "前端开发工程师",
+     "Web 前端开发工程师"
+    ],
+    "focus": [
+     "后台管理系统页面开发",
+     "组件化",
+     "接口联调"
+    ],
+    "thesis": "以 Vue 后台系统交付和前端效率优化匹配前端岗位。",
+    "strength": 4,
+    "bulletIds": [
+     "b5",
+     "b6",
+     "b7"
+    ]
+   },
+   {
+    "id": "p3",
+    "name": "测试开发方向",
+    "jobs": [
+     "测试开发工程师",
+     "自动化测试工程师"
+    ],
+    "focus": [
+     "接口自动化",
+     "回归测试",
+     "缺陷闭环"
+    ],
+    "thesis": "以 Python 自动化脚本和接口测试经验支撑测试开发岗位。",
+    "strength": 4,
+    "bulletIds": [
+     "b9",
+     "b10",
+     "b11"
+    ]
+   },
+   {
+    "id": "p4",
+    "name": "全栈开发方向",
+    "jobs": [
+     "全栈开发工程师",
+     "软件工程师"
+    ],
+    "focus": [
+     "前后端联调",
+     "接口开发",
+     "构建部署"
+    ],
+    "thesis": "以后端接口、前端页面和构建测试能力形成全栈开发画像。",
+    "strength": 4,
+    "bulletIds": [
+     "b1",
+     "b5",
+     "b8",
+     "b10"
+    ]
+   }
+  ]
+ },
+ "tiers": {
+  "rich": {
+   "meta": {
+    "headline": "软件工程本科，3 年后端、前端与测试开发项目经验",
+    "years": 3,
+    "level": "中级",
+    "__quality": "rich",
+    "__bulletCount": 12,
+    "__personaCount": 4
+   },
+   "skills": [
+    "Java",
+    "Spring Boot",
+    "MySQL",
+    "Redis",
+    "Vue.js",
+    "JavaScript",
+    "TypeScript",
+    "Node.js",
+    "Python",
+    "RESTful API",
+    "Git",
+    "Jenkins",
+    "Docker",
+    "接口测试",
+    "自动化测试"
+   ],
+   "education": [
+    {
+     "school": "某大学",
+     "major": "软件工程",
+     "degree": "本科",
+     "year": "2022"
+    }
+   ],
+   "experiences": [
+    {
+     "id": "exp1",
+     "org": "某电商互联网公司",
+     "role": "后端开发工程师",
+     "period": "2023.07-2025.06",
+     "bullets": [
+      {
+       "id": "b1",
+       "text": "负责商品与订单模块的后端接口开发，基于 Spring Boot 和 MySQL 完成 12 个核心接口，支撑日均订单请求约 8 万次。",
+       "metrics": [
+        "12",
+        "8 万次"
+       ],
+       "skills": [
+        "Java",
+        "Spring Boot",
+        "MySQL"
+       ]
+      },
+      {
+       "id": "b2",
+       "text": "参与订单查询接口性能优化，引入 Redis 缓存和数据库索引，将 P95 响应时间从 480 ms 降至 160 ms。",
+       "metrics": [
+        "480 ms",
+        "160 ms"
+       ],
+       "skills": [
+        "Redis",
+        "MySQL",
+        "性能优化"
+       ]
+      },
+      {
+       "id": "b3",
+       "text": "编写单元测试和接口文档，维护 3 个微服务的 Jenkins 流水线，使版本发布失败率从 9% 降至 3%。",
+       "metrics": [
+        "3",
+        "9%",
+        "3%"
+       ],
+       "skills": [
+        "Jenkins",
+        "单元测试",
+        "微服务"
+       ]
+      },
+      {
+       "id": "b4",
+       "text": "配合前端完成购物车和优惠券联调，使用 Git 管理 4 人协作分支，合并冲突减少约 60%。",
+       "metrics": [
+        "4",
+        "60%"
+       ],
+       "skills": [
+        "Git",
+        "RESTful API"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "exp2",
+     "org": "某企业软件服务公司",
+     "role": "前端开发工程师",
+     "period": "2022.07-2023.06",
+     "bullets": [
+      {
+       "id": "b5",
+       "text": "参与后台管理系统前端开发，使用 Vue.js 和 Element UI 完成 35 个页面组件，覆盖客户、工单和报表模块。",
+       "metrics": [
+        "35"
+       ],
+       "skills": [
+        "Vue.js",
+        "Element UI"
+       ]
+      },
+      {
+       "id": "b6",
+       "text": "实现工单筛选和批量导出功能，将运营人员单次任务处理时间从 20 分钟缩短到 6 分钟。",
+       "metrics": [
+        "20 分钟",
+        "6 分钟"
+       ],
+       "skills": [
+        "JavaScript",
+        "前端性能优化"
+       ]
+      },
+      {
+       "id": "b7",
+       "text": "与后端约定 RESTful 接口并处理异常状态，将页面接口报错率从 7% 降至 2%。",
+       "metrics": [
+        "7%",
+        "2%"
+       ],
+       "skills": [
+        "RESTful API",
+        "调试"
+       ]
+      },
+      {
+       "id": "b8",
+       "text": "维护前端构建脚本和 ESLint 规则，使构建时间从 6 分钟降至 3 分钟。",
+       "metrics": [
+        "6 分钟",
+        "3 分钟"
+       ],
+       "skills": [
+        "ESLint",
+        "构建工具"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "exp3",
+     "org": "某互联网测试外包公司",
+     "role": "测试开发实习生",
+     "period": "2021.07-2022.05",
+     "bullets": [
+      {
+       "id": "b9",
+       "text": "参与移动端 App 接口测试，编写 80 条用例，覆盖登录、支付和订单查询流程。",
+       "metrics": [
+        "80"
+       ],
+       "skills": [
+        "测试用例",
+        "接口测试"
+       ]
+      },
+      {
+       "id": "b10",
+       "text": "使用 Python 和 requests 编写自动化脚本，将回归测试执行时间从 3 小时缩短到 45 分钟。",
+       "metrics": [
+        "3 小时",
+        "45 分钟"
+       ],
+       "skills": [
+        "Python",
+        "自动化测试"
+       ]
+      },
+      {
+       "id": "b11",
+       "text": "记录缺陷并跟进修复，累计提交 56 个有效缺陷，推动 12 个高频问题上线前关闭。",
+       "metrics": [
+        "56",
+        "12"
+       ],
+       "skills": [
+        "缺陷管理",
+        "Jira"
+       ]
+      },
+      {
+       "id": "b12",
+       "text": "协助搭建测试数据环境，整理 200 条测试样本，减少环境准备时间约 40%。",
+       "metrics": [
+        "200",
+        "40%"
+       ],
+       "skills": [
+        "测试数据",
+        "Linux"
+       ]
+      }
+     ]
+    }
+   ],
+   "personas": [
+    {
+     "id": "p1",
+     "name": "后端开发方向",
+     "jobs": [
+      "后端开发工程师",
+      "Java 开发工程师"
+     ],
+     "focus": [
+      "订单接口开发",
+      "缓存与性能优化",
+      "持续交付"
+     ],
+     "thesis": "以订单接口交付和查询性能优化匹配后端开发岗位。",
+     "strength": 4,
+     "bulletIds": [
+      "b1",
+      "b2",
+      "b3"
+     ]
+    },
+    {
+     "id": "p2",
+     "name": "前端开发方向",
+     "jobs": [
+      "前端开发工程师",
+      "Web 前端开发工程师"
+     ],
+     "focus": [
+      "后台管理系统页面开发",
+      "组件化",
+      "接口联调"
+     ],
+     "thesis": "以 Vue 后台系统交付和前端效率优化匹配前端岗位。",
+     "strength": 4,
+     "bulletIds": [
+      "b5",
+      "b6",
+      "b7"
+     ]
+    },
+    {
+     "id": "p3",
+     "name": "测试开发方向",
+     "jobs": [
+      "测试开发工程师",
+      "自动化测试工程师"
+     ],
+     "focus": [
+      "接口自动化",
+      "回归测试",
+      "缺陷闭环"
+     ],
+     "thesis": "以 Python 自动化脚本和接口测试经验支撑测试开发岗位。",
+     "strength": 4,
+     "bulletIds": [
+      "b9",
+      "b10",
+      "b11"
+     ]
+    },
+    {
+     "id": "p4",
+     "name": "全栈开发方向",
+     "jobs": [
+      "全栈开发工程师",
+      "软件工程师"
+     ],
+     "focus": [
+      "前后端联调",
+      "接口开发",
+      "构建部署"
+     ],
+     "thesis": "以后端接口、前端页面和构建测试能力形成全栈开发画像。",
+     "strength": 4,
+     "bulletIds": [
+      "b1",
+      "b5",
+      "b8",
+      "b10"
+     ]
+    }
+   ]
+  },
+  "normal": {
+   "meta": {
+    "headline": "软件工程本科，3 年后端、前端与测试开发项目经验",
+    "years": 3,
+    "level": "中级",
+    "__quality": "normal",
+    "__bulletCount": 5,
+    "__personaCount": 3
+   },
+   "skills": [
+    "Java",
+    "Spring Boot",
+    "MySQL",
+    "Redis",
+    "Vue.js",
+    "JavaScript",
+    "TypeScript",
+    "Node.js",
+    "Python",
+    "RESTful API",
+    "Git",
+    "Jenkins",
+    "Docker",
+    "接口测试",
+    "自动化测试"
+   ],
+   "education": [
+    {
+     "school": "某大学",
+     "major": "软件工程",
+     "degree": "本科",
+     "year": "2022"
+    }
+   ],
+   "experiences": [
+    {
+     "id": "exp1",
+     "org": "某电商互联网公司",
+     "role": "后端开发工程师",
+     "period": "2023.07-2025.06",
+     "bullets": [
+      {
+       "id": "b1",
+       "text": "负责商品与订单模块的后端接口开发，基于 Spring Boot 和 MySQL 完成 12 个核心接口，支撑日均订单请求约 8 万次。",
+       "metrics": [
+        "12",
+        "8 万次"
+       ],
+       "skills": [
+        "Java",
+        "Spring Boot",
+        "MySQL"
+       ]
+      },
+      {
+       "id": "b2",
+       "text": "参与订单查询接口性能优化，引入 Redis 缓存和数据库索引，将 P95 响应时间从 480 ms 降至 160 ms。",
+       "metrics": [
+        "480 ms",
+        "160 ms"
+       ],
+       "skills": [
+        "Redis",
+        "MySQL",
+        "性能优化"
+       ]
+      },
+      {
+       "id": "b3",
+       "text": "编写单元测试和接口文档，维护 3 个微服务的 Jenkins 流水线，使版本发布失败率从 9% 降至 3%。",
+       "metrics": [
+        "3",
+        "9%",
+        "3%"
+       ],
+       "skills": [
+        "Jenkins",
+        "单元测试",
+        "微服务"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "exp2",
+     "org": "某企业软件服务公司",
+     "role": "前端开发工程师",
+     "period": "2022.07-2023.06",
+     "bullets": [
+      {
+       "id": "b5",
+       "text": "参与后台管理系统前端开发，使用 Vue.js 和 Element UI 完成 35 个页面组件，覆盖客户、工单和报表模块。",
+       "metrics": [
+        "35"
+       ],
+       "skills": [
+        "Vue.js",
+        "Element UI"
+       ]
+      },
+      {
+       "id": "b6",
+       "text": "实现工单筛选和批量导出功能，将运营人员单次任务处理时间从 20 分钟缩短到 6 分钟。",
+       "metrics": [
+        "20 分钟",
+        "6 分钟"
+       ],
+       "skills": [
+        "JavaScript",
+        "前端性能优化"
+       ]
+      }
+     ]
+    }
+   ],
+   "personas": [
+    {
+     "id": "p1",
+     "name": "后端开发方向",
+     "jobs": [
+      "后端开发工程师",
+      "Java 开发工程师"
+     ],
+     "focus": [
+      "订单接口开发",
+      "缓存与性能优化",
+      "持续交付"
+     ],
+     "thesis": "以订单接口交付和查询性能优化匹配后端开发岗位。",
+     "strength": 4,
+     "bulletIds": [
+      "b1",
+      "b2",
+      "b3"
+     ]
+    },
+    {
+     "id": "p2",
+     "name": "前端开发方向",
+     "jobs": [
+      "前端开发工程师",
+      "Web 前端开发工程师"
+     ],
+     "focus": [
+      "后台管理系统页面开发",
+      "组件化",
+      "接口联调"
+     ],
+     "thesis": "以 Vue 后台系统交付和前端效率优化匹配前端岗位。",
+     "strength": 4,
+     "bulletIds": [
+      "b5",
+      "b6"
+     ]
+    },
+    {
+     "id": "p4",
+     "name": "全栈开发方向",
+     "jobs": [
+      "全栈开发工程师",
+      "软件工程师"
+     ],
+     "focus": [
+      "前后端联调",
+      "接口开发",
+      "构建部署"
+     ],
+     "thesis": "以后端接口、前端页面和构建测试能力形成全栈开发画像。",
+     "strength": 4,
+     "bulletIds": [
+      "b1",
+      "b5"
+     ]
+    }
+   ]
+  },
+  "thin": {
+   "meta": {
+    "headline": "软件工程本科，3 年后端、前端与测试开发项目经验",
+    "years": 3,
+    "level": "中级",
+    "__quality": "thin",
+    "__bulletCount": 2,
+    "__personaCount": 2
+   },
+   "skills": [
+    "Java",
+    "Spring Boot",
+    "MySQL",
+    "Redis",
+    "Vue.js",
+    "JavaScript",
+    "TypeScript",
+    "Node.js"
+   ],
+   "education": [
+    {
+     "school": "某大学",
+     "major": "软件工程",
+     "degree": "本科",
+     "year": "2022"
+    }
+   ],
+   "experiences": [
+    {
+     "id": "exp1",
+     "org": "某电商互联网公司",
+     "role": "后端开发工程师",
+     "period": "2023.07-2025.06",
+     "bullets": [
+      {
+       "id": "b1",
+       "text": "负责商品与订单模块的后端接口开发，基于 Spring Boot 和 MySQL 完成 个核心接口，支撑日均订单请求约 万次。",
+       "metrics": [],
+       "skills": [
+        "Java",
+        "Spring Boot",
+        "MySQL"
+       ]
+      },
+      {
+       "id": "b2",
+       "text": "参与订单查询接口性能优化，引入 Redis 缓存和数据库索引，将 P 响应时间从 ms 降至 ms。",
+       "metrics": [],
+       "skills": [
+        "Redis",
+        "MySQL",
+        "性能优化"
+       ]
+      }
+     ]
+    }
+   ],
+   "personas": [
+    {
+     "id": "p1",
+     "name": "后端开发方向",
+     "jobs": [
+      "后端开发工程师",
+      "Java 开发工程师"
+     ],
+     "focus": [
+      "订单接口开发",
+      "缓存与性能优化",
+      "持续交付"
+     ],
+     "thesis": "以订单接口交付和查询性能优化匹配后端开发岗位。",
+     "strength": 4,
+     "bulletIds": [
+      "b1",
+      "b2"
+     ]
+    },
+    {
+     "id": "p4",
+     "name": "全栈开发方向",
+     "jobs": [
+      "全栈开发工程师",
+      "软件工程师"
+     ],
+     "focus": [
+      "前后端联调",
+      "接口开发",
+      "构建部署"
+     ],
+     "thesis": "以后端接口、前端页面和构建测试能力形成全栈开发画像。",
+     "strength": 4,
+     "bulletIds": [
+      "b1"
+     ]
+    }
+   ]
+  },
+  "minimal": {
+   "meta": {
+    "headline": "软件工程本科，3 年后端、前端与测试开发项目经验",
+    "years": 3,
+    "level": "中级",
+    "__quality": "minimal",
+    "__bulletCount": 1,
+    "__personaCount": 2
+   },
+   "skills": [
+    "Java",
+    "Spring Boot"
+   ],
+   "education": [
+    {
+     "school": "某大学",
+     "major": "软件工程",
+     "degree": "本科",
+     "year": "2022"
+    }
+   ],
+   "experiences": [
+    {
+     "id": "exp1",
+     "org": "某电商互联网公司",
+     "role": "后端开发工程师",
+     "period": "2023.07-2025.06",
+     "bullets": [
+      {
+       "id": "b1",
+       "text": "负责商品与订单模块的后端接口开发，基于 Spring Boot 和 MySQL 完成 个核心接口，支撑日均订单请求约 万次。",
+       "metrics": []
+      }
+     ]
+    }
+   ],
+   "personas": [
+    {
+     "id": "p1",
+     "name": "后端开发方向",
+     "jobs": [
+      "后端开发工程师",
+      "Java 开发工程师"
+     ],
+     "focus": [
+      "订单接口开发",
+      "缓存与性能优化",
+      "持续交付"
+     ],
+     "thesis": "以订单接口交付和查询性能优化匹配后端开发岗位。",
+     "strength": 4,
+     "bulletIds": [
+      "b1"
+     ]
+    },
+    {
+     "id": "p4",
+     "name": "全栈开发方向",
+     "jobs": [
+      "全栈开发工程师",
+      "软件工程师"
+     ],
+     "focus": [
+      "前后端联调",
+      "接口开发",
+      "构建部署"
+     ],
+     "thesis": "以后端接口、前端页面和构建测试能力形成全栈开发画像。",
+     "strength": 4,
+     "bulletIds": [
+      "b1"
+     ]
+    }
+   ]
+  }
+ }
+}

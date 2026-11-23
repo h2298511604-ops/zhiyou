@@ -1,0 +1,826 @@
+{
+ "major": "集成电路设计与集成系统",
+ "discipline": "新兴 / 交叉",
+ "provider": "qwen",
+ "model": "qwen3.8-flash",
+ "seed": {
+  "meta": {
+   "headline": "2026届集成电路设计与集成系统专业应届本科生，具有数字前端、版图和芯片验证实习经历",
+   "years": 0,
+   "level": "应届"
+  },
+  "skills": [
+   "Verilog",
+   "SystemVerilog",
+   "RTL设计",
+   "UVM",
+   "Synopsys Design Compiler",
+   "Cadence Virtuoso",
+   "Calibre",
+   "DRC/LVS",
+   "STA",
+   "Python",
+   "Linux",
+   "Git",
+   "C/C++"
+  ],
+  "education": [
+   {
+    "school": "某大学",
+    "major": "集成电路设计与集成系统",
+    "degree": "本科",
+    "year": "2026"
+   }
+  ],
+  "experiences": [
+   {
+    "id": "exp1",
+    "org": "某数字芯片设计公司",
+    "role": "数字前端设计实习生",
+    "period": "2025.03-2025.09",
+    "bullets": [
+     {
+      "id": "b1",
+      "text": "完成 3 个数字子模块的 RTL 设计与功能仿真",
+      "metrics": [
+       "3 个"
+      ],
+      "skills": [
+       "Verilog",
+       "RTL设计"
+      ]
+     },
+     {
+      "id": "b2",
+      "text": "使用 SystemVerilog 编写测试用例，模块仿真覆盖率达到 92%",
+      "metrics": [
+       "92%"
+      ],
+      "skills": [
+       "SystemVerilog"
+      ]
+     },
+     {
+      "id": "b3",
+      "text": "与验证工程师定位并修复 27 个功能缺陷",
+      "metrics": [
+       "27 个"
+      ],
+      "skills": [
+       "缺陷跟踪"
+      ]
+     },
+     {
+      "id": "b4",
+      "text": "在 Design Compiler 中完成 2 轮综合，关键路径时序满足 100 MHz",
+      "metrics": [
+       "2 轮",
+       "100 MHz"
+      ],
+      "skills": [
+       "Synopsys Design Compiler",
+       "STA"
+      ]
+     }
+    ]
+   },
+   {
+    "id": "exp2",
+    "org": "某模拟与混合信号芯片公司",
+    "role": "版图设计实习生",
+    "period": "2024.07-2024.10",
+    "bullets": [
+     {
+      "id": "b5",
+      "text": "完成 2 个模拟前端模块版图绘制",
+      "metrics": [
+       "2 个"
+      ],
+      "skills": [
+       "Cadence Virtuoso"
+      ]
+     },
+     {
+      "id": "b6",
+      "text": "使用 Calibre 执行 15 次 DRC/LVS 检查，最终错误项为 0",
+      "metrics": [
+       "15 次",
+       "0"
+      ],
+      "skills": [
+       "Calibre",
+       "DRC/LVS"
+      ]
+     },
+     {
+      "id": "b7",
+      "text": "调整器件匹配与走线间距，将版图面积利用率提高到 95%",
+      "metrics": [
+       "95%"
+      ],
+      "skills": [
+       "版图设计"
+      ]
+     },
+     {
+      "id": "b8",
+      "text": "输出 3 版 GDSII 文件用于流片数据检查",
+      "metrics": [
+       "3 版"
+      ],
+      "skills": [
+       "GDSII"
+      ]
+     }
+    ]
+   },
+   {
+    "id": "exp3",
+    "org": "某智能硬件公司芯片平台部",
+    "role": "数字验证实习生",
+    "period": "2025.10-2026.01",
+    "bullets": [
+     {
+      "id": "b9",
+      "text": "基于 UVM 搭建 1 个总线桥验证环境",
+      "metrics": [
+       "1 个"
+      ],
+      "skills": [
+       "UVM"
+      ]
+     },
+     {
+      "id": "b10",
+      "text": "编写 12 个 sequence 和 8 个 scoreboard 组件",
+      "metrics": [
+       "12 个",
+       "8 个"
+      ],
+      "skills": [
+       "SystemVerilog",
+       "UVM"
+      ]
+     },
+     {
+      "id": "b11",
+      "text": "运行 500 个回归用例，通过率为 98%",
+      "metrics": [
+       "500 个",
+       "98%"
+      ],
+      "skills": [
+       "回归测试"
+      ]
+     },
+     {
+      "id": "b12",
+      "text": "用 Python 脚本整理日志，将定位问题时间缩短约 30%",
+      "metrics": [
+       "30%"
+      ],
+      "skills": [
+       "Python",
+       "Linux"
+      ]
+     }
+    ]
+   }
+  ],
+  "personas": [
+   {
+    "id": "p1",
+    "name": "数字前端设计方向",
+    "jobs": [
+     "IC设计工程师",
+     "数字前端工程师"
+    ],
+    "focus": [
+     "RTL设计",
+     "综合与时序",
+     "低功耗"
+    ],
+    "thesis": "以数字前端设计与综合实践为主，面向 IC 设计岗位。",
+    "strength": 5,
+    "bulletIds": [
+     "b1",
+     "b2",
+     "b3",
+     "b4"
+    ]
+   },
+   {
+    "id": "p2",
+    "name": "版图与物理设计方向",
+    "jobs": [
+     "版图工程师",
+     "物理设计工程师"
+    ],
+    "focus": [
+     "Cadence Virtuoso",
+     "Calibre",
+     "DRC/LVS"
+    ],
+    "thesis": "以模拟/混合信号版图绘制与规则检查为主，面向版图岗位。",
+    "strength": 4,
+    "bulletIds": [
+     "b5",
+     "b6",
+     "b7",
+     "b8"
+    ]
+   },
+   {
+    "id": "p3",
+    "name": "芯片验证方向",
+    "jobs": [
+     "数字验证工程师",
+     "IC验证工程师"
+    ],
+    "focus": [
+     "UVM",
+     "覆盖率",
+     "回归自动化"
+    ],
+    "thesis": "以 UVM 验证环境和回归脚本为主，面向数字验证岗位。",
+    "strength": 4,
+    "bulletIds": [
+     "b9",
+     "b10",
+     "b11",
+     "b12"
+    ]
+   },
+   {
+    "id": "p4",
+    "name": "智能硬件与嵌入式应用方向",
+    "jobs": [
+     "嵌入式软件工程师",
+     "芯片应用工程师"
+    ],
+    "focus": [
+     "C/C++",
+     "Linux",
+     "接口调试"
+    ],
+    "thesis": "以芯片验证与工具脚本经验衔接智能硬件和嵌入式应用岗位。",
+    "strength": 3,
+    "bulletIds": [
+     "b11",
+     "b12"
+    ]
+   }
+  ]
+ },
+ "tiers": {
+  "rich": {
+   "meta": {
+    "headline": "2026届集成电路设计与集成系统专业应届本科生，具有数字前端、版图和芯片验证实习经历",
+    "years": 0,
+    "level": "应届",
+    "__quality": "rich",
+    "__bulletCount": 12,
+    "__personaCount": 4
+   },
+   "skills": [
+    "Verilog",
+    "SystemVerilog",
+    "RTL设计",
+    "UVM",
+    "Synopsys Design Compiler",
+    "Cadence Virtuoso",
+    "Calibre",
+    "DRC/LVS",
+    "STA",
+    "Python",
+    "Linux",
+    "Git",
+    "C/C++"
+   ],
+   "education": [
+    {
+     "school": "某大学",
+     "major": "集成电路设计与集成系统",
+     "degree": "本科",
+     "year": "2026"
+    }
+   ],
+   "experiences": [
+    {
+     "id": "exp1",
+     "org": "某数字芯片设计公司",
+     "role": "数字前端设计实习生",
+     "period": "2025.03-2025.09",
+     "bullets": [
+      {
+       "id": "b1",
+       "text": "完成 3 个数字子模块的 RTL 设计与功能仿真",
+       "metrics": [
+        "3 个"
+       ],
+       "skills": [
+        "Verilog",
+        "RTL设计"
+       ]
+      },
+      {
+       "id": "b2",
+       "text": "使用 SystemVerilog 编写测试用例，模块仿真覆盖率达到 92%",
+       "metrics": [
+        "92%"
+       ],
+       "skills": [
+        "SystemVerilog"
+       ]
+      },
+      {
+       "id": "b3",
+       "text": "与验证工程师定位并修复 27 个功能缺陷",
+       "metrics": [
+        "27 个"
+       ],
+       "skills": [
+        "缺陷跟踪"
+       ]
+      },
+      {
+       "id": "b4",
+       "text": "在 Design Compiler 中完成 2 轮综合，关键路径时序满足 100 MHz",
+       "metrics": [
+        "2 轮",
+        "100 MHz"
+       ],
+       "skills": [
+        "Synopsys Design Compiler",
+        "STA"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "exp2",
+     "org": "某模拟与混合信号芯片公司",
+     "role": "版图设计实习生",
+     "period": "2024.07-2024.10",
+     "bullets": [
+      {
+       "id": "b5",
+       "text": "完成 2 个模拟前端模块版图绘制",
+       "metrics": [
+        "2 个"
+       ],
+       "skills": [
+        "Cadence Virtuoso"
+       ]
+      },
+      {
+       "id": "b6",
+       "text": "使用 Calibre 执行 15 次 DRC/LVS 检查，最终错误项为 0",
+       "metrics": [
+        "15 次",
+        "0"
+       ],
+       "skills": [
+        "Calibre",
+        "DRC/LVS"
+       ]
+      },
+      {
+       "id": "b7",
+       "text": "调整器件匹配与走线间距，将版图面积利用率提高到 95%",
+       "metrics": [
+        "95%"
+       ],
+       "skills": [
+        "版图设计"
+       ]
+      },
+      {
+       "id": "b8",
+       "text": "输出 3 版 GDSII 文件用于流片数据检查",
+       "metrics": [
+        "3 版"
+       ],
+       "skills": [
+        "GDSII"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "exp3",
+     "org": "某智能硬件公司芯片平台部",
+     "role": "数字验证实习生",
+     "period": "2025.10-2026.01",
+     "bullets": [
+      {
+       "id": "b9",
+       "text": "基于 UVM 搭建 1 个总线桥验证环境",
+       "metrics": [
+        "1 个"
+       ],
+       "skills": [
+        "UVM"
+       ]
+      },
+      {
+       "id": "b10",
+       "text": "编写 12 个 sequence 和 8 个 scoreboard 组件",
+       "metrics": [
+        "12 个",
+        "8 个"
+       ],
+       "skills": [
+        "SystemVerilog",
+        "UVM"
+       ]
+      },
+      {
+       "id": "b11",
+       "text": "运行 500 个回归用例，通过率为 98%",
+       "metrics": [
+        "500 个",
+        "98%"
+       ],
+       "skills": [
+        "回归测试"
+       ]
+      },
+      {
+       "id": "b12",
+       "text": "用 Python 脚本整理日志，将定位问题时间缩短约 30%",
+       "metrics": [
+        "30%"
+       ],
+       "skills": [
+        "Python",
+        "Linux"
+       ]
+      }
+     ]
+    }
+   ],
+   "personas": [
+    {
+     "id": "p1",
+     "name": "数字前端设计方向",
+     "jobs": [
+      "IC设计工程师",
+      "数字前端工程师"
+     ],
+     "focus": [
+      "RTL设计",
+      "综合与时序",
+      "低功耗"
+     ],
+     "thesis": "以数字前端设计与综合实践为主，面向 IC 设计岗位。",
+     "strength": 5,
+     "bulletIds": [
+      "b1",
+      "b2",
+      "b3",
+      "b4"
+     ]
+    },
+    {
+     "id": "p2",
+     "name": "版图与物理设计方向",
+     "jobs": [
+      "版图工程师",
+      "物理设计工程师"
+     ],
+     "focus": [
+      "Cadence Virtuoso",
+      "Calibre",
+      "DRC/LVS"
+     ],
+     "thesis": "以模拟/混合信号版图绘制与规则检查为主，面向版图岗位。",
+     "strength": 4,
+     "bulletIds": [
+      "b5",
+      "b6",
+      "b7",
+      "b8"
+     ]
+    },
+    {
+     "id": "p3",
+     "name": "芯片验证方向",
+     "jobs": [
+      "数字验证工程师",
+      "IC验证工程师"
+     ],
+     "focus": [
+      "UVM",
+      "覆盖率",
+      "回归自动化"
+     ],
+     "thesis": "以 UVM 验证环境和回归脚本为主，面向数字验证岗位。",
+     "strength": 4,
+     "bulletIds": [
+      "b9",
+      "b10",
+      "b11",
+      "b12"
+     ]
+    },
+    {
+     "id": "p4",
+     "name": "智能硬件与嵌入式应用方向",
+     "jobs": [
+      "嵌入式软件工程师",
+      "芯片应用工程师"
+     ],
+     "focus": [
+      "C/C++",
+      "Linux",
+      "接口调试"
+     ],
+     "thesis": "以芯片验证与工具脚本经验衔接智能硬件和嵌入式应用岗位。",
+     "strength": 3,
+     "bulletIds": [
+      "b11",
+      "b12"
+     ]
+    }
+   ]
+  },
+  "normal": {
+   "meta": {
+    "headline": "2026届集成电路设计与集成系统专业应届本科生，具有数字前端、版图和芯片验证实习经历",
+    "years": 0,
+    "level": "应届",
+    "__quality": "normal",
+    "__bulletCount": 5,
+    "__personaCount": 2
+   },
+   "skills": [
+    "Verilog",
+    "SystemVerilog",
+    "RTL设计",
+    "UVM",
+    "Synopsys Design Compiler",
+    "Cadence Virtuoso",
+    "Calibre",
+    "DRC/LVS",
+    "STA",
+    "Python",
+    "Linux",
+    "Git",
+    "C/C++"
+   ],
+   "education": [
+    {
+     "school": "某大学",
+     "major": "集成电路设计与集成系统",
+     "degree": "本科",
+     "year": "2026"
+    }
+   ],
+   "experiences": [
+    {
+     "id": "exp1",
+     "org": "某数字芯片设计公司",
+     "role": "数字前端设计实习生",
+     "period": "2025.03-2025.09",
+     "bullets": [
+      {
+       "id": "b1",
+       "text": "完成 3 个数字子模块的 RTL 设计与功能仿真",
+       "metrics": [
+        "3 个"
+       ],
+       "skills": [
+        "Verilog",
+        "RTL设计"
+       ]
+      },
+      {
+       "id": "b2",
+       "text": "使用 SystemVerilog 编写测试用例，模块仿真覆盖率达到 92%",
+       "metrics": [
+        "92%"
+       ],
+       "skills": [
+        "SystemVerilog"
+       ]
+      },
+      {
+       "id": "b3",
+       "text": "与验证工程师定位并修复 27 个功能缺陷",
+       "metrics": [
+        "27 个"
+       ],
+       "skills": [
+        "缺陷跟踪"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "exp2",
+     "org": "某模拟与混合信号芯片公司",
+     "role": "版图设计实习生",
+     "period": "2024.07-2024.10",
+     "bullets": [
+      {
+       "id": "b5",
+       "text": "完成 2 个模拟前端模块版图绘制",
+       "metrics": [
+        "2 个"
+       ],
+       "skills": [
+        "Cadence Virtuoso"
+       ]
+      },
+      {
+       "id": "b6",
+       "text": "使用 Calibre 执行 15 次 DRC/LVS 检查，最终错误项为 0",
+       "metrics": [
+        "15 次",
+        "0"
+       ],
+       "skills": [
+        "Calibre",
+        "DRC/LVS"
+       ]
+      }
+     ]
+    }
+   ],
+   "personas": [
+    {
+     "id": "p1",
+     "name": "数字前端设计方向",
+     "jobs": [
+      "IC设计工程师",
+      "数字前端工程师"
+     ],
+     "focus": [
+      "RTL设计",
+      "综合与时序",
+      "低功耗"
+     ],
+     "thesis": "以数字前端设计与综合实践为主，面向 IC 设计岗位。",
+     "strength": 5,
+     "bulletIds": [
+      "b1",
+      "b2",
+      "b3"
+     ]
+    },
+    {
+     "id": "p2",
+     "name": "版图与物理设计方向",
+     "jobs": [
+      "版图工程师",
+      "物理设计工程师"
+     ],
+     "focus": [
+      "Cadence Virtuoso",
+      "Calibre",
+      "DRC/LVS"
+     ],
+     "thesis": "以模拟/混合信号版图绘制与规则检查为主，面向版图岗位。",
+     "strength": 4,
+     "bulletIds": [
+      "b5",
+      "b6"
+     ]
+    }
+   ]
+  },
+  "thin": {
+   "meta": {
+    "headline": "2026届集成电路设计与集成系统专业应届本科生，具有数字前端、版图和芯片验证实习经历",
+    "years": 0,
+    "level": "应届",
+    "__quality": "thin",
+    "__bulletCount": 2,
+    "__personaCount": 1
+   },
+   "skills": [
+    "Verilog",
+    "SystemVerilog",
+    "RTL设计",
+    "UVM",
+    "Synopsys Design Compiler",
+    "Cadence Virtuoso",
+    "Calibre"
+   ],
+   "education": [
+    {
+     "school": "某大学",
+     "major": "集成电路设计与集成系统",
+     "degree": "本科",
+     "year": "2026"
+    }
+   ],
+   "experiences": [
+    {
+     "id": "exp1",
+     "org": "某数字芯片设计公司",
+     "role": "数字前端设计实习生",
+     "period": "2025.03-2025.09",
+     "bullets": [
+      {
+       "id": "b1",
+       "text": "完成 个数字子模块的 RTL 设计与功能仿真",
+       "metrics": [],
+       "skills": [
+        "Verilog",
+        "RTL设计"
+       ]
+      },
+      {
+       "id": "b2",
+       "text": "使用 SystemVerilog 编写测试用例，模块仿真覆盖率达到",
+       "metrics": [],
+       "skills": [
+        "SystemVerilog"
+       ]
+      }
+     ]
+    }
+   ],
+   "personas": [
+    {
+     "id": "p1",
+     "name": "数字前端设计方向",
+     "jobs": [
+      "IC设计工程师",
+      "数字前端工程师"
+     ],
+     "focus": [
+      "RTL设计",
+      "综合与时序",
+      "低功耗"
+     ],
+     "thesis": "以数字前端设计与综合实践为主，面向 IC 设计岗位。",
+     "strength": 5,
+     "bulletIds": [
+      "b1",
+      "b2"
+     ]
+    }
+   ]
+  },
+  "minimal": {
+   "meta": {
+    "headline": "2026届集成电路设计与集成系统专业应届本科生，具有数字前端、版图和芯片验证实习经历",
+    "years": 0,
+    "level": "应届",
+    "__quality": "minimal",
+    "__bulletCount": 1,
+    "__personaCount": 1
+   },
+   "skills": [
+    "Verilog",
+    "SystemVerilog"
+   ],
+   "education": [
+    {
+     "school": "某大学",
+     "major": "集成电路设计与集成系统",
+     "degree": "本科",
+     "year": "2026"
+    }
+   ],
+   "experiences": [
+    {
+     "id": "exp1",
+     "org": "某数字芯片设计公司",
+     "role": "数字前端设计实习生",
+     "period": "2025.03-2025.09",
+     "bullets": [
+      {
+       "id": "b1",
+       "text": "完成 个数字子模块的 RTL 设计与功能仿真",
+       "metrics": []
+      }
+     ]
+    }
+   ],
+   "personas": [
+    {
+     "id": "p1",
+     "name": "数字前端设计方向",
+     "jobs": [
+      "IC设计工程师",
+      "数字前端工程师"
+     ],
+     "focus": [
+      "RTL设计",
+      "综合与时序",
+      "低功耗"
+     ],
+     "thesis": "以数字前端设计与综合实践为主，面向 IC 设计岗位。",
+     "strength": 5,
+     "bulletIds": [
+      "b1"
+     ]
+    }
+   ]
+  }
+ }
+}

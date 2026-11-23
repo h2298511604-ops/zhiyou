@@ -1,0 +1,935 @@
+{
+ "major": "集成电路设计与集成系统",
+ "discipline": "新兴 / 交叉",
+ "provider": "qwen",
+ "model": "qwen3.8-flash",
+ "seed": {
+  "meta": {
+   "headline": "集成电路设计与集成系统本科，具备数字前端 RTL、综合时序与版图交付经验",
+   "years": 3,
+   "level": "中级"
+  },
+  "skills": [
+   "Verilog",
+   "SystemVerilog",
+   "RTL设计",
+   "数字前端",
+   "Synopsys DC",
+   "PrimeTime",
+   "SpyGlass",
+   "Cadence Virtuoso",
+   "Calibre",
+   "DRC/LVS",
+   "GDSII",
+   "Python",
+   "Tcl",
+   "Linux",
+   "Git",
+   "C++"
+  ],
+  "education": [
+   {
+    "school": "某大学",
+    "major": "集成电路设计与集成系统",
+    "degree": "本科",
+    "year": "2022"
+   }
+  ],
+  "experiences": [
+   {
+    "id": "exp1",
+    "org": "某芯片设计公司",
+    "role": "数字前端工程师",
+    "period": "2023.07-2025.06",
+    "bullets": [
+     {
+      "id": "exp1-b1",
+      "text": "负责某低功耗 IoT SoC 中 UART、SPI、I2C 外设模块 RTL 设计与单元测试，完成 12 个模块，交付代码约 18000 行",
+      "metrics": [
+       "12",
+       "18000"
+      ],
+      "skills": [
+       "Verilog",
+       "RTL设计",
+       "数字前端"
+      ]
+     },
+     {
+      "id": "exp1-b2",
+      "text": "使用 Synopsys DC 与 PrimeTime 完成综合与时序收敛，将关键路径频率从 180 MHz 提升到 240 MHz，面积增加 6%",
+      "metrics": [
+       "180 MHz",
+       "240 MHz",
+       "6%"
+      ],
+      "skills": [
+       "Synopsys DC",
+       "PrimeTime",
+       "数字前端"
+      ]
+     },
+     {
+      "id": "exp1-b3",
+      "text": "编写 Tcl 脚本自动化回归 200+ 测试用例，将每日回归耗时从 4.5 小时缩短到 1.2 小时",
+      "metrics": [
+       "200+",
+       "4.5小时",
+       "1.2小时"
+      ],
+      "skills": [
+       "Tcl",
+       "Python",
+       "Linux"
+      ]
+     },
+     {
+      "id": "exp1-b4",
+      "text": "与验证、版图团队定位并关闭 35 个 lint/CDC 问题，支持 tape-out 前 sign-off",
+      "metrics": [
+       "35"
+      ],
+      "skills": [
+       "SpyGlass",
+       "数字前端"
+      ]
+     }
+    ]
+   },
+   {
+    "id": "exp2",
+    "org": "某半导体公司",
+    "role": "版图设计工程师",
+    "period": "2022.07-2023.06",
+    "bullets": [
+     {
+      "id": "exp2-b1",
+      "text": "参与 55nm 模拟/混合信号芯片版图绘制，完成 8 个模块 layout，面积 0.42 mm^2",
+      "metrics": [
+       "8",
+       "0.42 mm^2"
+      ],
+      "skills": [
+       "Cadence Virtuoso",
+       "GDSII"
+      ]
+     },
+     {
+      "id": "exp2-b2",
+      "text": "使用 Cadence Virtuoso 与 Calibre 执行 DRC/LVS，修复 120+ 规则违例，交付通过评审的版图数据",
+      "metrics": [
+       "120+"
+      ],
+      "skills": [
+       "Calibre",
+       "DRC/LVS",
+       "Cadence Virtuoso"
+      ]
+     },
+     {
+      "id": "exp2-b3",
+      "text": "根据后端流程整理 GDSII 交付物，支持 3 次 tape-out 数据释放",
+      "metrics": [
+       "3"
+      ],
+      "skills": [
+       "GDSII",
+       "版图设计"
+      ]
+     },
+     {
+      "id": "exp2-b4",
+      "text": "与模拟设计工程师核对 netlist 与匹配结构，将关键差分对匹配误差控制在 2% 以内",
+      "metrics": [
+       "2%"
+      ],
+      "skills": [
+       "Cadence Virtuoso",
+       "DRC/LVS"
+      ]
+     }
+    ]
+   },
+   {
+    "id": "exp3",
+    "org": "某大学集成电路设计实验室",
+    "role": "RISC-V SoC 数字前端项目成员",
+    "period": "2021.09-2022.06",
+    "bullets": [
+     {
+      "id": "exp3-b1",
+      "text": "基于 Verilog 完成 RISC-V 核外围中断控制器与 GPIO 模块 RTL 设计，支持 16 路中断与 32 个 GPIO",
+      "metrics": [
+       "16",
+       "32"
+      ],
+      "skills": [
+       "Verilog",
+       "RTL设计"
+      ]
+     },
+     {
+      "id": "exp3-b2",
+      "text": "使用 cocotb 与 Python 编写验证脚本，覆盖 85% 功能场景，发现并修复 14 个逻辑缺陷",
+      "metrics": [
+       "85%",
+       "14"
+      ],
+      "skills": [
+       "Python",
+       "SystemVerilog",
+       "Linux"
+      ]
+     },
+     {
+      "id": "exp3-b3",
+      "text": "在 FPGA 平台完成集成测试，SoC 运行频率 50 MHz，通过 5 类外设读写测试",
+      "metrics": [
+       "50 MHz",
+       "5"
+      ],
+      "skills": [
+       "FPGA",
+       "数字前端",
+       "Linux"
+      ]
+     },
+     {
+      "id": "exp3-b4",
+      "text": "输出设计文档与测试报告，项目代码纳入实验室开源仓库，累计提交 42 次",
+      "metrics": [
+       "42"
+      ],
+      "skills": [
+       "Git",
+       "Linux"
+      ]
+     }
+    ]
+   }
+  ],
+  "personas": [
+   {
+    "id": "p1",
+    "name": "数字前端工程师",
+    "jobs": [
+     "数字前端工程师",
+     "IC设计工程师"
+    ],
+    "focus": [
+     "RTL设计",
+     "综合时序",
+     "外设模块交付",
+     "tape-out支持"
+    ],
+    "thesis": "具备 SoC 外设模块 RTL 设计、综合时序收敛与 sign-off 协作经验，可承担数字前端开发与交付任务。",
+    "strength": 5,
+    "bulletIds": [
+     "exp1-b1",
+     "exp1-b2",
+     "exp1-b4"
+    ]
+   },
+   {
+    "id": "p2",
+    "name": "版图设计工程师",
+    "jobs": [
+     "版图设计工程师",
+     "物理设计工程师"
+    ],
+    "focus": [
+     "模拟版图",
+     "DRC/LVS",
+     "GDSII交付",
+     "匹配结构检查"
+    ],
+    "thesis": "熟悉 55nm 模拟/混合信号版图流程，可完成模块 layout、规则检查与 tape-out 数据交付。",
+    "strength": 4,
+    "bulletIds": [
+     "exp2-b1",
+     "exp2-b2",
+     "exp2-b4"
+    ]
+   },
+   {
+    "id": "p3",
+    "name": "数字验证工程师",
+    "jobs": [
+     "数字验证工程师",
+     "IC设计工程师"
+    ],
+    "focus": [
+     "功能覆盖",
+     "Python验证脚本",
+     "缺陷定位",
+     "回归自动化"
+    ],
+    "thesis": "从 RTL 设计与 Python/cocotb 验证脚本出发，可承担模块级验证、回归自动化与缺陷定位。",
+    "strength": 4,
+    "bulletIds": [
+     "exp3-b2",
+     "exp1-b3",
+     "exp1-b4"
+    ]
+   },
+   {
+    "id": "p4",
+    "name": "FPGA/系统开发工程师",
+    "jobs": [
+     "FPGA开发工程师",
+     "嵌入式软件工程师",
+     "系统开发工程师"
+    ],
+    "focus": [
+     "FPGA集成测试",
+     "Linux/Git",
+     "Python/Tcl脚本",
+     "芯片原型验证"
+    ],
+    "thesis": "具备 RTL、FPGA 集成测试与 Linux/Python 脚本能力，可参与芯片原型验证与系统级工具开发。",
+    "strength": 4,
+    "bulletIds": [
+     "exp3-b3",
+     "exp1-b3",
+     "exp3-b4"
+    ]
+   }
+  ]
+ },
+ "tiers": {
+  "rich": {
+   "meta": {
+    "headline": "集成电路设计与集成系统本科，具备数字前端 RTL、综合时序与版图交付经验",
+    "years": 3,
+    "level": "中级",
+    "__quality": "rich",
+    "__bulletCount": 12,
+    "__personaCount": 4
+   },
+   "skills": [
+    "Verilog",
+    "SystemVerilog",
+    "RTL设计",
+    "数字前端",
+    "Synopsys DC",
+    "PrimeTime",
+    "SpyGlass",
+    "Cadence Virtuoso",
+    "Calibre",
+    "DRC/LVS",
+    "GDSII",
+    "Python",
+    "Tcl",
+    "Linux",
+    "Git",
+    "C++"
+   ],
+   "education": [
+    {
+     "school": "某大学",
+     "major": "集成电路设计与集成系统",
+     "degree": "本科",
+     "year": "2022"
+    }
+   ],
+   "experiences": [
+    {
+     "id": "exp1",
+     "org": "某芯片设计公司",
+     "role": "数字前端工程师",
+     "period": "2023.07-2025.06",
+     "bullets": [
+      {
+       "id": "exp1-b1",
+       "text": "负责某低功耗 IoT SoC 中 UART、SPI、I2C 外设模块 RTL 设计与单元测试，完成 12 个模块，交付代码约 18000 行",
+       "metrics": [
+        "12",
+        "18000"
+       ],
+       "skills": [
+        "Verilog",
+        "RTL设计",
+        "数字前端"
+       ]
+      },
+      {
+       "id": "exp1-b2",
+       "text": "使用 Synopsys DC 与 PrimeTime 完成综合与时序收敛，将关键路径频率从 180 MHz 提升到 240 MHz，面积增加 6%",
+       "metrics": [
+        "180 MHz",
+        "240 MHz",
+        "6%"
+       ],
+       "skills": [
+        "Synopsys DC",
+        "PrimeTime",
+        "数字前端"
+       ]
+      },
+      {
+       "id": "exp1-b3",
+       "text": "编写 Tcl 脚本自动化回归 200+ 测试用例，将每日回归耗时从 4.5 小时缩短到 1.2 小时",
+       "metrics": [
+        "200+",
+        "4.5小时",
+        "1.2小时"
+       ],
+       "skills": [
+        "Tcl",
+        "Python",
+        "Linux"
+       ]
+      },
+      {
+       "id": "exp1-b4",
+       "text": "与验证、版图团队定位并关闭 35 个 lint/CDC 问题，支持 tape-out 前 sign-off",
+       "metrics": [
+        "35"
+       ],
+       "skills": [
+        "SpyGlass",
+        "数字前端"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "exp2",
+     "org": "某半导体公司",
+     "role": "版图设计工程师",
+     "period": "2022.07-2023.06",
+     "bullets": [
+      {
+       "id": "exp2-b1",
+       "text": "参与 55nm 模拟/混合信号芯片版图绘制，完成 8 个模块 layout，面积 0.42 mm^2",
+       "metrics": [
+        "8",
+        "0.42 mm^2"
+       ],
+       "skills": [
+        "Cadence Virtuoso",
+        "GDSII"
+       ]
+      },
+      {
+       "id": "exp2-b2",
+       "text": "使用 Cadence Virtuoso 与 Calibre 执行 DRC/LVS，修复 120+ 规则违例，交付通过评审的版图数据",
+       "metrics": [
+        "120+"
+       ],
+       "skills": [
+        "Calibre",
+        "DRC/LVS",
+        "Cadence Virtuoso"
+       ]
+      },
+      {
+       "id": "exp2-b3",
+       "text": "根据后端流程整理 GDSII 交付物，支持 3 次 tape-out 数据释放",
+       "metrics": [
+        "3"
+       ],
+       "skills": [
+        "GDSII",
+        "版图设计"
+       ]
+      },
+      {
+       "id": "exp2-b4",
+       "text": "与模拟设计工程师核对 netlist 与匹配结构，将关键差分对匹配误差控制在 2% 以内",
+       "metrics": [
+        "2%"
+       ],
+       "skills": [
+        "Cadence Virtuoso",
+        "DRC/LVS"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "exp3",
+     "org": "某大学集成电路设计实验室",
+     "role": "RISC-V SoC 数字前端项目成员",
+     "period": "2021.09-2022.06",
+     "bullets": [
+      {
+       "id": "exp3-b1",
+       "text": "基于 Verilog 完成 RISC-V 核外围中断控制器与 GPIO 模块 RTL 设计，支持 16 路中断与 32 个 GPIO",
+       "metrics": [
+        "16",
+        "32"
+       ],
+       "skills": [
+        "Verilog",
+        "RTL设计"
+       ]
+      },
+      {
+       "id": "exp3-b2",
+       "text": "使用 cocotb 与 Python 编写验证脚本，覆盖 85% 功能场景，发现并修复 14 个逻辑缺陷",
+       "metrics": [
+        "85%",
+        "14"
+       ],
+       "skills": [
+        "Python",
+        "SystemVerilog",
+        "Linux"
+       ]
+      },
+      {
+       "id": "exp3-b3",
+       "text": "在 FPGA 平台完成集成测试，SoC 运行频率 50 MHz，通过 5 类外设读写测试",
+       "metrics": [
+        "50 MHz",
+        "5"
+       ],
+       "skills": [
+        "FPGA",
+        "数字前端",
+        "Linux"
+       ]
+      },
+      {
+       "id": "exp3-b4",
+       "text": "输出设计文档与测试报告，项目代码纳入实验室开源仓库，累计提交 42 次",
+       "metrics": [
+        "42"
+       ],
+       "skills": [
+        "Git",
+        "Linux"
+       ]
+      }
+     ]
+    }
+   ],
+   "personas": [
+    {
+     "id": "p1",
+     "name": "数字前端工程师",
+     "jobs": [
+      "数字前端工程师",
+      "IC设计工程师"
+     ],
+     "focus": [
+      "RTL设计",
+      "综合时序",
+      "外设模块交付",
+      "tape-out支持"
+     ],
+     "thesis": "具备 SoC 外设模块 RTL 设计、综合时序收敛与 sign-off 协作经验，可承担数字前端开发与交付任务。",
+     "strength": 5,
+     "bulletIds": [
+      "exp1-b1",
+      "exp1-b2",
+      "exp1-b4"
+     ]
+    },
+    {
+     "id": "p2",
+     "name": "版图设计工程师",
+     "jobs": [
+      "版图设计工程师",
+      "物理设计工程师"
+     ],
+     "focus": [
+      "模拟版图",
+      "DRC/LVS",
+      "GDSII交付",
+      "匹配结构检查"
+     ],
+     "thesis": "熟悉 55nm 模拟/混合信号版图流程，可完成模块 layout、规则检查与 tape-out 数据交付。",
+     "strength": 4,
+     "bulletIds": [
+      "exp2-b1",
+      "exp2-b2",
+      "exp2-b4"
+     ]
+    },
+    {
+     "id": "p3",
+     "name": "数字验证工程师",
+     "jobs": [
+      "数字验证工程师",
+      "IC设计工程师"
+     ],
+     "focus": [
+      "功能覆盖",
+      "Python验证脚本",
+      "缺陷定位",
+      "回归自动化"
+     ],
+     "thesis": "从 RTL 设计与 Python/cocotb 验证脚本出发，可承担模块级验证、回归自动化与缺陷定位。",
+     "strength": 4,
+     "bulletIds": [
+      "exp3-b2",
+      "exp1-b3",
+      "exp1-b4"
+     ]
+    },
+    {
+     "id": "p4",
+     "name": "FPGA/系统开发工程师",
+     "jobs": [
+      "FPGA开发工程师",
+      "嵌入式软件工程师",
+      "系统开发工程师"
+     ],
+     "focus": [
+      "FPGA集成测试",
+      "Linux/Git",
+      "Python/Tcl脚本",
+      "芯片原型验证"
+     ],
+     "thesis": "具备 RTL、FPGA 集成测试与 Linux/Python 脚本能力，可参与芯片原型验证与系统级工具开发。",
+     "strength": 4,
+     "bulletIds": [
+      "exp3-b3",
+      "exp1-b3",
+      "exp3-b4"
+     ]
+    }
+   ]
+  },
+  "normal": {
+   "meta": {
+    "headline": "集成电路设计与集成系统本科，具备数字前端 RTL、综合时序与版图交付经验",
+    "years": 3,
+    "level": "中级",
+    "__quality": "normal",
+    "__bulletCount": 5,
+    "__personaCount": 4
+   },
+   "skills": [
+    "Verilog",
+    "SystemVerilog",
+    "RTL设计",
+    "数字前端",
+    "Synopsys DC",
+    "PrimeTime",
+    "SpyGlass",
+    "Cadence Virtuoso",
+    "Calibre",
+    "DRC/LVS",
+    "GDSII",
+    "Python",
+    "Tcl",
+    "Linux",
+    "Git",
+    "C++"
+   ],
+   "education": [
+    {
+     "school": "某大学",
+     "major": "集成电路设计与集成系统",
+     "degree": "本科",
+     "year": "2022"
+    }
+   ],
+   "experiences": [
+    {
+     "id": "exp1",
+     "org": "某芯片设计公司",
+     "role": "数字前端工程师",
+     "period": "2023.07-2025.06",
+     "bullets": [
+      {
+       "id": "exp1-b1",
+       "text": "负责某低功耗 IoT SoC 中 UART、SPI、I2C 外设模块 RTL 设计与单元测试，完成 12 个模块，交付代码约 18000 行",
+       "metrics": [
+        "12",
+        "18000"
+       ],
+       "skills": [
+        "Verilog",
+        "RTL设计",
+        "数字前端"
+       ]
+      },
+      {
+       "id": "exp1-b2",
+       "text": "使用 Synopsys DC 与 PrimeTime 完成综合与时序收敛，将关键路径频率从 180 MHz 提升到 240 MHz，面积增加 6%",
+       "metrics": [
+        "180 MHz",
+        "240 MHz",
+        "6%"
+       ],
+       "skills": [
+        "Synopsys DC",
+        "PrimeTime",
+        "数字前端"
+       ]
+      },
+      {
+       "id": "exp1-b3",
+       "text": "编写 Tcl 脚本自动化回归 200+ 测试用例，将每日回归耗时从 4.5 小时缩短到 1.2 小时",
+       "metrics": [
+        "200+",
+        "4.5小时",
+        "1.2小时"
+       ],
+       "skills": [
+        "Tcl",
+        "Python",
+        "Linux"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "exp2",
+     "org": "某半导体公司",
+     "role": "版图设计工程师",
+     "period": "2022.07-2023.06",
+     "bullets": [
+      {
+       "id": "exp2-b1",
+       "text": "参与 55nm 模拟/混合信号芯片版图绘制，完成 8 个模块 layout，面积 0.42 mm^2",
+       "metrics": [
+        "8",
+        "0.42 mm^2"
+       ],
+       "skills": [
+        "Cadence Virtuoso",
+        "GDSII"
+       ]
+      },
+      {
+       "id": "exp2-b2",
+       "text": "使用 Cadence Virtuoso 与 Calibre 执行 DRC/LVS，修复 120+ 规则违例，交付通过评审的版图数据",
+       "metrics": [
+        "120+"
+       ],
+       "skills": [
+        "Calibre",
+        "DRC/LVS",
+        "Cadence Virtuoso"
+       ]
+      }
+     ]
+    }
+   ],
+   "personas": [
+    {
+     "id": "p1",
+     "name": "数字前端工程师",
+     "jobs": [
+      "数字前端工程师",
+      "IC设计工程师"
+     ],
+     "focus": [
+      "RTL设计",
+      "综合时序",
+      "外设模块交付",
+      "tape-out支持"
+     ],
+     "thesis": "具备 SoC 外设模块 RTL 设计、综合时序收敛与 sign-off 协作经验，可承担数字前端开发与交付任务。",
+     "strength": 5,
+     "bulletIds": [
+      "exp1-b1",
+      "exp1-b2"
+     ]
+    },
+    {
+     "id": "p2",
+     "name": "版图设计工程师",
+     "jobs": [
+      "版图设计工程师",
+      "物理设计工程师"
+     ],
+     "focus": [
+      "模拟版图",
+      "DRC/LVS",
+      "GDSII交付",
+      "匹配结构检查"
+     ],
+     "thesis": "熟悉 55nm 模拟/混合信号版图流程，可完成模块 layout、规则检查与 tape-out 数据交付。",
+     "strength": 4,
+     "bulletIds": [
+      "exp2-b1",
+      "exp2-b2"
+     ]
+    },
+    {
+     "id": "p3",
+     "name": "数字验证工程师",
+     "jobs": [
+      "数字验证工程师",
+      "IC设计工程师"
+     ],
+     "focus": [
+      "功能覆盖",
+      "Python验证脚本",
+      "缺陷定位",
+      "回归自动化"
+     ],
+     "thesis": "从 RTL 设计与 Python/cocotb 验证脚本出发，可承担模块级验证、回归自动化与缺陷定位。",
+     "strength": 4,
+     "bulletIds": [
+      "exp1-b3"
+     ]
+    },
+    {
+     "id": "p4",
+     "name": "FPGA/系统开发工程师",
+     "jobs": [
+      "FPGA开发工程师",
+      "嵌入式软件工程师",
+      "系统开发工程师"
+     ],
+     "focus": [
+      "FPGA集成测试",
+      "Linux/Git",
+      "Python/Tcl脚本",
+      "芯片原型验证"
+     ],
+     "thesis": "具备 RTL、FPGA 集成测试与 Linux/Python 脚本能力，可参与芯片原型验证与系统级工具开发。",
+     "strength": 4,
+     "bulletIds": [
+      "exp1-b3"
+     ]
+    }
+   ]
+  },
+  "thin": {
+   "meta": {
+    "headline": "集成电路设计与集成系统本科，具备数字前端 RTL、综合时序与版图交付经验",
+    "years": 3,
+    "level": "中级",
+    "__quality": "thin",
+    "__bulletCount": 2,
+    "__personaCount": 1
+   },
+   "skills": [
+    "Verilog",
+    "SystemVerilog",
+    "RTL设计",
+    "数字前端",
+    "Synopsys DC",
+    "PrimeTime",
+    "SpyGlass",
+    "Cadence Virtuoso"
+   ],
+   "education": [
+    {
+     "school": "某大学",
+     "major": "集成电路设计与集成系统",
+     "degree": "本科",
+     "year": "2022"
+    }
+   ],
+   "experiences": [
+    {
+     "id": "exp1",
+     "org": "某芯片设计公司",
+     "role": "数字前端工程师",
+     "period": "2023.07-2025.06",
+     "bullets": [
+      {
+       "id": "exp1-b1",
+       "text": "负责某低功耗 IoT SoC 中 UART、SPI、IC 外设模块 RTL 设计与单元测试，完成 个模块，交付代码约 行",
+       "metrics": [],
+       "skills": [
+        "Verilog",
+        "RTL设计",
+        "数字前端"
+       ]
+      },
+      {
+       "id": "exp1-b2",
+       "text": "使用 Synopsys DC 与 PrimeTime 完成综合与时序收敛，将关键路径频率从 MHz 提升到 MHz，面积增加",
+       "metrics": [],
+       "skills": [
+        "Synopsys DC",
+        "PrimeTime",
+        "数字前端"
+       ]
+      }
+     ]
+    }
+   ],
+   "personas": [
+    {
+     "id": "p1",
+     "name": "数字前端工程师",
+     "jobs": [
+      "数字前端工程师",
+      "IC设计工程师"
+     ],
+     "focus": [
+      "RTL设计",
+      "综合时序",
+      "外设模块交付",
+      "tape-out支持"
+     ],
+     "thesis": "具备 SoC 外设模块 RTL 设计、综合时序收敛与 sign-off 协作经验，可承担数字前端开发与交付任务。",
+     "strength": 5,
+     "bulletIds": [
+      "exp1-b1",
+      "exp1-b2"
+     ]
+    }
+   ]
+  },
+  "minimal": {
+   "meta": {
+    "headline": "集成电路设计与集成系统本科，具备数字前端 RTL、综合时序与版图交付经验",
+    "years": 3,
+    "level": "中级",
+    "__quality": "minimal",
+    "__bulletCount": 1,
+    "__personaCount": 1
+   },
+   "skills": [
+    "Verilog",
+    "SystemVerilog"
+   ],
+   "education": [
+    {
+     "school": "某大学",
+     "major": "集成电路设计与集成系统",
+     "degree": "本科",
+     "year": "2022"
+    }
+   ],
+   "experiences": [
+    {
+     "id": "exp1",
+     "org": "某芯片设计公司",
+     "role": "数字前端工程师",
+     "period": "2023.07-2025.06",
+     "bullets": [
+      {
+       "id": "exp1-b1",
+       "text": "负责某低功耗 IoT SoC 中 UART、SPI、IC 外设模块 RTL 设计与单元测试，完成 个模块，交付代码约 行",
+       "metrics": []
+      }
+     ]
+    }
+   ],
+   "personas": [
+    {
+     "id": "p1",
+     "name": "数字前端工程师",
+     "jobs": [
+      "数字前端工程师",
+      "IC设计工程师"
+     ],
+     "focus": [
+      "RTL设计",
+      "综合时序",
+      "外设模块交付",
+      "tape-out支持"
+     ],
+     "thesis": "具备 SoC 外设模块 RTL 设计、综合时序收敛与 sign-off 协作经验，可承担数字前端开发与交付任务。",
+     "strength": 5,
+     "bulletIds": [
+      "exp1-b1"
+     ]
+    }
+   ]
+  }
+ }
+}

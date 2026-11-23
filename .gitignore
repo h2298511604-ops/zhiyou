@@ -1,0 +1,53 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+node_modules/
+dist/
+build/
+
+# 系统
+.DS_Store
+Thumbs.db
+*.log
+.idea/
+.vscode/
+
+# 本地实验产物（生成物，不入库）
+dev/web/
+dev/batch-out*
+*.tmp
+
+# 密钥与本地数据，绝不入库
+.env.local
+.env
+factbase*.json
+dev/jd*.jsonl
+.commitmsg
+eval/out/
+
+# 外部数据集（几百 MB，且来自第三方，不入库）
+JD数据集/
+market/out/
+
+# 个人简历原件与处理中间产物：属于个人信息，只留在本机
+# （2026-11-20 从索引里移除，并重写历史清掉）
+resume-work/
+
+# 随机测试稿：.pdf 是产品确认版原件，repo-hygiene 的 A2/A3 禁止任何被跟踪的 .pdf；
+# out/ 是每轮跑出来的记录（操作日志/请求体，单轮几百 KB），跑一次就能重生成，不进库
+随机测试稿/*.pdf
+随机测试稿/*/out/
+
+# 发布与宣传方案、文案草稿：属于运营策略，不进公开仓库
+marketing/
+
+# 开发用测试、本地实验页与内部资料：不随公开仓库发布
+# （文件仍保留在工作区，只是不进版本库）
+tests/
+dev/
+随机测试稿/
+docs/功能说明.md
+docs/异常操作与预期行为清单.md

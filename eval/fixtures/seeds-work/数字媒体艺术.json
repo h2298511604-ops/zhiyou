@@ -1,0 +1,900 @@
+{
+ "major": "数字媒体艺术",
+ "discipline": "艺术学",
+ "provider": "qwen",
+ "model": "qwen3.8-flash",
+ "seed": {
+  "meta": {
+   "headline": "数字媒体艺术本科，3年 UI 与游戏界面设计经验，熟悉移动端组件库、交互原型、动效规范与 Unity 资源落地",
+   "years": 3,
+   "level": "中级"
+  },
+  "skills": [
+   "Figma",
+   "Sketch",
+   "Adobe XD",
+   "After Effects",
+   "Photoshop",
+   "Illustrator",
+   "Procreate",
+   "C4D",
+   "Unity UI",
+   "设计规范",
+   "交互原型",
+   "动效设计",
+   "游戏UI",
+   "组件库",
+   "A/B测试",
+   "前端协作",
+   "HTML/CSS"
+  ],
+  "education": [
+   {
+    "school": "某大学",
+    "major": "数字媒体艺术",
+    "degree": "本科",
+    "year": "2022"
+   }
+  ],
+  "experiences": [
+   {
+    "id": "exp1",
+    "org": "某生活服务类互联网平台",
+    "role": "UI设计师",
+    "period": "2023.07-2025.06",
+    "bullets": [
+     {
+      "id": "exp1-b1",
+      "text": "负责本地生活 App 首页、订单、会员 3 个模块的界面改版，输出 120+ 页面设计稿。",
+      "metrics": [
+       "3",
+       "120+"
+      ],
+      "skills": [
+       "UI设计",
+       "Figma"
+      ]
+     },
+     {
+      "id": "exp1-b2",
+      "text": "搭建移动端组件库，沉淀 48 个通用组件与 16 条使用规则，设计评审返修率从 22% 降至 9%。",
+      "metrics": [
+       "48",
+       "16",
+       "22%",
+       "9%"
+      ],
+      "skills": [
+       "设计规范",
+       "Figma",
+       "组件库"
+      ]
+     },
+     {
+      "id": "exp1-b3",
+      "text": "与产品、前端完成 14 次 A/B 方案迭代，订单确认页转化率提升 6.8%。",
+      "metrics": [
+       "14",
+       "6.8%"
+      ],
+      "skills": [
+       "交互设计",
+       "A/B测试"
+      ]
+     },
+     {
+      "id": "exp1-b4",
+      "text": "制定 32 条动效规范，覆盖 7 类核心页面，使用 After Effects 输出 24 个动效示例。",
+      "metrics": [
+       "32",
+       "7",
+       "24"
+      ],
+      "skills": [
+       "动效设计",
+       "After Effects"
+      ]
+     }
+    ]
+   },
+   {
+    "id": "exp2",
+    "org": "某中型游戏研发公司",
+    "role": "游戏UI设计师",
+    "period": "2022.07-2023.06",
+    "bullets": [
+     {
+      "id": "exp2-b1",
+      "text": "参与 2 款手游项目 UI 界面制作，完成登录、背包、战斗结算等 86 个界面资源切图与标注。",
+      "metrics": [
+       "2",
+       "86"
+      ],
+      "skills": [
+       "游戏UI",
+       "Photoshop"
+      ]
+     },
+     {
+      "id": "exp2-b2",
+      "text": "配合策划调整 5 个核心玩法界面布局，将新手引导步骤从 9 步压缩至 6 步。",
+      "metrics": [
+       "5",
+       "9",
+       "6"
+      ],
+      "skills": [
+       "交互设计",
+       "Unity UI"
+      ]
+     },
+     {
+      "id": "exp2-b3",
+      "text": "建立 UI 资源命名与切图规范，减少返工 18%，版本验收问题数从 35 降至 12。",
+      "metrics": [
+       "18%",
+       "35",
+       "12"
+      ],
+      "skills": [
+       "资源规范",
+       "前端协作"
+      ]
+     },
+     {
+      "id": "exp2-b4",
+      "text": "使用 After Effects 制作 18 个按钮与弹窗动效，并导入 Unity 进行帧率验证。",
+      "metrics": [
+       "18"
+      ],
+      "skills": [
+       "动效设计",
+       "After Effects",
+       "Unity UI"
+      ]
+     }
+    ]
+   },
+   {
+    "id": "exp3",
+    "org": "某连锁零售企业",
+    "role": "数字媒体艺术实习生",
+    "period": "2021.09-2022.06",
+    "bullets": [
+     {
+      "id": "exp3-b1",
+      "text": "参与门店会员小程序 4 个页面原型绘制，整理 27 条用户反馈并输出需求清单。",
+      "metrics": [
+       "4",
+       "27"
+      ],
+      "skills": [
+       "原型设计",
+       "用户反馈"
+      ]
+     },
+     {
+      "id": "exp3-b2",
+      "text": "制作 12 张促销海报与 3 条短视频包装，投放后门店扫码领券率提升 4.5%。",
+      "metrics": [
+       "12",
+       "3",
+       "4.5%"
+      ],
+      "skills": [
+       "视觉设计",
+       "短视频"
+      ]
+     },
+     {
+      "id": "exp3-b3",
+      "text": "协助维护品牌视觉素材库，归档 300+ 图片与字体文件，素材检索时间从 8 分钟降至 3 分钟。",
+      "metrics": [
+       "300+",
+       "8",
+       "3"
+      ],
+      "skills": [
+       "素材管理",
+       "Photoshop"
+      ]
+     }
+    ]
+   }
+  ],
+  "personas": [
+   {
+    "id": "p1",
+    "name": "UI设计师",
+    "jobs": [
+     "UI设计师",
+     "移动端UI设计师",
+     "视觉设计师"
+    ],
+    "focus": [
+     "界面规范",
+     "组件库",
+     "业务改版"
+    ],
+    "thesis": "围绕移动端界面与组件规范，支撑产品改版和研发交付。",
+    "strength": 4,
+    "bulletIds": [
+     "exp1-b1",
+     "exp1-b2",
+     "exp2-b1"
+    ]
+   },
+   {
+    "id": "p2",
+    "name": "交互设计师",
+    "jobs": [
+     "交互设计师",
+     "产品设计师",
+     "UX设计师"
+    ],
+    "focus": [
+     "流程优化",
+     "原型验证",
+     "A/B测试"
+    ],
+    "thesis": "以用户流程和可用性验证推动界面迭代。",
+    "strength": 4,
+    "bulletIds": [
+     "exp1-b3",
+     "exp2-b2",
+     "exp3-b1"
+    ]
+   },
+   {
+    "id": "p3",
+    "name": "动效设计师",
+    "jobs": [
+     "动效设计师",
+     "UI动效设计师",
+     "多媒体设计师"
+    ],
+    "focus": [
+     "动效规范",
+     "After Effects",
+     "Unity落地"
+    ],
+    "thesis": "将动效规范与工具链结合，提升界面反馈一致性。",
+    "strength": 4,
+    "bulletIds": [
+     "exp1-b4",
+     "exp2-b4"
+    ]
+   },
+   {
+    "id": "p4",
+    "name": "游戏美术",
+    "jobs": [
+     "游戏UI设计师",
+     "游戏美术设计师",
+     "界面美术"
+    ],
+    "focus": [
+     "游戏界面",
+     "资源规范",
+     "版本交付"
+    ],
+    "thesis": "熟悉游戏 UI 资源制作与引擎验收流程。",
+    "strength": 4,
+    "bulletIds": [
+     "exp2-b1",
+     "exp2-b3",
+     "exp2-b4"
+    ]
+   }
+  ]
+ },
+ "tiers": {
+  "rich": {
+   "meta": {
+    "headline": "数字媒体艺术本科，3年 UI 与游戏界面设计经验，熟悉移动端组件库、交互原型、动效规范与 Unity 资源落地",
+    "years": 3,
+    "level": "中级",
+    "__quality": "rich",
+    "__bulletCount": 11,
+    "__personaCount": 4
+   },
+   "skills": [
+    "Figma",
+    "Sketch",
+    "Adobe XD",
+    "After Effects",
+    "Photoshop",
+    "Illustrator",
+    "Procreate",
+    "C4D",
+    "Unity UI",
+    "设计规范",
+    "交互原型",
+    "动效设计",
+    "游戏UI",
+    "组件库",
+    "A/B测试",
+    "前端协作",
+    "HTML/CSS"
+   ],
+   "education": [
+    {
+     "school": "某大学",
+     "major": "数字媒体艺术",
+     "degree": "本科",
+     "year": "2022"
+    }
+   ],
+   "experiences": [
+    {
+     "id": "exp1",
+     "org": "某生活服务类互联网平台",
+     "role": "UI设计师",
+     "period": "2023.07-2025.06",
+     "bullets": [
+      {
+       "id": "exp1-b1",
+       "text": "负责本地生活 App 首页、订单、会员 3 个模块的界面改版，输出 120+ 页面设计稿。",
+       "metrics": [
+        "3",
+        "120+"
+       ],
+       "skills": [
+        "UI设计",
+        "Figma"
+       ]
+      },
+      {
+       "id": "exp1-b2",
+       "text": "搭建移动端组件库，沉淀 48 个通用组件与 16 条使用规则，设计评审返修率从 22% 降至 9%。",
+       "metrics": [
+        "48",
+        "16",
+        "22%",
+        "9%"
+       ],
+       "skills": [
+        "设计规范",
+        "Figma",
+        "组件库"
+       ]
+      },
+      {
+       "id": "exp1-b3",
+       "text": "与产品、前端完成 14 次 A/B 方案迭代，订单确认页转化率提升 6.8%。",
+       "metrics": [
+        "14",
+        "6.8%"
+       ],
+       "skills": [
+        "交互设计",
+        "A/B测试"
+       ]
+      },
+      {
+       "id": "exp1-b4",
+       "text": "制定 32 条动效规范，覆盖 7 类核心页面，使用 After Effects 输出 24 个动效示例。",
+       "metrics": [
+        "32",
+        "7",
+        "24"
+       ],
+       "skills": [
+        "动效设计",
+        "After Effects"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "exp2",
+     "org": "某中型游戏研发公司",
+     "role": "游戏UI设计师",
+     "period": "2022.07-2023.06",
+     "bullets": [
+      {
+       "id": "exp2-b1",
+       "text": "参与 2 款手游项目 UI 界面制作，完成登录、背包、战斗结算等 86 个界面资源切图与标注。",
+       "metrics": [
+        "2",
+        "86"
+       ],
+       "skills": [
+        "游戏UI",
+        "Photoshop"
+       ]
+      },
+      {
+       "id": "exp2-b2",
+       "text": "配合策划调整 5 个核心玩法界面布局，将新手引导步骤从 9 步压缩至 6 步。",
+       "metrics": [
+        "5",
+        "9",
+        "6"
+       ],
+       "skills": [
+        "交互设计",
+        "Unity UI"
+       ]
+      },
+      {
+       "id": "exp2-b3",
+       "text": "建立 UI 资源命名与切图规范，减少返工 18%，版本验收问题数从 35 降至 12。",
+       "metrics": [
+        "18%",
+        "35",
+        "12"
+       ],
+       "skills": [
+        "资源规范",
+        "前端协作"
+       ]
+      },
+      {
+       "id": "exp2-b4",
+       "text": "使用 After Effects 制作 18 个按钮与弹窗动效，并导入 Unity 进行帧率验证。",
+       "metrics": [
+        "18"
+       ],
+       "skills": [
+        "动效设计",
+        "After Effects",
+        "Unity UI"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "exp3",
+     "org": "某连锁零售企业",
+     "role": "数字媒体艺术实习生",
+     "period": "2021.09-2022.06",
+     "bullets": [
+      {
+       "id": "exp3-b1",
+       "text": "参与门店会员小程序 4 个页面原型绘制，整理 27 条用户反馈并输出需求清单。",
+       "metrics": [
+        "4",
+        "27"
+       ],
+       "skills": [
+        "原型设计",
+        "用户反馈"
+       ]
+      },
+      {
+       "id": "exp3-b2",
+       "text": "制作 12 张促销海报与 3 条短视频包装，投放后门店扫码领券率提升 4.5%。",
+       "metrics": [
+        "12",
+        "3",
+        "4.5%"
+       ],
+       "skills": [
+        "视觉设计",
+        "短视频"
+       ]
+      },
+      {
+       "id": "exp3-b3",
+       "text": "协助维护品牌视觉素材库，归档 300+ 图片与字体文件，素材检索时间从 8 分钟降至 3 分钟。",
+       "metrics": [
+        "300+",
+        "8",
+        "3"
+       ],
+       "skills": [
+        "素材管理",
+        "Photoshop"
+       ]
+      }
+     ]
+    }
+   ],
+   "personas": [
+    {
+     "id": "p1",
+     "name": "UI设计师",
+     "jobs": [
+      "UI设计师",
+      "移动端UI设计师",
+      "视觉设计师"
+     ],
+     "focus": [
+      "界面规范",
+      "组件库",
+      "业务改版"
+     ],
+     "thesis": "围绕移动端界面与组件规范，支撑产品改版和研发交付。",
+     "strength": 4,
+     "bulletIds": [
+      "exp1-b1",
+      "exp1-b2",
+      "exp2-b1"
+     ]
+    },
+    {
+     "id": "p2",
+     "name": "交互设计师",
+     "jobs": [
+      "交互设计师",
+      "产品设计师",
+      "UX设计师"
+     ],
+     "focus": [
+      "流程优化",
+      "原型验证",
+      "A/B测试"
+     ],
+     "thesis": "以用户流程和可用性验证推动界面迭代。",
+     "strength": 4,
+     "bulletIds": [
+      "exp1-b3",
+      "exp2-b2",
+      "exp3-b1"
+     ]
+    },
+    {
+     "id": "p3",
+     "name": "动效设计师",
+     "jobs": [
+      "动效设计师",
+      "UI动效设计师",
+      "多媒体设计师"
+     ],
+     "focus": [
+      "动效规范",
+      "After Effects",
+      "Unity落地"
+     ],
+     "thesis": "将动效规范与工具链结合，提升界面反馈一致性。",
+     "strength": 4,
+     "bulletIds": [
+      "exp1-b4",
+      "exp2-b4"
+     ]
+    },
+    {
+     "id": "p4",
+     "name": "游戏美术",
+     "jobs": [
+      "游戏UI设计师",
+      "游戏美术设计师",
+      "界面美术"
+     ],
+     "focus": [
+      "游戏界面",
+      "资源规范",
+      "版本交付"
+     ],
+     "thesis": "熟悉游戏 UI 资源制作与引擎验收流程。",
+     "strength": 4,
+     "bulletIds": [
+      "exp2-b1",
+      "exp2-b3",
+      "exp2-b4"
+     ]
+    }
+   ]
+  },
+  "normal": {
+   "meta": {
+    "headline": "数字媒体艺术本科，3年 UI 与游戏界面设计经验，熟悉移动端组件库、交互原型、动效规范与 Unity 资源落地",
+    "years": 3,
+    "level": "中级",
+    "__quality": "normal",
+    "__bulletCount": 5,
+    "__personaCount": 3
+   },
+   "skills": [
+    "Figma",
+    "Sketch",
+    "Adobe XD",
+    "After Effects",
+    "Photoshop",
+    "Illustrator",
+    "Procreate",
+    "C4D",
+    "Unity UI",
+    "设计规范",
+    "交互原型",
+    "动效设计",
+    "游戏UI",
+    "组件库",
+    "A/B测试",
+    "前端协作",
+    "HTML/CSS"
+   ],
+   "education": [
+    {
+     "school": "某大学",
+     "major": "数字媒体艺术",
+     "degree": "本科",
+     "year": "2022"
+    }
+   ],
+   "experiences": [
+    {
+     "id": "exp1",
+     "org": "某生活服务类互联网平台",
+     "role": "UI设计师",
+     "period": "2023.07-2025.06",
+     "bullets": [
+      {
+       "id": "exp1-b1",
+       "text": "负责本地生活 App 首页、订单、会员 3 个模块的界面改版，输出 120+ 页面设计稿。",
+       "metrics": [
+        "3",
+        "120+"
+       ],
+       "skills": [
+        "UI设计",
+        "Figma"
+       ]
+      },
+      {
+       "id": "exp1-b2",
+       "text": "搭建移动端组件库，沉淀 48 个通用组件与 16 条使用规则，设计评审返修率从 22% 降至 9%。",
+       "metrics": [
+        "48",
+        "16",
+        "22%",
+        "9%"
+       ],
+       "skills": [
+        "设计规范",
+        "Figma",
+        "组件库"
+       ]
+      },
+      {
+       "id": "exp1-b3",
+       "text": "与产品、前端完成 14 次 A/B 方案迭代，订单确认页转化率提升 6.8%。",
+       "metrics": [
+        "14",
+        "6.8%"
+       ],
+       "skills": [
+        "交互设计",
+        "A/B测试"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "exp2",
+     "org": "某中型游戏研发公司",
+     "role": "游戏UI设计师",
+     "period": "2022.07-2023.06",
+     "bullets": [
+      {
+       "id": "exp2-b1",
+       "text": "参与 2 款手游项目 UI 界面制作，完成登录、背包、战斗结算等 86 个界面资源切图与标注。",
+       "metrics": [
+        "2",
+        "86"
+       ],
+       "skills": [
+        "游戏UI",
+        "Photoshop"
+       ]
+      },
+      {
+       "id": "exp2-b2",
+       "text": "配合策划调整 5 个核心玩法界面布局，将新手引导步骤从 9 步压缩至 6 步。",
+       "metrics": [
+        "5",
+        "9",
+        "6"
+       ],
+       "skills": [
+        "交互设计",
+        "Unity UI"
+       ]
+      }
+     ]
+    }
+   ],
+   "personas": [
+    {
+     "id": "p1",
+     "name": "UI设计师",
+     "jobs": [
+      "UI设计师",
+      "移动端UI设计师",
+      "视觉设计师"
+     ],
+     "focus": [
+      "界面规范",
+      "组件库",
+      "业务改版"
+     ],
+     "thesis": "围绕移动端界面与组件规范，支撑产品改版和研发交付。",
+     "strength": 4,
+     "bulletIds": [
+      "exp1-b1",
+      "exp1-b2",
+      "exp2-b1"
+     ]
+    },
+    {
+     "id": "p2",
+     "name": "交互设计师",
+     "jobs": [
+      "交互设计师",
+      "产品设计师",
+      "UX设计师"
+     ],
+     "focus": [
+      "流程优化",
+      "原型验证",
+      "A/B测试"
+     ],
+     "thesis": "以用户流程和可用性验证推动界面迭代。",
+     "strength": 4,
+     "bulletIds": [
+      "exp1-b3",
+      "exp2-b2"
+     ]
+    },
+    {
+     "id": "p4",
+     "name": "游戏美术",
+     "jobs": [
+      "游戏UI设计师",
+      "游戏美术设计师",
+      "界面美术"
+     ],
+     "focus": [
+      "游戏界面",
+      "资源规范",
+      "版本交付"
+     ],
+     "thesis": "熟悉游戏 UI 资源制作与引擎验收流程。",
+     "strength": 4,
+     "bulletIds": [
+      "exp2-b1"
+     ]
+    }
+   ]
+  },
+  "thin": {
+   "meta": {
+    "headline": "数字媒体艺术本科，3年 UI 与游戏界面设计经验，熟悉移动端组件库、交互原型、动效规范与 Unity 资源落地",
+    "years": 3,
+    "level": "中级",
+    "__quality": "thin",
+    "__bulletCount": 2,
+    "__personaCount": 1
+   },
+   "skills": [
+    "Figma",
+    "Sketch",
+    "Adobe XD",
+    "After Effects",
+    "Photoshop",
+    "Illustrator",
+    "Procreate",
+    "C4D",
+    "Unity UI"
+   ],
+   "education": [
+    {
+     "school": "某大学",
+     "major": "数字媒体艺术",
+     "degree": "本科",
+     "year": "2022"
+    }
+   ],
+   "experiences": [
+    {
+     "id": "exp1",
+     "org": "某生活服务类互联网平台",
+     "role": "UI设计师",
+     "period": "2023.07-2025.06",
+     "bullets": [
+      {
+       "id": "exp1-b1",
+       "text": "负责本地生活 App 首页、订单、会员 个模块的界面改版，输出 + 页面设计稿。",
+       "metrics": [],
+       "skills": [
+        "UI设计",
+        "Figma"
+       ]
+      },
+      {
+       "id": "exp1-b2",
+       "text": "搭建移动端组件库，沉淀 个通用组件与 条使用规则，设计评审返修率从 降至 。",
+       "metrics": [],
+       "skills": [
+        "设计规范",
+        "Figma",
+        "组件库"
+       ]
+      }
+     ]
+    }
+   ],
+   "personas": [
+    {
+     "id": "p1",
+     "name": "UI设计师",
+     "jobs": [
+      "UI设计师",
+      "移动端UI设计师",
+      "视觉设计师"
+     ],
+     "focus": [
+      "界面规范",
+      "组件库",
+      "业务改版"
+     ],
+     "thesis": "围绕移动端界面与组件规范，支撑产品改版和研发交付。",
+     "strength": 4,
+     "bulletIds": [
+      "exp1-b1",
+      "exp1-b2"
+     ]
+    }
+   ]
+  },
+  "minimal": {
+   "meta": {
+    "headline": "数字媒体艺术本科，3年 UI 与游戏界面设计经验，熟悉移动端组件库、交互原型、动效规范与 Unity 资源落地",
+    "years": 3,
+    "level": "中级",
+    "__quality": "minimal",
+    "__bulletCount": 1,
+    "__personaCount": 1
+   },
+   "skills": [
+    "Figma",
+    "Sketch"
+   ],
+   "education": [
+    {
+     "school": "某大学",
+     "major": "数字媒体艺术",
+     "degree": "本科",
+     "year": "2022"
+    }
+   ],
+   "experiences": [
+    {
+     "id": "exp1",
+     "org": "某生活服务类互联网平台",
+     "role": "UI设计师",
+     "period": "2023.07-2025.06",
+     "bullets": [
+      {
+       "id": "exp1-b1",
+       "text": "负责本地生活 App 首页、订单、会员 个模块的界面改版，输出 + 页面设计稿。",
+       "metrics": []
+      }
+     ]
+    }
+   ],
+   "personas": [
+    {
+     "id": "p1",
+     "name": "UI设计师",
+     "jobs": [
+      "UI设计师",
+      "移动端UI设计师",
+      "视觉设计师"
+     ],
+     "focus": [
+      "界面规范",
+      "组件库",
+      "业务改版"
+     ],
+     "thesis": "围绕移动端界面与组件规范，支撑产品改版和研发交付。",
+     "strength": 4,
+     "bulletIds": [
+      "exp1-b1"
+     ]
+    }
+   ]
+  }
+ }
+}

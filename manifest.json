@@ -1,0 +1,59 @@
+{
+  "manifest_version": 3,
+  "name": "职友 · 求职助手",
+  "version": "1.0.0",
+  "description": "看懂岗位，讲清自己。浏览招聘网站时自动识别当前岗位 JD，讲清该不该投、该突出什么、第一句话怎么说。",
+  "minimum_chrome_version": "116",
+
+  "permissions": ["storage", "sidePanel", "scripting", "activeTab"],
+
+  "host_permissions": [
+    "https://api.deepseek.com/*",
+    "https://dashscope.aliyuncs.com/*",
+    "https://api.moonshot.cn/*",
+    "https://open.bigmodel.cn/*",
+    "https://api.openai.com/*",
+    "http://127.0.0.1/*",
+    "http://localhost/*"
+  ],
+
+  "optional_host_permissions": ["*://*/*"],
+
+  "background": {
+    "service_worker": "background.js"
+  },
+
+  "side_panel": {
+    "default_path": "web/index.html"
+  },
+
+  "action": {
+    "default_title": "职友（打开侧边栏）",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.zhipin.com/*",
+        "*://*.liepin.com/*",
+        "*://*.lagou.com/*",
+        "*://*.zhaopin.com/*",
+        "*://*.51job.com/*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ]
+}

@@ -1,0 +1,959 @@
+{
+ "major": "软件工程",
+ "discipline": "工学",
+ "provider": "qwen",
+ "model": "qwen3.8-flash",
+ "seed": {
+  "meta": {
+   "headline": "2026届软件工程本科生，具备前端开发、测试开发和全栈开发实习经验",
+   "years": 0,
+   "level": "应届"
+  },
+  "skills": [
+   "JavaScript",
+   "TypeScript",
+   "React",
+   "Vue",
+   "Node.js",
+   "Java",
+   "Spring Boot",
+   "Python",
+   "MySQL",
+   "Redis",
+   "RESTful API",
+   "HTML",
+   "CSS",
+   "Git",
+   "Jenkins",
+   "Docker",
+   "Jest",
+   "pytest",
+   "Selenium",
+   "Postman"
+  ],
+  "education": [
+   {
+    "school": "某大学",
+    "major": "软件工程",
+    "degree": "本科",
+    "year": "2026"
+   }
+  ],
+  "experiences": [
+   {
+    "id": "exp1",
+    "org": "某互联网生活服务平台",
+    "role": "前端开发实习生",
+    "period": "2025.06-2025.09",
+    "bullets": [
+     {
+      "id": "e1b1",
+      "text": "参与商家后台订单模块重构，使用 React 和 TypeScript 替换原有 jQuery 页面，覆盖 12 个核心页面，首屏加载时间由 2.8s 降至 1.6s",
+      "metrics": [
+       "12",
+       "2.8s",
+       "1.6s"
+      ],
+      "skills": [
+       "React",
+       "TypeScript",
+       "HTML",
+       "CSS"
+      ]
+     },
+     {
+      "id": "e1b2",
+      "text": "开发 6 个可复用业务组件，包括表格筛选、日期范围选择、状态标签和导出按钮，组件被 3 个团队引用，减少重复代码约 40%",
+      "metrics": [
+       "6",
+       "3",
+       "40%"
+      ],
+      "skills": [
+       "React",
+       "组件封装",
+       "JavaScript"
+      ]
+     },
+     {
+      "id": "e1b3",
+      "text": "配合后端完成 18 个接口联调，使用 Axios 封装请求层并统一错误提示，接口异常反馈时间缩短至 1 分钟内",
+      "metrics": [
+       "18",
+       "1分钟"
+      ],
+      "skills": [
+       "Axios",
+       "RESTful API",
+       "JavaScript"
+      ]
+     },
+     {
+      "id": "e1b4",
+      "text": "编写 35 个 Jest 单元测试用例，核心组件测试覆盖率达到 78%",
+      "metrics": [
+       "35",
+       "78%"
+      ],
+      "skills": [
+       "Jest",
+       "单元测试"
+      ]
+     }
+    ]
+   },
+   {
+    "id": "exp2",
+    "org": "某金融科技公司",
+    "role": "测试开发实习生",
+    "period": "2025.01-2025.05",
+    "bullets": [
+     {
+      "id": "e2b1",
+      "text": "负责信贷审批接口自动化测试，使用 Python 和 pytest 编写 64 个用例，覆盖 21 个接口，回归执行时间由 2 小时缩短至 12 分钟",
+      "metrics": [
+       "64",
+       "21",
+       "2小时",
+       "12分钟"
+      ],
+      "skills": [
+       "Python",
+       "pytest",
+       "API测试"
+      ]
+     },
+     {
+      "id": "e2b2",
+      "text": "搭建 Jenkins 和 Docker 测试环境，每日构建 3 次，环境准备时间从 40 分钟降低到 8 分钟",
+      "metrics": [
+       "3",
+       "40分钟",
+       "8分钟"
+      ],
+      "skills": [
+       "Jenkins",
+       "Docker",
+       "CI/CD"
+      ]
+     },
+     {
+      "id": "e2b3",
+      "text": "参与 Web 端 Selenium 用例维护，修复 27 个不稳定脚本，用例通过率由 71% 提升至 93%",
+      "metrics": [
+       "27",
+       "71%",
+       "93%"
+      ],
+      "skills": [
+       "Selenium",
+       "自动化测试"
+      ]
+     },
+     {
+      "id": "e2b4",
+      "text": "整理缺陷报告 46 条，其中 12 条为数据一致性缺陷，推动后端增加字段校验规则",
+      "metrics": [
+       "46",
+       "12"
+      ],
+      "skills": [
+       "缺陷管理",
+       "Postman"
+      ]
+     }
+    ]
+   },
+   {
+    "id": "exp3",
+    "org": "某连锁零售企业",
+    "role": "全栈开发实习生",
+    "period": "2024.07-2024.12",
+    "bullets": [
+     {
+      "id": "e3b1",
+      "text": "参与门店库存查询系统开发，前端使用 Vue 3，后端使用 Spring Boot 和 MySQL，支撑 120 家门店日常查询，日均请求约 8000 次",
+      "metrics": [
+       "120",
+       "8000"
+      ],
+      "skills": [
+       "Vue",
+       "Spring Boot",
+       "MySQL"
+      ]
+     },
+     {
+      "id": "e3b2",
+      "text": "实现库存预警接口并接入 Redis 缓存，查询平均响应时间由 1.4s 降至 0.3s，缓存命中率达到 86%",
+      "metrics": [
+       "1.4s",
+       "0.3s",
+       "86%"
+      ],
+      "skills": [
+       "Redis",
+       "RESTful API",
+       "Spring Boot"
+      ]
+     },
+     {
+      "id": "e3b3",
+      "text": "完成 Excel 批量导入功能，支持 5000 行/文件解析，导入失败记录可下载，上线后人工录入时间减少约 60%",
+      "metrics": [
+       "5000",
+       "60%"
+      ],
+      "skills": [
+       "Java",
+       "Excel",
+       "后端开发"
+      ]
+     },
+     {
+      "id": "e3b4",
+      "text": "使用 Git 管理 5 人小组代码分支，参与 14 次迭代发布，线上回滚次数为 0",
+      "metrics": [
+       "5",
+       "14",
+       "0"
+      ],
+      "skills": [
+       "Git",
+       "版本管理"
+      ]
+     }
+    ]
+   }
+  ],
+  "personas": [
+   {
+    "id": "p1",
+    "name": "前端开发方向",
+    "jobs": [
+     "前端开发",
+     "Web前端工程师"
+    ],
+    "focus": [
+     "React 组件化",
+     "页面性能优化",
+     "接口联调"
+    ],
+    "thesis": "以组件复用和页面性能数据支撑前端开发岗位匹配",
+    "strength": 4,
+    "bulletIds": [
+     "e1b1",
+     "e1b2",
+     "e1b3"
+    ]
+   },
+   {
+    "id": "p2",
+    "name": "测试开发方向",
+    "jobs": [
+     "测试开发",
+     "自动化测试工程师",
+     "质量保障工程师"
+    ],
+    "focus": [
+     "接口自动化",
+     "CI/CD",
+     "缺陷定位"
+    ],
+    "thesis": "以 pytest、Jenkins 和用例通过率数据体现质量工程能力",
+    "strength": 4,
+    "bulletIds": [
+     "e2b1",
+     "e2b2",
+     "e2b3"
+    ]
+   },
+   {
+    "id": "p3",
+    "name": "全栈开发方向",
+    "jobs": [
+     "全栈开发",
+     "Java后端开发",
+     "软件开发"
+    ],
+    "focus": [
+     "业务系统开发",
+     "缓存优化",
+     "数据导入"
+    ],
+    "thesis": "以门店库存系统的端到端实现支撑全栈开发岗位",
+    "strength": 4,
+    "bulletIds": [
+     "e3b1",
+     "e3b2",
+     "e3b3"
+    ]
+   },
+   {
+    "id": "p4",
+    "name": "综合研发方向",
+    "jobs": [
+     "软件开发",
+     "后端开发",
+     "前端开发"
+    ],
+    "focus": [
+     "多技术栈协作",
+     "项目交付",
+     "工程实践"
+    ],
+    "thesis": "通过前端、测试、全栈三段经历展示可进入多种研发岗位",
+    "strength": 3,
+    "bulletIds": [
+     "e1b3",
+     "e2b1",
+     "e3b4"
+    ]
+   }
+  ]
+ },
+ "tiers": {
+  "rich": {
+   "meta": {
+    "headline": "2026届软件工程本科生，具备前端开发、测试开发和全栈开发实习经验",
+    "years": 0,
+    "level": "应届",
+    "__quality": "rich",
+    "__bulletCount": 12,
+    "__personaCount": 4
+   },
+   "skills": [
+    "JavaScript",
+    "TypeScript",
+    "React",
+    "Vue",
+    "Node.js",
+    "Java",
+    "Spring Boot",
+    "Python",
+    "MySQL",
+    "Redis",
+    "RESTful API",
+    "HTML",
+    "CSS",
+    "Git",
+    "Jenkins",
+    "Docker",
+    "Jest",
+    "pytest",
+    "Selenium",
+    "Postman"
+   ],
+   "education": [
+    {
+     "school": "某大学",
+     "major": "软件工程",
+     "degree": "本科",
+     "year": "2026"
+    }
+   ],
+   "experiences": [
+    {
+     "id": "exp1",
+     "org": "某互联网生活服务平台",
+     "role": "前端开发实习生",
+     "period": "2025.06-2025.09",
+     "bullets": [
+      {
+       "id": "e1b1",
+       "text": "参与商家后台订单模块重构，使用 React 和 TypeScript 替换原有 jQuery 页面，覆盖 12 个核心页面，首屏加载时间由 2.8s 降至 1.6s",
+       "metrics": [
+        "12",
+        "2.8s",
+        "1.6s"
+       ],
+       "skills": [
+        "React",
+        "TypeScript",
+        "HTML",
+        "CSS"
+       ]
+      },
+      {
+       "id": "e1b2",
+       "text": "开发 6 个可复用业务组件，包括表格筛选、日期范围选择、状态标签和导出按钮，组件被 3 个团队引用，减少重复代码约 40%",
+       "metrics": [
+        "6",
+        "3",
+        "40%"
+       ],
+       "skills": [
+        "React",
+        "组件封装",
+        "JavaScript"
+       ]
+      },
+      {
+       "id": "e1b3",
+       "text": "配合后端完成 18 个接口联调，使用 Axios 封装请求层并统一错误提示，接口异常反馈时间缩短至 1 分钟内",
+       "metrics": [
+        "18",
+        "1分钟"
+       ],
+       "skills": [
+        "Axios",
+        "RESTful API",
+        "JavaScript"
+       ]
+      },
+      {
+       "id": "e1b4",
+       "text": "编写 35 个 Jest 单元测试用例，核心组件测试覆盖率达到 78%",
+       "metrics": [
+        "35",
+        "78%"
+       ],
+       "skills": [
+        "Jest",
+        "单元测试"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "exp2",
+     "org": "某金融科技公司",
+     "role": "测试开发实习生",
+     "period": "2025.01-2025.05",
+     "bullets": [
+      {
+       "id": "e2b1",
+       "text": "负责信贷审批接口自动化测试，使用 Python 和 pytest 编写 64 个用例，覆盖 21 个接口，回归执行时间由 2 小时缩短至 12 分钟",
+       "metrics": [
+        "64",
+        "21",
+        "2小时",
+        "12分钟"
+       ],
+       "skills": [
+        "Python",
+        "pytest",
+        "API测试"
+       ]
+      },
+      {
+       "id": "e2b2",
+       "text": "搭建 Jenkins 和 Docker 测试环境，每日构建 3 次，环境准备时间从 40 分钟降低到 8 分钟",
+       "metrics": [
+        "3",
+        "40分钟",
+        "8分钟"
+       ],
+       "skills": [
+        "Jenkins",
+        "Docker",
+        "CI/CD"
+       ]
+      },
+      {
+       "id": "e2b3",
+       "text": "参与 Web 端 Selenium 用例维护，修复 27 个不稳定脚本，用例通过率由 71% 提升至 93%",
+       "metrics": [
+        "27",
+        "71%",
+        "93%"
+       ],
+       "skills": [
+        "Selenium",
+        "自动化测试"
+       ]
+      },
+      {
+       "id": "e2b4",
+       "text": "整理缺陷报告 46 条，其中 12 条为数据一致性缺陷，推动后端增加字段校验规则",
+       "metrics": [
+        "46",
+        "12"
+       ],
+       "skills": [
+        "缺陷管理",
+        "Postman"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "exp3",
+     "org": "某连锁零售企业",
+     "role": "全栈开发实习生",
+     "period": "2024.07-2024.12",
+     "bullets": [
+      {
+       "id": "e3b1",
+       "text": "参与门店库存查询系统开发，前端使用 Vue 3，后端使用 Spring Boot 和 MySQL，支撑 120 家门店日常查询，日均请求约 8000 次",
+       "metrics": [
+        "120",
+        "8000"
+       ],
+       "skills": [
+        "Vue",
+        "Spring Boot",
+        "MySQL"
+       ]
+      },
+      {
+       "id": "e3b2",
+       "text": "实现库存预警接口并接入 Redis 缓存，查询平均响应时间由 1.4s 降至 0.3s，缓存命中率达到 86%",
+       "metrics": [
+        "1.4s",
+        "0.3s",
+        "86%"
+       ],
+       "skills": [
+        "Redis",
+        "RESTful API",
+        "Spring Boot"
+       ]
+      },
+      {
+       "id": "e3b3",
+       "text": "完成 Excel 批量导入功能，支持 5000 行/文件解析，导入失败记录可下载，上线后人工录入时间减少约 60%",
+       "metrics": [
+        "5000",
+        "60%"
+       ],
+       "skills": [
+        "Java",
+        "Excel",
+        "后端开发"
+       ]
+      },
+      {
+       "id": "e3b4",
+       "text": "使用 Git 管理 5 人小组代码分支，参与 14 次迭代发布，线上回滚次数为 0",
+       "metrics": [
+        "5",
+        "14",
+        "0"
+       ],
+       "skills": [
+        "Git",
+        "版本管理"
+       ]
+      }
+     ]
+    }
+   ],
+   "personas": [
+    {
+     "id": "p1",
+     "name": "前端开发方向",
+     "jobs": [
+      "前端开发",
+      "Web前端工程师"
+     ],
+     "focus": [
+      "React 组件化",
+      "页面性能优化",
+      "接口联调"
+     ],
+     "thesis": "以组件复用和页面性能数据支撑前端开发岗位匹配",
+     "strength": 4,
+     "bulletIds": [
+      "e1b1",
+      "e1b2",
+      "e1b3"
+     ]
+    },
+    {
+     "id": "p2",
+     "name": "测试开发方向",
+     "jobs": [
+      "测试开发",
+      "自动化测试工程师",
+      "质量保障工程师"
+     ],
+     "focus": [
+      "接口自动化",
+      "CI/CD",
+      "缺陷定位"
+     ],
+     "thesis": "以 pytest、Jenkins 和用例通过率数据体现质量工程能力",
+     "strength": 4,
+     "bulletIds": [
+      "e2b1",
+      "e2b2",
+      "e2b3"
+     ]
+    },
+    {
+     "id": "p3",
+     "name": "全栈开发方向",
+     "jobs": [
+      "全栈开发",
+      "Java后端开发",
+      "软件开发"
+     ],
+     "focus": [
+      "业务系统开发",
+      "缓存优化",
+      "数据导入"
+     ],
+     "thesis": "以门店库存系统的端到端实现支撑全栈开发岗位",
+     "strength": 4,
+     "bulletIds": [
+      "e3b1",
+      "e3b2",
+      "e3b3"
+     ]
+    },
+    {
+     "id": "p4",
+     "name": "综合研发方向",
+     "jobs": [
+      "软件开发",
+      "后端开发",
+      "前端开发"
+     ],
+     "focus": [
+      "多技术栈协作",
+      "项目交付",
+      "工程实践"
+     ],
+     "thesis": "通过前端、测试、全栈三段经历展示可进入多种研发岗位",
+     "strength": 3,
+     "bulletIds": [
+      "e1b3",
+      "e2b1",
+      "e3b4"
+     ]
+    }
+   ]
+  },
+  "normal": {
+   "meta": {
+    "headline": "2026届软件工程本科生，具备前端开发、测试开发和全栈开发实习经验",
+    "years": 0,
+    "level": "应届",
+    "__quality": "normal",
+    "__bulletCount": 5,
+    "__personaCount": 3
+   },
+   "skills": [
+    "JavaScript",
+    "TypeScript",
+    "React",
+    "Vue",
+    "Node.js",
+    "Java",
+    "Spring Boot",
+    "Python",
+    "MySQL",
+    "Redis",
+    "RESTful API",
+    "HTML",
+    "CSS",
+    "Git",
+    "Jenkins",
+    "Docker",
+    "Jest",
+    "pytest",
+    "Selenium",
+    "Postman"
+   ],
+   "education": [
+    {
+     "school": "某大学",
+     "major": "软件工程",
+     "degree": "本科",
+     "year": "2026"
+    }
+   ],
+   "experiences": [
+    {
+     "id": "exp1",
+     "org": "某互联网生活服务平台",
+     "role": "前端开发实习生",
+     "period": "2025.06-2025.09",
+     "bullets": [
+      {
+       "id": "e1b1",
+       "text": "参与商家后台订单模块重构，使用 React 和 TypeScript 替换原有 jQuery 页面，覆盖 12 个核心页面，首屏加载时间由 2.8s 降至 1.6s",
+       "metrics": [
+        "12",
+        "2.8s",
+        "1.6s"
+       ],
+       "skills": [
+        "React",
+        "TypeScript",
+        "HTML",
+        "CSS"
+       ]
+      },
+      {
+       "id": "e1b2",
+       "text": "开发 6 个可复用业务组件，包括表格筛选、日期范围选择、状态标签和导出按钮，组件被 3 个团队引用，减少重复代码约 40%",
+       "metrics": [
+        "6",
+        "3",
+        "40%"
+       ],
+       "skills": [
+        "React",
+        "组件封装",
+        "JavaScript"
+       ]
+      },
+      {
+       "id": "e1b3",
+       "text": "配合后端完成 18 个接口联调，使用 Axios 封装请求层并统一错误提示，接口异常反馈时间缩短至 1 分钟内",
+       "metrics": [
+        "18",
+        "1分钟"
+       ],
+       "skills": [
+        "Axios",
+        "RESTful API",
+        "JavaScript"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "exp2",
+     "org": "某金融科技公司",
+     "role": "测试开发实习生",
+     "period": "2025.01-2025.05",
+     "bullets": [
+      {
+       "id": "e2b1",
+       "text": "负责信贷审批接口自动化测试，使用 Python 和 pytest 编写 64 个用例，覆盖 21 个接口，回归执行时间由 2 小时缩短至 12 分钟",
+       "metrics": [
+        "64",
+        "21",
+        "2小时",
+        "12分钟"
+       ],
+       "skills": [
+        "Python",
+        "pytest",
+        "API测试"
+       ]
+      },
+      {
+       "id": "e2b2",
+       "text": "搭建 Jenkins 和 Docker 测试环境，每日构建 3 次，环境准备时间从 40 分钟降低到 8 分钟",
+       "metrics": [
+        "3",
+        "40分钟",
+        "8分钟"
+       ],
+       "skills": [
+        "Jenkins",
+        "Docker",
+        "CI/CD"
+       ]
+      }
+     ]
+    }
+   ],
+   "personas": [
+    {
+     "id": "p1",
+     "name": "前端开发方向",
+     "jobs": [
+      "前端开发",
+      "Web前端工程师"
+     ],
+     "focus": [
+      "React 组件化",
+      "页面性能优化",
+      "接口联调"
+     ],
+     "thesis": "以组件复用和页面性能数据支撑前端开发岗位匹配",
+     "strength": 4,
+     "bulletIds": [
+      "e1b1",
+      "e1b2",
+      "e1b3"
+     ]
+    },
+    {
+     "id": "p2",
+     "name": "测试开发方向",
+     "jobs": [
+      "测试开发",
+      "自动化测试工程师",
+      "质量保障工程师"
+     ],
+     "focus": [
+      "接口自动化",
+      "CI/CD",
+      "缺陷定位"
+     ],
+     "thesis": "以 pytest、Jenkins 和用例通过率数据体现质量工程能力",
+     "strength": 4,
+     "bulletIds": [
+      "e2b1",
+      "e2b2"
+     ]
+    },
+    {
+     "id": "p4",
+     "name": "综合研发方向",
+     "jobs": [
+      "软件开发",
+      "后端开发",
+      "前端开发"
+     ],
+     "focus": [
+      "多技术栈协作",
+      "项目交付",
+      "工程实践"
+     ],
+     "thesis": "通过前端、测试、全栈三段经历展示可进入多种研发岗位",
+     "strength": 3,
+     "bulletIds": [
+      "e1b3",
+      "e2b1"
+     ]
+    }
+   ]
+  },
+  "thin": {
+   "meta": {
+    "headline": "2026届软件工程本科生，具备前端开发、测试开发和全栈开发实习经验",
+    "years": 0,
+    "level": "应届",
+    "__quality": "thin",
+    "__bulletCount": 2,
+    "__personaCount": 1
+   },
+   "skills": [
+    "JavaScript",
+    "TypeScript",
+    "React",
+    "Vue",
+    "Node.js",
+    "Java",
+    "Spring Boot",
+    "Python",
+    "MySQL",
+    "Redis"
+   ],
+   "education": [
+    {
+     "school": "某大学",
+     "major": "软件工程",
+     "degree": "本科",
+     "year": "2026"
+    }
+   ],
+   "experiences": [
+    {
+     "id": "exp1",
+     "org": "某互联网生活服务平台",
+     "role": "前端开发实习生",
+     "period": "2025.06-2025.09",
+     "bullets": [
+      {
+       "id": "e1b1",
+       "text": "参与商家后台订单模块重构，使用 React 和 TypeScript 替换原有 jQuery 页面，覆盖 个核心页面，首屏加载时间由 s 降至 s",
+       "metrics": [],
+       "skills": [
+        "React",
+        "TypeScript",
+        "HTML",
+        "CSS"
+       ]
+      },
+      {
+       "id": "e1b2",
+       "text": "开发 个可复用业务组件，包括表格筛选、日期范围选择、状态标签和导出按钮，组件被 个团队引用，减少重复代码约",
+       "metrics": [],
+       "skills": [
+        "React",
+        "组件封装",
+        "JavaScript"
+       ]
+      }
+     ]
+    }
+   ],
+   "personas": [
+    {
+     "id": "p1",
+     "name": "前端开发方向",
+     "jobs": [
+      "前端开发",
+      "Web前端工程师"
+     ],
+     "focus": [
+      "React 组件化",
+      "页面性能优化",
+      "接口联调"
+     ],
+     "thesis": "以组件复用和页面性能数据支撑前端开发岗位匹配",
+     "strength": 4,
+     "bulletIds": [
+      "e1b1",
+      "e1b2"
+     ]
+    }
+   ]
+  },
+  "minimal": {
+   "meta": {
+    "headline": "2026届软件工程本科生，具备前端开发、测试开发和全栈开发实习经验",
+    "years": 0,
+    "level": "应届",
+    "__quality": "minimal",
+    "__bulletCount": 1,
+    "__personaCount": 1
+   },
+   "skills": [
+    "JavaScript",
+    "TypeScript"
+   ],
+   "education": [
+    {
+     "school": "某大学",
+     "major": "软件工程",
+     "degree": "本科",
+     "year": "2026"
+    }
+   ],
+   "experiences": [
+    {
+     "id": "exp1",
+     "org": "某互联网生活服务平台",
+     "role": "前端开发实习生",
+     "period": "2025.06-2025.09",
+     "bullets": [
+      {
+       "id": "e1b1",
+       "text": "参与商家后台订单模块重构，使用 React 和 TypeScript 替换原有 jQuery 页面，覆盖 个核心页面，首屏加载时间由 s 降至 s",
+       "metrics": []
+      }
+     ]
+    }
+   ],
+   "personas": [
+    {
+     "id": "p1",
+     "name": "前端开发方向",
+     "jobs": [
+      "前端开发",
+      "Web前端工程师"
+     ],
+     "focus": [
+      "React 组件化",
+      "页面性能优化",
+      "接口联调"
+     ],
+     "thesis": "以组件复用和页面性能数据支撑前端开发岗位匹配",
+     "strength": 4,
+     "bulletIds": [
+      "e1b1"
+     ]
+    }
+   ]
+  }
+ }
+}
