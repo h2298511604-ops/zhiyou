@@ -170,6 +170,7 @@ ${list}`
      3. 投影：一次调用出全部结果
      --------------------------------------------------------- */
   function project({ factBase, persona, jdText, packLevel = 'standard' }) {
+    const jdForModel = jdForProject(jdText);
 
     const packRule = {
       conservative: `【包装强度：保守】只允许重排和措辞对齐，不允许提升表述强度。原文说"参与"就还是"参与"。`,
@@ -328,9 +329,19 @@ ${factJson}
 ${JSON.stringify(persona, null, 1)}
 
 【JD 原文】
-${String(jdText || '').slice(0, 3500)}`
+${jdForModel}`
       }
     ];
+  }
+
+  /* JD 不再静默截到 3500 字：识别上限是 8000 字，只有超出预算才截断并明说截了多少。
+     （尾部的硬条件曾经被悄悄丢掉——用户输入框里看得见，模型却收不到。） */
+  function jdForProject(jdText) {
+    const JD_PROMPT_LIMIT = 8000;
+    const raw = String(jdText || '');
+    if (raw.length <= JD_PROMPT_LIMIT) return raw;
+    return raw.slice(0, JD_PROMPT_LIMIT) + '\n\n（以上是 JD 的前 ' + JD_PROMPT_LIMIT + ' 字，原文还有 ' +
+      (raw.length - JD_PROMPT_LIMIT) + ' 字没有发送；如需完整判断，请提示用户精简 JD）';
   }
 
   /* ---------------------------------------------------------

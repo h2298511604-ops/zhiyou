@@ -409,7 +409,18 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
 
   /* --- 内容脚本：SPA 切换后 JD 变了 --- */
   if (msg.type === 'JD_CHANGED') {
-    broadcast({ type: 'JD_PUSH', jd: msg.jd || null, soft: true });
+    const changedTab = (sender && sender.tab) || null;
+    /* 只有「当前窗口的活动标签页」才能代表用户正在看的岗位。
+       后台标签页自己的 SPA 跳转不能覆盖面板上的岗位（J15）：
+       同时开着几个招聘标签页时，这条路径是分数错位的主要来源之一。 */
+    if (!changedTab || changedTab.active === false) {
+      sendResponse({ ok: true, ignored: 'inactive-tab' });
+      return false;
+    }
+    broadcast({
+      type: 'JD_PUSH', jd: msg.jd || null, soft: true,
+      source: { tabId: changedTab.id, windowId: changedTab.windowId }
+    });
     sendResponse({ ok: true });
     return false;
   }

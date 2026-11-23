@@ -7,10 +7,11 @@
 
   /* 存储键保持老版本不变：升级后用户的简历、事实库和身份直接可用 */
   const LS_KEY = 'touqian30s.v1';
-  const APP_VERSION = '1.0.0';
+  const APP_VERSION = '1.0.1';
 
   const THEMES = ['qingdai', 'graphite', 'sage', 'ocean', 'clay', 'sand', 'wine'];
   const APPEARANCES = ['light', 'dark', 'system'];
+  const ANALYSIS_MODES = ['manual', 'auto'];
   const DEFAULT_THEME = 'qingdai';
   const DEFAULT_APPEARANCE = 'light';
 
@@ -32,11 +33,18 @@
     projection: null,
     projectionPersona: null,
     projectionJd: '',         // 生成这份结果时用的 JD 原文，用来发现「JD 改过了」
+    evalCache: null,          // { [snapshotKey]: { projection, at, personaId } }
     settings: {
       baseUrl: '', apiKey: '', model: '', thinking: 'auto',
+      analysisMode: 'manual',
       theme: DEFAULT_THEME, appearance: DEFAULT_APPEARANCE
     }
   };
+
+  /* 身份是怎么来的：用户手动点过 = manual，之后模型迟到的推荐不能覆盖 */
+  let personaSource = 'auto';
+  const EVAL_CACHE_LIMIT = 12;
+  const SCORE_RULE = { fit: 0.65, density: 0.35, version: 1 };
 
   /* 扩展环境检测：侧边栏里 chrome.runtime.id 存在；独立网页里不存在 */
   const IS_EXT = (typeof chrome !== 'undefined') &&
@@ -75,6 +83,7 @@
       demoMode: state.demoMode,
       myFactBase: state.myFactBase,
       activePersona: state.activePersona,
+      evalCache: state.evalCache,
       settings: state.settings
     };
   }
@@ -107,7 +116,13 @@
       if (Array.isArray(d.resumes)) state.resumes = d.resumes;
       if (d.myFactBase) state.myFactBase = d.myFactBase;
       if (d.activePersona) state.activePersona = d.activePersona;
+      if (d.evalCache && typeof d.evalCache === 'object') state.evalCache = d.evalCache;
       if (d.settings) state.settings = Object.assign(state.settings, d.settings);
+      /* 旧数据没有 analysisMode：按手动迁移，不替用户偷偷调用模型 */
+      if (!ANALYSIS_MODES.includes(state.settings.analysisMode)) state.settings.analysisMode = 'manual';
+      state.settings.theme = THEMES.indexOf(state.settings.theme) >= 0 ? state.settings.theme : DEFAULT_THEME;
+      state.settings.appearance = APPEARANCES.indexOf(state.settings.appearance) >= 0 ? state.settings.appearance : DEFAULT_APPEARANCE;
+      state.settings.thinking = state.settings.thinking || 'auto';
     } catch (e) { /* ignore */ }
   }
 
@@ -159,8 +174,99 @@
     return state.settings.appearance || DEFAULT_APPEARANCE;
   }
 
-  /* JD 原文折叠：只在「有 JD / 没有 JD」发生变化时自动开合，
-     用户自己展开后不会被后续刷新强行收起。 */
+  /* ---------------- 分析快照 / 本地计分 / 结果缓存 ---------------- */
+
+  function hashText(input) {
+    const s = String(input == null ? '' : input);
+    let h = 5381;
+    for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) | 0;
+    return (h >>> 0).toString(36);
+  }
+
+  /* 只抹掉换行风格和行尾空白，不删除任何有意义的字符 */
+  function normalizeJd(text) {
+    return String(text || '')
+      .replace(/\r\n?/g, '\n')
+      .replace(/[ \t]+$/gm, '')
+      .replace(/\n{3,}/g, '\n\n')
+      .trim();
+  }
+
+  /* 同一份「输入快照」= 同样的 JD + 身份 + 事实库 + 模型配置 + 规则版本。
+     任何一项变了就是另一份评估，缓存不能复用。 */
+  function analysisKey(persona) {
+    const fb = getFactBase();
+    const facts = fb ? JSON.stringify({
+      meta: fb.meta || null,
+      skills: fb.skills || [],
+      education: fb.education || [],
+      experiences: fb.experiences || [],
+      personas: fb.personas || []
+    }) : 'none';
+    const p = persona || {};
+    return [
+      'k' + SCORE_RULE.version,
+      hashText(normalizeJd($('jdInput') ? $('jdInput').value : '')),
+      state.activePersona || '',
+      hashText(JSON.stringify({ id: p.id || '', name: p.name || '', bulletIds: p.bulletIds || [], focus: p.focus || [] })),
+      hashText(facts),
+      state.settings.baseUrl || '', state.settings.model || '', state.settings.thinking || '',
+      APP_VERSION
+    ].join('|');
+  }
+
+  function cacheGet(key) {
+    const cache = state.evalCache;
+    if (!cache || !key) return null;
+    const hit = cache[key];
+    return hit && hit.projection ? hit : null;
+  }
+
+  function cacheSet(key, projection, personaId) {
+    if (!key || !projection) return;
+    const cache = state.evalCache && typeof state.evalCache === 'object' ? state.evalCache : {};
+    cache[key] = { projection: projection, personaId: personaId || '', at: Date.now() };
+    const keys = Object.keys(cache);
+    if (keys.length > EVAL_CACHE_LIMIT) {
+      keys.sort((a, b) => (cache[a].at || 0) - (cache[b].at || 0));
+      for (const old of keys.slice(0, keys.length - EVAL_CACHE_LIMIT)) delete cache[old];
+    }
+    state.evalCache = cache;
+  }
+
+  /* 总分永远在本地算：fitScore×0.65 + densityScore×0.35，四舍五入。
+     模型自己给的 score 不直接上屏；级别也按重算后的分数重新判定。 */
+  function applyLocalScore(verdict) {
+    const raw = verdict || {};
+    const fit = Number(raw.fitScore);
+    const density = Number(raw.densityScore);
+    if (!Number.isFinite(fit) || !Number.isFinite(density) ||
+        fit < 0 || fit > 100 || density < 0 || density > 100) {
+      throw new Error('模型返回的评分字段不合法（fitScore / densityScore 必须是 0–100 的数字）');
+    }
+    const score = Math.round(SCORE_RULE.fit * fit + SCORE_RULE.density * density);
+    const level = score >= 70 ? 'go' : score >= 45 ? 'maybe' : 'skip';
+    return Object.assign({}, raw, {
+      fitScore: fit,
+      densityScore: density,
+      score: score,
+      level: level,
+      scoreRule: { fit: SCORE_RULE.fit, density: SCORE_RULE.density, version: SCORE_RULE.version }
+    });
+  }
+
+  /* 自动模式的唯一入口：按快照指纹去重，同一份输入只自动分析一次 */
+  let lastAutoKey = '';
+  function maybeAutoAnalyze() {
+    if (state.settings.analysisMode !== 'auto') return;
+    if (analyzing || !canCallLLM() || !hasData()) return;
+    const key = analysisKey(getPersona(state.activePersona));
+    if (key === lastAutoKey) return;
+    lastAutoKey = key;
+    analyze();
+  }
+
+
   let jdFoldState = null;
   function syncJdFold(toggle) {
     const details = document.querySelector('details[data-ui-fold="jd"]');
@@ -578,10 +684,12 @@
   function renderPersonaSwitch() {
     const fb = getFactBase();
     const personas = (fb && fb.personas) || [];
+    const summary = $('personaSummary');
 
     if (!personas.length) {
       $('personaSwitch').innerHTML =
         '<span class="mini-hint">录入简历后，这里会出现你能投的几个身份</span>';
+      if (summary) summary.textContent = '还没有可投身份';
       return;
     }
 
@@ -596,9 +704,17 @@
         esc(p.name) + '<span class="persona-strength">素材支撑度 ' + strength + ' / 5</span></button>';
     }).join('');
 
+    if (summary) {
+      const current = personas.find(p => p.id === state.activePersona) || personas[0];
+      const strength = Math.max(0, Math.min(5, Number(current.strength) || 0));
+      summary.textContent = '当前身份 · ' + current.name + ' · 素材支撑度 ' + strength + ' / 5 · 点开更换';
+    }
+
     $('personaSwitch').querySelectorAll('[data-persona]').forEach((btn) => {
       btn.addEventListener('click', () => {
         state.activePersona = btn.getAttribute('data-persona');
+        /* 用户亲手选的：之后模型迟到的推荐不许覆盖（J10） */
+        personaSource = 'manual';
         save();
         renderPersonaSwitch();
         renderPersonaHint();
@@ -630,6 +746,7 @@
     const b = $('btnSwitchRec');
     if (b) b.addEventListener('click', () => {
       state.activePersona = rec.id;
+      personaSource = 'manual';
       save();
       renderPersonaSwitch();
       renderPersonaHint();
@@ -917,14 +1034,6 @@
     /* 身份状态是不是从 JD 抄来的 */
     const idCheck = checkIdentityClaim(greetRaw, getFactBase());
 
-    /* 和 Skill 里的历史示例大面积重合 = 照抄自己的话，群发感 */
-    const skillExamples = (window.GREETING_SKILL && window.GREETING_SKILL.examples) || [];
-    let copyLen = 0;
-    for (const ex of skillExamples) {
-      const l = longestCommonStr(greetRaw, ex);
-      if (l > copyLen) copyLen = l;
-    }
-    const copied = copyLen >= 8;
     html += '<div class="greet-box" id="greetBox">' +
       '<div class="greet-text" id="greetText">' + esc(g.text) + '</div>' +
       '<div class="greet-meta">' +
@@ -941,10 +1050,6 @@
       (majorMisled
         ? '<div class="greet-warn">第一个分句用了「' + esc(majorCheck.major) +
           '」，但 JD 的专业要求里没列它。专业名建议放到能力之后，把最贵的开头留给 JD 关键词。</div>'
-        : '') +
-      (copied
-        ? '<div class="greet-warn">这条和你的历史话术有 <b>' + copyLen + '</b> 个字连续重合 —— ' +
-          '换个 JD 还用同一个开场白，HR 一眼看出是群发。建议把开头那句重新组一下。</div>'
         : '') +
       (idCheck.warn
         ? '<div class="greet-warn">话术里写了「' + esc(idCheck.words.join('、')) +
@@ -1179,6 +1284,19 @@
       return;
     }
 
+    /* --- 先查已完成评估：同一份输入快照直接复用，不花 token --- */
+    const cachedKey = analysisKey(persona);
+    const cachedHit = cacheGet(cachedKey);
+    if (cachedHit) {
+      state.projection = cachedHit.projection;
+      state.projectionPersona = persona.id;
+      state.projectionJd = jd;
+      state.projectionNote = '同一份 JD 与身份，复用上次的评估（没有重复请求模型）';
+      renderResult();
+      toast('同一份输入，已复用上次评估');
+      return;
+    }
+
     /* --- 有模型：真实调用（一次请求出全部结果）--- */
     analyzing = true;
     const token = ++analyzeToken;
@@ -1193,13 +1311,28 @@
     }, 100);
 
     try {
-      /* 第一步：确认身份。换岗位时已经在后台问过模型了，这里直接复用结果；
-         万一还没问到，就等这一次（几十个 token，1–2 秒）。 */
-      try {
-        await autoPickPersona(jd);
-        persona = getPersona(state.activePersona) || persona;
-      } catch (e) {
-        /* 选身份失败不影响主流程 */
+      /* 第一步：确认身份。
+         用户手动选过的身份优先——不再问模型，也就没有「迟到的推荐覆盖手动选择」；
+         没手动选过时，让模型确认一次（几十个 token）。 */
+      if (personaSource !== 'manual') {
+        try {
+          await autoPickPersona(jd);
+          const picked = getPersona(state.activePersona);
+          if (picked && picked.id !== persona.id) {
+            persona = picked;
+            const pickedHit = cacheGet(analysisKey(persona));
+            if (pickedHit) {
+              state.projection = pickedHit.projection;
+              state.projectionPersona = persona.id;
+              state.projectionJd = jd;
+              state.projectionNote = '同一份 JD 与身份，复用上次的评估（没有重复请求模型）';
+              renderResult();
+              return;
+            }
+          }
+        } catch (e) {
+          /* 选身份失败不影响主流程 */
+        }
       }
 
       area.innerHTML = loadingHtml(['判断该用哪个身份', '读 JD → 匹配事实库 → 写打招呼语'], 1, true);
@@ -1210,7 +1343,7 @@
         persona: persona,
         jdText: jd,
         packLevel: 'standard'
-      }), { temperature: 0.2, maxTokens: 8000 });
+      }), { temperature: 0, maxTokens: 8000 });
 
       /* 期间用户翻到别的岗位了，这份结果已经过期，别贴上去。
          但加载卡得收掉，否则会一直转圈。 */
@@ -1221,6 +1354,10 @@
         return;
       }
 
+      /* 总分在本地按 65% / 35% 重算，级别跟着重判；模型给的 score 不直接上屏 */
+      proj.verdict = applyLocalScore(proj.verdict);
+      const snapshotKey = analysisKey(persona);
+
       state.projection = proj;
       state.projectionPersona = persona.id;
       state.projectionJd = jd;
@@ -1228,6 +1365,9 @@
       state.projectionNote = '由「' + persona.name + '」身份生成 · ' + state.settings.model +
         (jdTitle ? ' · ' + jdTitle : '') +
         ' · 耗时 ' + ((Date.now() - t0) / 1000).toFixed(1) + 's';
+
+      cacheSet(snapshotKey, proj, persona.id);
+      save();
 
       /* 先解除"分析中"，否则 renderResult 会以为自己还在分析阶段而跳过 */
       analyzing = false;
@@ -1317,6 +1457,7 @@
   function switchPersonaSilently(id) {
     if (!id || id === state.activePersona) return false;
     state.activePersona = id;
+    personaSource = 'auto';
     save();
     renderPersonaSwitch();
     return true;
@@ -1339,6 +1480,8 @@
   function autoPickPersona(jdText) {
     const fb = getFactBase();
     const personas = (fb && fb.personas) || [];
+    /* 用户手动选过身份就不再让模型改：迟到的推荐不能覆盖人的选择（J10） */
+    if (personaSource === 'manual') return Promise.resolve(false);
     if (!jdText || personas.length < 2 || !canCallLLM()) return Promise.resolve(false);
 
     const fp = jdFingerprint(jdText);
@@ -1378,14 +1521,20 @@
 
     if (jd.title) currentJdTitle = jd.title;
 
-    /* 同一页面上的内容抖动（滚动、懒加载、DOM 重排）：
-       只更新文本框，绝不动结果区 —— 正在分析时更不该打断。
-       注意这里不能加 "&& state.projection"：分析进行中 projection 是 null，
-       加了就等于没守卫，加载卡会被顶掉。 */
+    /* 同一页面上的内容变化（SPA 局部刷新、懒加载补全）：
+       只更新文本框；但正文真的变了就必须让在途请求过期，
+       否则迟到的旧分析会贴到新内容上（只比 URL 或字数是不够的）。 */
     if (samePage) {
       if (next !== current) {
         box.value = next;
         jdAutoFilled = next;
+        analyzeToken++;
+        state.projection = null;
+        state.projectionNote = '';
+        state.projectionPersona = null;
+        state.projectionJd = '';
+        renderResult();
+        maybeAutoAnalyze();
       }
       updateSourceBar(jd);
       return true;
@@ -1423,7 +1572,9 @@
     updateAnalyzeHint();
     renderResult();
 
-    autoPickPersona(next).catch(() => {});
+    /* 手动模式只读 JD、做本地推荐，不发任何模型请求；自动模式按快照去重再分析 */
+    if (state.settings.analysisMode === 'auto') autoPickPersona(next).catch(() => {});
+    maybeAutoAnalyze();
     return true;
   }
 
@@ -1823,6 +1974,9 @@
     state.projectionPersona = null;
     state.projectionJd = '';
     state.activePersona = null;
+    state.evalCache = null;
+    lastAutoKey = '';
+    personaSource = 'auto';
     save();
     refreshAll();
     return had;
@@ -2107,6 +2261,8 @@
     if (ts) ts.value = currentTheme();
     const as = $('appearanceSelect');
     if (as) as.value = currentAppearance();
+    const am = $('analysisMode');
+    if (am) am.value = ANALYSIS_MODES.indexOf(state.settings.analysisMode) >= 0 ? state.settings.analysisMode : 'manual';
     $('testResult').textContent = '';
     renderPresets();
     updateResumeIndicators();
@@ -2131,6 +2287,22 @@
   async function saveSettings() {
     const baseUrl = $('baseUrl').value.trim();
 
+    /* 表单值先同步落到 state：申请域名权限可能要等用户点确认，
+       这期间用户点「分析」也应该用新配置，而不是旧模型（否则快照 key 会算错）。 */
+    state.settings.baseUrl = baseUrl;
+    state.settings.apiKey = $('apiKey').value.trim();
+    state.settings.model = $('modelName').value.trim();
+    const tm = $('thinkingMode');
+    state.settings.thinking = tm ? tm.value : 'auto';
+    const am = $('analysisMode');
+    state.settings.analysisMode = am && ANALYSIS_MODES.indexOf(am.value) >= 0 ? am.value : 'manual';
+    /* 切到手动后，自动模式记住的快照不能再触发一次分析 */
+    if (state.settings.analysisMode !== 'auto') lastAutoKey = analysisKey(getPersona(state.activePersona));
+    /* 界面外观也一起落盘，下次打开还是同一套 */
+    state.settings.theme = currentTheme();
+    state.settings.appearance = currentAppearance();
+    save();
+
     /* 自定义接口需要动态申请域名权限，否则后台请求会被拦 */
     if (baseUrl) {
       const granted = await ensureHostPermission(baseUrl);
@@ -2139,15 +2311,6 @@
       }
     }
 
-    state.settings.baseUrl = baseUrl;
-    state.settings.apiKey = $('apiKey').value.trim();
-    state.settings.model = $('modelName').value.trim();
-    const tm = $('thinkingMode');
-    state.settings.thinking = tm ? tm.value : 'auto';
-    /* 界面外观也一起落盘，下次打开还是同一套 */
-    state.settings.theme = currentTheme();
-    state.settings.appearance = currentAppearance();
-    save();
     updateAnalyzeHint();
     $('settingsModal').classList.remove('show');
     toast(canCallLLM() ? '已保存，现在可以分析任意 JD 了' : '已保存（还缺 Key 或模型名）');
@@ -2280,8 +2443,12 @@
       state.demoMode = false;
       state.settings = {
         baseUrl: '', apiKey: '', model: '', thinking: 'auto',
+        analysisMode: 'manual',
         theme: DEFAULT_THEME, appearance: DEFAULT_APPEARANCE
       };
+      state.evalCache = null;
+      lastAutoKey = '';
+      personaSource = 'auto';
       applyTheme(DEFAULT_THEME, DEFAULT_APPEARANCE);
       state.projection = null;
       state.projectionNote = '';
@@ -2479,7 +2646,8 @@
       if (pending && pending.jd) {
         setJdFromPage(pending.jd, { force: true });
         renderResult();
-        if (canCallLLM() && hasData()) analyze();
+        /* 手动模式：只填入 JD，不替用户调用模型 */
+        maybeAutoAnalyze();
       } else {
         const jd = await pullFromPage(false);
         if (!jd) {

@@ -9,8 +9,24 @@
 
 (() => {
   'use strict';
-  if (window.__TQ30S_LOADED__) return;
-  window.__TQ30S_LOADED__ = true;
+
+  /* ---------------- 挂载控制器（带版本号，可被替换） ----------------
+     旧版用永久布尔哨兵 window.__TQ30S_LOADED__：一旦为 true，新版脚本会在
+     清理旧 DOM 之前直接退出，招聘页上就永远留着旧悬浮球。
+     现在改成带版本号的控制器：同版本重复注入直接返回；版本不同则先 dispose，
+     再挂载新实例，旧节点/计时器/监听器一并回收。 */
+  const MOUNT_KEY = '__TQ30S_MOUNT__';
+  const SCRIPT_VERSION = '1.1.0';
+  const previousMount = window[MOUNT_KEY];
+  if (previousMount && previousMount.version === SCRIPT_VERSION && typeof previousMount.dispose === 'function') return;
+  if (previousMount && typeof previousMount.dispose === 'function') {
+    try { previousMount.dispose(); } catch (e) { /* 旧实例清理失败不阻塞升级 */ }
+  }
+  try { delete window.__TQ30S_LOADED__; } catch (e) { window.__TQ30S_LOADED__ = false; }
+  try {
+    const legacyHost = document.getElementById('__tq30s_host__');
+    if (legacyHost) legacyHost.remove();
+  } catch (e) { /* ignore */ }
 
   /* ---------------- 站点配置（尽力而为，随时会变） ---------------- */
 
@@ -67,6 +83,25 @@
       if (text.indexOf(KW[i]) >= 0) n++;
     }
     return n;
+  }
+
+  /* 元素当前是否真的显示给用户：隐藏的旧岗位/推荐位不能混进当前 JD */
+  function isVisible(el) {
+    if (!el || el.hidden) return false;
+    try {
+      if (el.getClientRects && el.getClientRects().length === 0) return false;
+      const st = window.getComputedStyle ? window.getComputedStyle(el) : null;
+      if (st && (st.display === 'none' || st.visibility === 'hidden' || st.opacity === '0')) return false;
+    } catch (e) { /* 拿不到样式就按可见处理，不要误杀 */ }
+    return true;
+  }
+
+  /* 正文指纹：字数相同、内容不同也算变化（只比 length 会漏掉等长改动） */
+  function textHash(text) {
+    const s = String(text || '');
+    let h = 5381;
+    for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) | 0;
+    return (h >>> 0).toString(36) + ':' + s.length;
   }
 
   function clean(s) {
@@ -136,7 +171,7 @@
     let bestScore = -1;
     for (const n of nodes) {
       const box = tightContainer(n);
-      if (!box) continue;
+      if (!box || !isVisible(box)) continue;
       const t = box.textContent || '';
       /* 关键词命中越多越可信；同样多的时候取更"完整"的那块 */
       const score = countKw(t) * 10000 + Math.min(t.length, 8000);
@@ -157,6 +192,7 @@
       let els = [];
       try { els = document.querySelectorAll(s); } catch (e) { continue; }
       for (const el of els) {
+        if (!isVisible(el)) continue;
         const t = el.textContent || '';
         if (t.length < 150 || t.length > 8000) continue;
         if (t.length > bestLen) { bestLen = t.length; best = el; }
@@ -172,6 +208,8 @@
       try { els = document.querySelectorAll(s); } catch (e) { continue; }
       let merged = '';
       for (const el of els) {
+        /* 同一页里常留着隐藏的上一个岗位（推荐位、缓存详情）：只取当前可见的正文 */
+        if (!isVisible(el)) continue;
         const t = clean(el.innerText || el.textContent || '');
         if (t) merged += (merged ? '\n\n' : '') + t;
       }
@@ -383,7 +421,7 @@
     let jd = null;
     try { jd = extract(); } catch (e) { jd = null; }
 
-    const key = jd ? (jd.text.length + '|' + (jd.title || '') + '|' + (jd.company || '')) : '__none__';
+    const key = jd ? (textHash(jd.text) + '|' + (jd.title || '') + '|' + (jd.company || '')) : '__none__';
     const changed = key !== lastKey;
     const hadJd = lastKey !== '' && lastKey !== '__none__';
     lastKey = key;
@@ -439,11 +477,15 @@
     };
     wrap('pushState');
     wrap('replaceState');
-    window.addEventListener('popstate', () => schedule(400));
+    popstateHandler = () => schedule(400);
+    window.addEventListener('popstate', popstateHandler);
   }
 
   let lastHref = location.href;
-  setInterval(() => {
+  let tickTimer = null;
+  let mutationObserver = null;
+  let popstateHandler = null;
+  tickTimer = setInterval(() => {
     if (location.href !== lastHref) {
       lastHref = location.href;
       schedule(400);
@@ -460,14 +502,34 @@
     schedule(800);
 
     let mutTimer = null;
-    const mo = new MutationObserver(() => {
+    mutationObserver = new MutationObserver(() => {
       clearTimeout(mutTimer);
       mutTimer = setTimeout(refresh, 1200);
     });
     try {
-      mo.observe(document.documentElement, { childList: true, subtree: true });
+      mutationObserver.observe(document.documentElement, { childList: true, subtree: true });
     } catch (e) { /* ignore */ }
   }
+
+  /* 把这一实例持有的东西全部交回去，供下一个版本接管 */
+  function dispose() {
+    clearTimeout(extractTimer);
+    if (tickTimer) clearInterval(tickTimer);
+    if (mutationObserver) {
+      try { mutationObserver.disconnect(); } catch (e) { /* ignore */ }
+      mutationObserver = null;
+    }
+    if (popstateHandler) {
+      try { window.removeEventListener('popstate', popstateHandler); } catch (e) { /* ignore */ }
+      popstateHandler = null;
+    }
+    if (fabHost && fabHost.isConnected) {
+      try { fabHost.remove(); } catch (e) { /* ignore */ }
+    }
+    fabHost = null;
+  }
+
+  window[MOUNT_KEY] = { version: SCRIPT_VERSION, dispose };
 
   /* ---------------- 诊断：识别失败时告诉调用方为什么 ---------------- */
 

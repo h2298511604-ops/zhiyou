@@ -74,11 +74,18 @@
     <button class="btn sm" id="btnGotoIntake" type="button">去添加简历</button>
   </div>
 
-  <div class="card persona-row">
-    <label for="personaSwitch" class="persona-label">当前身份</label>
-    <div class="persona-switch" id="personaSwitch" role="group" aria-label="当前身份"></div>
-    <div class="persona-hint" id="personaHint"></div>
-  </div>
+  <details class="fold persona-fold" id="personaFold">
+    <summary>
+      <span class="fold-label">当前身份</span>
+      <span class="fold-preview" id="personaSummary">还没有可投身份</span>
+    </summary>
+    <div class="fold-body">
+      <div class="card persona-row">
+        <div class="persona-switch" id="personaSwitch" role="group" aria-label="当前身份"></div>
+        <div class="persona-hint" id="personaHint"></div>
+      </div>
+    </div>
+  </details>
 
   <div class="card jd-card">
     <div class="card-head">
@@ -266,6 +273,14 @@
           <option value="dark">深色</option>
           <option value="system">跟随系统</option>
         </select>
+      </div>
+      <div class="field">
+        <label for="analysisMode">分析方式</label>
+        <select id="analysisMode">
+          <option value="manual">手动：我点「分析」才调用模型</option>
+          <option value="auto">自动：读到新岗位就直接分析</option>
+        </select>
+        <div class="field-hint">手动模式不会在打开面板、切换岗位时调用模型；自动模式按 JD + 身份的指纹去重，同一份不会重复请求。</div>
       </div>
       <div class="field">
         <label>服务商预设</label>
