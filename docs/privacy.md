@@ -2,46 +2,37 @@
 
 最后更新：2026-11-24
 
-职友是一个**本地运行**的浏览器扩展。它没有服务器，没有账号系统，也没有任何形式的统计或埋点。
+职友扩展在浏览器本地运行。项目不托管在线账号或数据中转服务，也没有统计或埋点。
 
 ## 我们收集什么
 
-**不收集任何个人数据。**
+项目没有账号系统，也不运营接收用户数据的服务器；扩展不向项目维护者发送简历、JD、API Key 或使用统计，也没有接入第三方分析、广告或崩溃上报 SDK。
 
-扩展不收集、不上传、不存储到任何远程位置的包括：
+**模型生成会向你配置的模型服务商发送必要内容。**生成事实库时会发送简历文本；分析岗位时会发送当前 JD、生成所需的简历事实和提示词。API Key 会随请求放在 Authorization 请求头中。若使用云端服务，这些内容会到达对应服务商，并受其隐私政策和数据保留规则约束。配置本地 Ollama 时，请求发往你自己的本机服务。
 
-- 你的简历内容、姓名、电话、邮箱
-- 你的岗位浏览记录、JD 原文
-- 你的 API Key
-- 你与招聘方（HR）的聊天内容
-- 任何设备标识、浏览历史或使用统计
-
-扩展**没有**接入任何第三方分析、广告或崩溃上报 SDK。
+扩展不会读取你与招聘方（HR）的聊天内容，也不会把岗位页内容发送给项目维护者。
 
 ## 数据存在哪里
 
-只存在你自己的浏览器里：
+扩展持久化数据保存在你的浏览器本机：
 
 | 数据 | 位置 | 说明 |
 |---|---|---|
-| 简历原文、事实库、身份、设置、API Key | `chrome.storage.local`（扩展存储） | 仅本机，卸载扩展即删除 |
+| 简历原文、事实库、身份、设置、API Key | `chrome.storage.local`（扩展存储） | 保存在本机；调用模型时，相关文本和 API Key 会按上文说明发送到配置的接口 |
 | 界面偏好（是否关闭过引导条） | `localStorage` | 仅本机 |
 | 当前这次分析的结果 | 页面内存 | 刷新即丢，不落盘 |
 
 清除方式：扩展内 **设置 → 清空我的数据**，或在浏览器里移除扩展。
 
-## 网络请求
+## 数据流向
 
-扩展只会在两种情况下发起网络请求：
+扩展的数据流向如下：
 
-1. **模型接口**：发往你自己在设置里填写的 Base URL（例如 `https://api.deepseek.com`）。
-   请求里包含：你上传的简历文本、当前 JD 原文、生成用的提示词。
-   这些内容直接由你的浏览器发往你选择的模型服务商，不经过本项目作者或任何中间服务器。
+1. **模型接口**：发往你在设置里填写的 Base URL（例如 `https://api.deepseek.com`）。生成事实库时请求包含简历文本；岗位分析时包含当前 JD、生成所需的简历事实和提示词。API Key 随请求放在 Authorization 请求头中。这些内容由扩展后台直接发往你选择的模型服务商，不经过项目运营的中间服务器。
 
-2. **招聘网站页面读取**：内容脚本在你已打开的招聘网站上读取当前岗位详情页的正文（JD）。
-   这是浏览器内的本地读取，**不产生任何对外请求**。扩展不读取登录态、不读取聊天记录、不读取页面以外的内容。
+2. **招聘网站页面读取**：内容脚本在你已打开的招聘网站上读取当前岗位详情页的正文（JD）。这是浏览器内的本地读取，本身不产生对外请求。只有在你触发分析时，当前 JD 才会按上文说明发往配置的模型接口。扩展不读取登录态、不读取聊天记录、不读取页面以外的内容。
 
-扩展不会向任何其它域名发送数据。
+扩展不会向你配置的模型接口以外的远程域名发送数据。使用本地网页预览时，浏览器还会把请求发给本机 `127.0.0.1` 服务，由它转发到你配置的模型接口；本地预览服务不是公网服务。
 
 ## 权限用途
 
@@ -73,18 +64,20 @@
 
 Last updated: 2026-11-24
 
-Zhiyou is a **local-only** browser extension. It has no server, no account system, and no analytics or tracking of any kind.
+The Zhiyou extension runs locally in your browser. The project does not host an online account or data-relay service. The extension does not send resumes, job descriptions, API keys, or usage statistics to the project maintainers, and it includes no third-party analytics, ads, or crash-reporting SDK.
 
-**We collect no personal data.** The extension does not collect, transmit, or store remotely: your resume content, name, phone, email, job browsing history, job descriptions, API keys, chat messages with recruiters, device identifiers, or usage statistics.
+**Model generation sends necessary content to the provider you configure.** Building the fact base sends resume text; analyzing a job sends the current JD, the resume facts needed for generation, and prompts. The API Key is sent in the Authorization request header. Cloud-provider handling and retention are governed by that provider's privacy policy. With local Ollama, requests go to your own machine.
 
-All data stays on your device in `chrome.storage.local` plus `localStorage` for UI preferences. Removing the extension deletes it. You can also use **Settings → Clear my data** inside the extension.
+The extension does not read recruiter chats or send job-page content to the project maintainers.
 
-**Network requests** happen in exactly two cases:
+Persistent extension data is stored on your device in `chrome.storage.local`, plus `localStorage` for UI preferences. Removing the extension deletes it. You can also use **Settings → Clear my data**. When you trigger model generation, the data described above is sent to the configured model endpoint.
 
-1. **Model API** — requests go directly from your browser to the Base URL you configure (e.g. `https://api.deepseek.com`). They contain your resume text, the current job description, and the prompt. They never pass through any server operated by this project.
-2. **Job page reading** — the content script reads the job description text from pages you already have open, locally in your browser. No request is made.
+**Data flows** in these cases:
 
-No data is sent to any other domain. No third-party analytics, ads, or crash reporting SDK is included.
+1. **Model API** — requests go to the Base URL you configure (e.g. `https://api.deepseek.com`). See above for the fields included. Extension requests are sent directly by the background worker and do not pass through a project-operated proxy server.
+2. **Job page reading** — the content script reads the JD from an open job page locally. Reading alone makes no request; the JD is sent to the configured model endpoint only when you trigger analysis.
+
+The extension sends no data to other remote domains. Local web preview also contacts `127.0.0.1`; its local Python service forwards configured model requests and is not intended for public exposure.
 
 **Permissions**: `storage` (save data locally), `sidePanel` (show the panel), `scripting` and `activeTab` (read the job page only when you use it), plus site access for five Chinese job boards and the model API domains you choose.
 

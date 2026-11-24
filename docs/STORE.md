@@ -214,3 +214,34 @@ The extension never auto-applies to jobs and never sends messages on the user's 
 3. 跑第 0 节的四道门。
 4. `node scripts/package.js` → 压 zip → 上传。
 5. 商店的「What's new」写一两句人话，不要写「修复若干问题」。
+
+---
+
+## 9. 上架记录（1.0.3）
+
+第一次上架的实际信息，后续更新版本时要对得上。
+
+| 项 | 值 |
+|---|---|
+| 商店 | Edge Add-ons（Microsoft Partner Center） |
+| 开发者账号 | Individual，国家/地区 China（不可改） |
+| 发布者名称 | 职友 Zhiyou |
+| Seller ID | 97584680 |
+| 账号验证 | Authorized（Business verification document: Provided） |
+| Product ID | `81589f36-ad71-498a-94ac-252b48be1000` |
+| Store ID | `0RDCKFJSC31G` |
+| CRX ID（即扩展 ID） | `encodgegmjakkeejemaendmpnbfjpoen` |
+| 商店链接（发布后生效） | <https://microsoftedge.microsoft.com/addons/detail/encodgegmjakkeejemaendmpnbfjpoen> |
+| 首次提交 | 2026-11-24，状态 In review（微软写的是 7 个工作日） |
+
+提交时填的选项：
+
+- 可见性 Public，241/241 个市场 + 未来新增市场
+- 列表语言只有 **English (United States)**：包只声明了一种语言，`Add a language` 是禁用的。所以描述写成了**中英双语**（中文在前），中文用户和审核员都能读
+- 数据披露勾了 **个人信息** + **网站内容**，其余不勾；远程代码选 **No**；测试凭据选 **不需要**
+- `docs/store/logo-300.png` + `store-1..4.png`（1280×800）已上传
+
+操作中踩到的两个坑，下次别重犯：
+
+1. **发布者名称必须超过 2 个字符**。注册页的「Accept and continue」一直禁用不是地址或网络问题：名称校验管道是 `debounce(1s) → trim → filter(length > 2) → 查重`，两个字的名字（比如「职友」）会被 filter 直接丢掉，永远不会被判为有效。
+2. **提交页的认证备注框会吞掉键盘输入**。用填写工具输入后值是空的（计数器停在 `0/2000`），要先直接给 `textarea` 赋值再派发 `input` / `change` 事件才会被 Angular 接受。

@@ -2719,8 +2719,8 @@
 
       const kh = $('keyHint');
       if (kh) {
-        kh.innerHTML = 'Key 只存在你本机浏览器的扩展存储里，由扩展后台直接请求模型，' +
-          '<b>不经过任何第三方服务器，也没有日志</b>。';
+        kh.innerHTML = 'Key 保存在本机扩展存储中；调用模型时由扩展直接发送到此处填写的接口，' +
+          '<b>不经过项目服务器，也不会记录该 Key</b>。';
       }
       const jh = $('jdPanelHint');
       if (jh) jh.textContent = '切到招聘网站，这里会自动识别当前岗位';

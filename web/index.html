@@ -185,7 +185,7 @@
             或 <button type="button" class="dz-pick" id="btnPickFile">选择文件</button>
             <span class="dz-fmt">· 支持 PDF / Word(.docx) / TXT，可多选</span>
           </div>
-          <div class="dz-privacy">文件只在你自己的浏览器里解析，不会上传到任何服务器</div>
+          <div class="dz-privacy">文件在浏览器中解析并保存在本机；生成事实库时，简历文本会发送到你配置的模型接口</div>
         </div>
 
         <div class="or-line"><span>或者粘贴一份</span></div>
@@ -295,8 +295,8 @@
         <label for="apiKey">API Key</label>
         <input id="apiKey" type="password" placeholder="sk-..." />
         <div class="field-hint" id="keyHint">
-          Key 只存在你本机浏览器的存储里，
-          <b>不会上传到任何第三方服务器，也不会写进日志</b>。
+          Key 保存在本机浏览器；调用模型时会发送到此处填写的接口，
+          <b>项目不提供中转服务器，也不会记录该 Key</b>。
         </div>
       </div>
       <div class="field">
