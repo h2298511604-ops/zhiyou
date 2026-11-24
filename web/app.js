@@ -7,7 +7,7 @@
 
   /* 存储键保持老版本不变：升级后用户的简历、事实库和身份直接可用 */
   const LS_KEY = 'touqian30s.v1';
-  const APP_VERSION = '1.0.1';
+  const APP_VERSION = '1.0.2';
 
   const THEMES = ['qingdai', 'graphite', 'sage', 'ocean', 'clay', 'sand', 'wine'];
   const APPEARANCES = ['light', 'dark', 'system'];
@@ -257,9 +257,12 @@
 
   /* 自动模式的唯一入口：按快照指纹去重，同一份输入只自动分析一次 */
   let lastAutoKey = '';
+  let pendingAuto = false;
   function maybeAutoAnalyze() {
     if (state.settings.analysisMode !== 'auto') return;
-    if (analyzing || !canCallLLM() || !hasData()) return;
+    if (!canCallLLM() || !hasData()) return;
+    /* 正在分析时来了新的岗位：记下来，等这次结束再分析最新输入（D4） */
+    if (analyzing) { pendingAuto = true; return; }
     const key = analysisKey(getPersona(state.activePersona));
     if (key === lastAutoKey) return;
     lastAutoKey = key;
@@ -1246,6 +1249,18 @@
 
   let analyzeTimer = null;
 
+  /* 统一的完成路径：先退出「分析中」、停计时，再渲染。
+     否则 renderResult 会因为还有加载卡而直接返回，界面永远停在转圈（D5）。 */
+  function finishAnalysis(projection, persona, jd, note) {
+    analyzing = false;
+    clearInterval(analyzeTimer);
+    state.projection = projection;
+    state.projectionPersona = persona && persona.id ? persona.id : state.activePersona;
+    state.projectionJd = jd;
+    state.projectionNote = note || '';
+    renderResult();
+  }
+
   async function analyze() {
     if (analyzing) return;
     const jd = $('jdInput').value.trim();
@@ -1288,11 +1303,7 @@
     const cachedKey = analysisKey(persona);
     const cachedHit = cacheGet(cachedKey);
     if (cachedHit) {
-      state.projection = cachedHit.projection;
-      state.projectionPersona = persona.id;
-      state.projectionJd = jd;
-      state.projectionNote = '同一份 JD 与身份，复用上次的评估（没有重复请求模型）';
-      renderResult();
+      finishAnalysis(cachedHit.projection, persona, jd, '同一份 JD 与身份，复用上次的评估（没有重复请求模型）');
       toast('同一份输入，已复用上次评估');
       return;
     }
@@ -1317,23 +1328,24 @@
       if (personaSource !== 'manual') {
         try {
           await autoPickPersona(jd);
-          const picked = getPersona(state.activePersona);
-          if (picked && picked.id !== persona.id) {
-            persona = picked;
-            const pickedHit = cacheGet(analysisKey(persona));
-            if (pickedHit) {
-              state.projection = pickedHit.projection;
-              state.projectionPersona = persona.id;
-              state.projectionJd = jd;
-              state.projectionNote = '同一份 JD 与身份，复用上次的评估（没有重复请求模型）';
-              renderResult();
-              return;
-            }
+          /* 等模型这几秒里，用户可能已经手动换了身份：以人的选择为准（D1） */
+          persona = getPersona(state.activePersona) || persona;
+          const pickedKey = analysisKey(persona);
+          const pickedHit = cacheGet(pickedKey);
+          if (pickedHit) {
+            finishAnalysis(pickedHit.projection, persona, jd,
+              '同一份 JD 与身份，复用上次的评估（没有重复请求模型）');
+            return;
           }
         } catch (e) {
           /* 选身份失败不影响主流程 */
         }
       }
+
+      /* 请求发出前就把快照 key 固定下来：写缓存只能用这一份 key，
+         不能拿响应回来时的界面/设置重新算（否则旧结果会污染新输入的缓存）。 */
+      const snapshotKey = analysisKey(persona);
+      const sentModel = state.settings.model;
 
       area.innerHTML = loadingHtml(['判断该用哪个身份', '读 JD → 匹配事实库 → 写打招呼语'], 1, true);
 
@@ -1356,23 +1368,15 @@
 
       /* 总分在本地按 65% / 35% 重算，级别跟着重判；模型给的 score 不直接上屏 */
       proj.verdict = applyLocalScore(proj.verdict);
-      const snapshotKey = analysisKey(persona);
-
-      state.projection = proj;
-      state.projectionPersona = persona.id;
-      state.projectionJd = jd;
       const jdTitle = (proj.jd && proj.jd.title) || '';
-      state.projectionNote = '由「' + persona.name + '」身份生成 · ' + state.settings.model +
+      /* 说明里用「实际发出去的那个模型」，不是现在设置里的（D3） */
+      const note = '由「' + persona.name + '」身份生成 · ' + sentModel +
         (jdTitle ? ' · ' + jdTitle : '') +
         ' · 耗时 ' + ((Date.now() - t0) / 1000).toFixed(1) + 's';
 
+      finishAnalysis(proj, persona, jd, note);
       cacheSet(snapshotKey, proj, persona.id);
       save();
-
-      /* 先解除"分析中"，否则 renderResult 会以为自己还在分析阶段而跳过 */
-      analyzing = false;
-      clearInterval(analyzeTimer);
-      renderResult();
       area.scrollIntoView({ behavior: 'smooth', block: 'start' });
     } catch (e) {
       area.innerHTML = '<div class="err-box"><b>分析失败</b><br>' + esc(e.message || e) +
@@ -1386,6 +1390,11 @@
       clearInterval(analyzeTimer);
       $('btnAnalyze').disabled = false;
       $('btnAnalyze').textContent = '分析';
+      /* 分析期间来过新岗位：现在补上，自动模式下不能把新输入丢掉（D4） */
+      if (pendingAuto) {
+        pendingAuto = false;
+        if (state.settings.analysisMode === 'auto') setTimeout(() => maybeAutoAnalyze(), 0);
+      }
     }
   }
 
@@ -1500,6 +1509,8 @@
          （否则会出现「简历 0 份、无事实库，activePersona 却是 p1」——R05） */
       const now = (getFactBase() && getFactBase().personas) || [];
       if (!now.some(p => p.id === target.id)) return false;
+      /* 请求在途期间用户手动选了身份：这次迟到的推荐必须作废（D1） */
+      if (personaSource === 'manual') return false;
       const changed = switchPersonaSilently(target.id);
       if (changed) renderPersonaHint();
       return changed;
@@ -1526,6 +1537,12 @@
        否则迟到的旧分析会贴到新内容上（只比 URL 或字数是不够的）。 */
     if (samePage) {
       if (next !== current) {
+        /* 用户手动改过 JD：同 URL 的自动更新不能直接盖掉草稿，只提示载入（D8） */
+        if (!clean && !opt.force) {
+          showNewChip(jd);
+          updateSourceBar(jd);
+          return false;
+        }
         box.value = next;
         jdAutoFilled = next;
         analyzeToken++;
@@ -1654,12 +1671,23 @@
     return null;
   }
 
+  /* 这个面板属于哪个窗口：岗位推送只接受本窗口来的（D6） */
+  let panelContext = { windowId: null, tabId: null };
+
+  function isFromCurrentWindow(source) {
+    if (!source) return true;                       // 内部路径 / 旧消息没带来源
+    if (panelContext.windowId == null || source.windowId == null) return true;
+    return source.windowId === panelContext.windowId;
+  }
+
   function listenExtension() {
     if (!IS_EXT) return;
     try {
       chrome.runtime.onMessage.addListener((msg) => {
         if (!msg) return;
         if (msg.type === 'JD_PUSH') {
+          /* 别的窗口的活动岗位不能覆盖这个面板（每个窗口都有一个 active 标签页） */
+          if (!isFromCurrentWindow(msg.source)) return;
           if (msg.jd) setJdFromPage(msg.jd, { force: !msg.soft });
           else updateSourceBar(null);
         }
@@ -2286,6 +2314,9 @@
 
   async function saveSettings() {
     const baseUrl = $('baseUrl').value.trim();
+    const beforeModel = state.settings.model;
+    const beforeBase = state.settings.baseUrl;
+    const beforeThinking = state.settings.thinking;
 
     /* 表单值先同步落到 state：申请域名权限可能要等用户点确认，
        这期间用户点「分析」也应该用新配置，而不是旧模型（否则快照 key 会算错）。 */
@@ -2302,6 +2333,12 @@
     state.settings.theme = currentTheme();
     state.settings.appearance = currentAppearance();
     save();
+    /* 模型/接口/思考模式变了 = 在途的那次分析已经不是当前配置的结果，作废（D3） */
+    if (analyzing && (beforeModel !== state.settings.model ||
+        beforeBase !== state.settings.baseUrl ||
+        beforeThinking !== state.settings.thinking)) {
+      analyzeToken++;
+    }
 
     /* 自定义接口需要动态申请域名权限，否则后台请求会被拦 */
     if (baseUrl) {
@@ -2501,6 +2538,8 @@
     $('jdInput').addEventListener('input', () => {
       /* 只更新摘要，不自动开合折叠区：正在编辑时把输入框收起是最烦人的 */
       syncJdFold(false);
+      /* 手动改 JD = 输入变了：在途的分析结果已经对不上，直接作废（D2） */
+      if (analyzing) analyzeToken++;
       markJdChanged();
       renderPersonaHint();
       updateAnalyzeHint();
@@ -2639,10 +2678,34 @@
 
     /* ---------- 扩展：优先吃页内按钮带过来的 JD ---------- */
     if (IS_EXT) {
+      /* 记住这个面板属于哪个窗口/标签页：推送只接受本窗口的，切标签页要重新读 */
+      try {
+        const win = await new Promise((resolve) => {
+          try { chrome.windows.getCurrent((w) => resolve(w)); } catch (e) { resolve(null); }
+        });
+        const tabs = await chrome.tabs.query({ active: true, currentWindow: true });
+        panelContext = {
+          windowId: win && typeof win.id === 'number' ? win.id : null,
+          tabId: tabs && tabs[0] && typeof tabs[0].id === 'number' ? tabs[0].id : null
+        };
+      } catch (e) { /* ignore */ }
+
+      /* 用户切到另一个已经打开的招聘标签页：主动重读一次岗位（D7） */
+      try {
+        if (chrome.tabs && chrome.tabs.onActivated && chrome.tabs.onActivated.addListener) {
+          chrome.tabs.onActivated.addListener((info) => {
+            if (info && panelContext.windowId != null && info.windowId != null &&
+                info.windowId !== panelContext.windowId) return;
+            if (info && info.tabId != null) panelContext.tabId = info.tabId;
+            pullFromPage(false);
+          });
+        }
+      } catch (e) { /* ignore */ }
+
       listenExtension();
       reportPanelLifecycle();
 
-      const pending = await sendBg({ type: 'PULL_PENDING' });
+      const pending = await sendBg({ type: 'PULL_PENDING', windowId: panelContext.windowId });
       if (pending && pending.jd) {
         setJdFromPage(pending.jd, { force: true });
         renderResult();

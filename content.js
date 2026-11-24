@@ -201,19 +201,73 @@
     return best;
   }
 
+  /* 同一份 JD 常被拆成多个块，但页面里也可能同时挂着推荐位/相似岗位里的同名块。
+     所以先确定「当前详情容器」，只在这一个容器内合并。 */
+  let lastDetailContainer = null;
+  const RECOMMEND_RE = /(recommend|similar|related|guess|like-job|hot-job|job-list|card-list)/i;
+
+  function classOf(el) {
+    return el && typeof el.className === 'string' ? el.className : '';
+  }
+
+  function detailContainerOf(el) {
+    let cur = el;
+    for (let depth = 0; depth < 6 && cur && cur !== document.body; depth++) {
+      if (cur.tagName === 'SECTION' || /job-detail|job_detail|job-sec|detail/i.test(classOf(cur))) return cur;
+      cur = cur.parentElement;
+    }
+    return (el && el.parentElement) || el;
+  }
+
+  function inRecommendation(el) {
+    let cur = el;
+    for (let depth = 0; depth < 5 && cur && cur !== document.body; depth++) {
+      if (RECOMMEND_RE.test(classOf(cur))) return true;
+      cur = cur.parentElement;
+    }
+    return false;
+  }
+
+  function isDetailLike(el) {
+    let cur = el;
+    for (let depth = 0; depth < 6 && cur && cur !== document.body; depth++) {
+      if (/job-detail|job_detail|job-sec|jobdesc|job-desc/i.test(classOf(cur))) return true;
+      cur = cur.parentElement;
+    }
+    return false;
+  }
+
   function bySelector(site) {
     if (!site) return null;
     for (const s of site.sel) {
       let els = [];
       try { els = document.querySelectorAll(s); } catch (e) { continue; }
-      let merged = '';
+      const usable = [];
       for (const el of els) {
-        /* 同一页里常留着隐藏的上一个岗位（推荐位、缓存详情）：只取当前可见的正文 */
-        if (!isVisible(el)) continue;
+        /* 隐藏的旧岗位、推荐位里的同名块都不算当前 JD */
+        if (!isVisible(el) || inRecommendation(el)) continue;
         const t = clean(el.innerText || el.textContent || '');
-        if (t) merged += (merged ? '\n\n' : '') + t;
+        if (t) usable.push({ el, text: t });
       }
-      if (merged.length >= 150 && countKw(merged) >= 1) return merged;
+      if (!usable.length) continue;
+
+      /* 按「所属详情容器」分组，只在最像当前详情的那一组里合并 */
+      const groups = new Map();
+      for (const item of usable) {
+        const box = detailContainerOf(item.el);
+        if (!groups.has(box)) groups.set(box, []);
+        groups.get(box).push(item);
+      }
+      let best = null;
+      for (const [box, items] of groups) {
+        const merged = items.map(i => i.text).join('\n\n');
+        const score = countKw(merged) * 10000 + Math.min(merged.length, 8000) + (isDetailLike(box) ? 5000 : 0);
+        if (!best || score > best.score) best = { box, merged, score };
+      }
+      if (best && best.merged.length >= 150 && countKw(best.merged) >= 1) {
+        lastDetailContainer = best.box;
+        return best.merged;
+      }
     }
     return null;
   }
@@ -222,27 +276,47 @@
 
   const NOISE_TITLE = /(招聘|人才网|找工作|求职|直聘|猎聘|拉勾|智联|前程无忧|首页)/;
 
-  function pageTitle() {
-    const h1 = document.querySelector('h1');
-    if (h1) {
-      const t = clean(h1.innerText || h1.textContent || '');
-      if (t.length >= 2 && t.length <= 40 && !NOISE_TITLE.test(t)) return t;
+  /* 标题必须和正文来自同一块当前详情，且必须真的可见：
+     页面上留着 hidden 的旧岗位标题时，不能把它当成当前岗位。 */
+  function pageTitle(container) {
+    const usable = (t) => t.length >= 2 && t.length <= 40 && !NOISE_TITLE.test(t);
+    let heads = [];
+    try {
+      heads = Array.prototype.slice.call(
+        document.querySelectorAll('h1, h2, [class*="job-title"], [class*="jobTitle"], [class*="job-name"]')
+      );
+    } catch (e) { heads = []; }
+
+    const visible = heads.filter((h) => isVisible(h) && !inRecommendation(h));
+    const inside = container ? visible.filter((h) => container.contains(h)) : [];
+    for (const h of inside.concat(visible)) {
+      const t = clean(h.innerText || h.textContent || '');
+      if (usable(t)) return t;
     }
+
     const raw = document.title || '';
     const parts = raw.split(/[-_|｜—–]/).map((s) => s.trim()).filter(Boolean);
-    const pick = parts.find((p) => p.length >= 2 && p.length <= 40 && !NOISE_TITLE.test(p));
+    const pick = parts.find((p) => usable(p));
     return pick || clean(raw).slice(0, 40);
   }
 
-  function pageCompany() {
+  function pageCompany(container) {
     const cands = [
       '.company-info .name', '.company-info h3', '.company-name',
       '.company-title', '.com-name', '[class*="companyName"]'
     ];
-    for (const s of cands) {
-      let el = null;
-      try { el = document.querySelector(s); } catch (e) { continue; }
-      if (!el) continue;
+    const collect = () => {
+      const out = [];
+      for (const s of cands) {
+        let els = [];
+        try { els = document.querySelectorAll(s); } catch (e) { continue; }
+        for (const el of els) out.push(el);
+      }
+      return out;
+    };
+    const all = collect().filter((el) => isVisible(el) && !inRecommendation(el));
+    const scoped = container ? all.filter((el) => container.contains(el)) : [];
+    for (const el of scoped.concat(all)) {
       const t = clean(el.innerText || el.textContent || '');
       if (t.length >= 2 && t.length <= 40) return t;
     }
@@ -268,6 +342,7 @@
       const box = genericFind() || classFallback();
       if (box) {
         text = clean(box.innerText || box.textContent || '');
+        lastDetailContainer = box;
         from = 'generic';
       }
     }
@@ -277,8 +352,8 @@
     const urlDetail = site ? site.detail.test(location.pathname + location.search) : false;
     if (!urlDetail && text.length < 500) return null;
 
-    const title = pageTitle();
-    const company = pageCompany();
+    const title = pageTitle(lastDetailContainer);
+    const company = pageCompany(lastDetailContainer);
 
     const head = [title, company].filter(Boolean).join(' · ');
     const full = (head ? head + '\n\n' : '') + text;

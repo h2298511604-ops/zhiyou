@@ -135,6 +135,7 @@ let panelOpen = {};      // { [windowId]: true } —— 手势路径只读这个
 let panelToggleAt = {};  // { [windowId]: 上次点击的时间戳（含被防抖掉的）} —— 400ms 连点防抖（R28b）
 let pendingJD = null;    // 面板页 PULL_PENDING 时同步就能拿到的 JD
 let pendingJDAt = 0;     // pendingJD 的入队时间：超过 30 秒没人取走就丢弃（R30）
+let pendingJDWindow = null;  // 这份 JD 是哪个窗口点开的：别的窗口的面板不能取走它
 let panelVersion = 0;    // 每来一条开关信号就 +1，用来判断异步快照是否已过期
 
 function setPanelOpen(winId, open) {
@@ -338,22 +339,25 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
     if (action === 'open') {
       pendingJD = msg.jd || null;
       pendingJDAt = openedAt;
+      pendingJDWindow = winId;
     } else if (action === 'close') {
       pendingJD = null;
       pendingJDAt = 0;
+      pendingJDWindow = null;
     }
 
     /* ==== 手势已经用掉，下面才可以异步 ==== */
 
     (async () => {
-      /* 面板本来就是开着的话（比如 SPA 换了岗位），JD 立刻推过去 */
-      broadcast({ type: 'JD_PUSH', jd: msg.jd || null });
+      /* 面板本来就是开着的话（比如 SPA 换了岗位），JD 立刻推过去；
+         带上来源，别的窗口的面板会自行忽略 */
+      broadcast({ type: 'JD_PUSH', jd: msg.jd || null, source: { tabId: tabId, windowId: winId } });
       try {
         if (action === 'open') {
-          await chrome.storage.session.set({ pendingJD: msg.jd || null, pendingJDAt: openedAt });
+          await chrome.storage.session.set({ pendingJD: msg.jd || null, pendingJDAt: openedAt, pendingJDWindow: winId });
         } else if (action === 'close') {
-          /* 两个 key 一次删完：分两次删的话，中间被 PULL_PENDING 读到「有 JD 没时间戳」会被当成没过期 */
-          await chrome.storage.session.remove(['pendingJD', 'pendingJDAt']);
+          /* 三个 key 一次删完：分几次删的话，中间被 PULL_PENDING 读到「有 JD 没时间戳」会被当成没过期 */
+          await chrome.storage.session.remove(['pendingJD', 'pendingJDAt', 'pendingJDWindow']);
         }
       } catch (e) { /* ignore */ }
       /* 再拿真实上下文对一遍：真的没面板在跑，就把状态全部清成关着，
@@ -369,38 +373,50 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
     /* 超过 30 秒没人取走就丢弃（R30）：否则一个旧岗位的 JD 会在很久以后
        被新打开的面板取走、自动填入并自动分析，花 token 还可能投错岗。 */
     const EXPIRE_MS = 30000;
+    /* 面板只说得出自己的窗口：别的窗口点开的 JD 不能交给他 */
+    const wantWindow = msg.windowId == null ? null : Number(msg.windowId);
+    const windowMatches = (win) => wantWindow == null || win == null || Number(win) === wantWindow;
+
     if (pendingJD) {
+      if (!windowMatches(pendingJDWindow)) {
+        sendResponse({ jd: null });
+        return false;
+      }
       if (Date.now() - (pendingJDAt || 0) > EXPIRE_MS) {
         pendingJD = null;
         pendingJDAt = 0;
-        try { chrome.storage.session.remove(['pendingJD', 'pendingJDAt']).catch(() => {}); } catch (e) { /* ignore */ }
+        pendingJDWindow = null;
+        try { chrome.storage.session.remove(['pendingJD', 'pendingJDAt', 'pendingJDWindow']).catch(() => {}); } catch (e) { /* ignore */ }
         sendResponse({ jd: null });
         return false;
       }
       const jd = pendingJD;
       pendingJD = null;
       pendingJDAt = 0;
+      pendingJDWindow = null;
       try {
-        chrome.storage.session.remove(['pendingJD', 'pendingJDAt']).catch(() => {});
+        chrome.storage.session.remove(['pendingJD', 'pendingJDAt', 'pendingJDWindow']).catch(() => {});
       } catch (e) { /* ignore */ }
       sendResponse({ jd: jd });
       return false;
     }
-    chrome.storage.session.get(['pendingJD', 'pendingJDAt'])
+    chrome.storage.session.get(['pendingJD', 'pendingJDAt', 'pendingJDWindow'])
       .then((v) => {
         const jd = (v && v.pendingJD) || null;
         const at = (v && v.pendingJDAt) || 0;
+        const win = v && v.pendingJDWindow;
+        if (jd && !windowMatches(win)) { sendResponse({ jd: null }); return; }
         /* 没有时间戳也算过期：分两次删 / 老数据都可能出现「有 JD 没 at」，
            这种状态无法证明它新鲜，按 R30 一律丢弃 */
         const expired = jd && (!(+at) || Date.now() - (+at) > EXPIRE_MS);
         if (expired) {
-          chrome.storage.session.remove(['pendingJD', 'pendingJDAt']).catch(() => {});
+          chrome.storage.session.remove(['pendingJD', 'pendingJDAt', 'pendingJDWindow']).catch(() => {});
           sendResponse({ jd: null });
           return;
         }
         sendResponse({ jd: jd });
         if (jd) {
-          chrome.storage.session.remove(['pendingJD', 'pendingJDAt']).catch(() => {});
+          chrome.storage.session.remove(['pendingJD', 'pendingJDAt', 'pendingJDWindow']).catch(() => {});
         }
       })
       .catch(() => sendResponse({ jd: null }));
