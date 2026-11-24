@@ -23,7 +23,7 @@ node scripts/package.js
 产物在 `dist/extension/`（17 个文件，约 1.6 MB），再把**目录内容**压成 zip：
 
 ```powershell
-Compress-Archive -Path dist/extension/* -DestinationPath dist/zhiyou-1.0.2.zip -Force
+Compress-Archive -Path dist/extension/* -DestinationPath dist/zhiyou-1.0.3.zip -Force
 ```
 
 > 注意压缩的是 `dist/extension/` 里面的内容，不是这个目录本身——否则商店里会多一层文件夹，`manifest.json` 找不到。
@@ -43,7 +43,7 @@ web/  icons/            （含 icons/zhiyou-qingdai.svg —— 面板里的品�
 
 | 素材 | 规格 | 位置 | 状态 |
 |---|---|---|---|
-| 扩展包 | zip，含 `manifest.json` 在根 | `dist/zhiyou-1.0.2.zip` | 出包生成 |
+| 扩展包 | zip，含 `manifest.json` 在根 | `dist/zhiyou-1.0.3.zip` | 出包生成 |
 | 商店图标 | 300 × 300 PNG（1:1，最小 128） | `docs/store/logo-300.png` | 已有 |
 | 截图 1 | 1280 × 800 | `docs/store/store-1.png` | 已有 |
 | 截图 2 | 1280 × 800 | `docs/store/store-2.png` | 已有 |
@@ -183,7 +183,7 @@ The extension never auto-applies to jobs and never sends messages on the user's 
 ## 6. 提交流程（Edge）
 
 1. 打开 <https://partner.microsoft.com/dashboard/microsoftedge>，用 Microsoft 账号登录（免费，不需要信用卡）。
-2. **New extension** → 上传 `dist/zhiyou-1.0.2.zip`。
+2. **New extension** → 上传 `dist/zhiyou-1.0.3.zip`。
 3. 填 **Properties**：显示名、简短描述、详细描述、分类、语言、搜索词。
 4. 填 **Privacy**：隐私政策 URL；「是否收集个人数据」选 **否**（确实不收集）。
 5. 传 **Store listing assets**：`logo-300.png` + `store-1..4.png`。

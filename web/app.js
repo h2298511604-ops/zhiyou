@@ -7,7 +7,7 @@
 
   /* 存储键保持老版本不变：升级后用户的简历、事实库和身份直接可用 */
   const LS_KEY = 'touqian30s.v1';
-  const APP_VERSION = '1.0.2';
+  const APP_VERSION = '1.0.3';
 
   const THEMES = ['qingdai', 'graphite', 'sage', 'ocean', 'clay', 'sand', 'wine'];
   const APPEARANCES = ['light', 'dark', 'system'];
@@ -710,7 +710,8 @@
     if (summary) {
       const current = personas.find(p => p.id === state.activePersona) || personas[0];
       const strength = Math.max(0, Math.min(5, Number(current.strength) || 0));
-      summary.textContent = '当前身份 · ' + current.name + ' · 素材支撑度 ' + strength + ' / 5 · 点开更换';
+      /* 不要在摘要里重复 fold-label 的「当前身份」：那会显示成「当前身份 当前身份 …」 */
+      summary.textContent = current.name + ' · 素材支撑度 ' + strength + ' / 5 · 点开更换';
     }
 
     $('personaSwitch').querySelectorAll('[data-persona]').forEach((btn) => {
@@ -1266,6 +1267,13 @@
     const jd = $('jdInput').value.trim();
     if (!jd) { toast('先把 JD 粘进来'); $('jdInput').focus(); return; }
 
+    /* 当前页面读取失败时，输入框里可能是上一个岗位：不确认就不许拿去分析（E4） */
+    if (jdFreshness === 'stale') {
+      toast('当前页面的岗位没读到：点「重新读取」，或在原文里确认 / 粘贴本岗位 JD 后再分析');
+      $('jdInput').focus();
+      return;
+    }
+
     const area = $('resultArea');
     let persona = getPersona(state.activePersona);
     const factBase = getFactBase();
@@ -1545,6 +1553,7 @@
         }
         box.value = next;
         jdAutoFilled = next;
+        markJdFresh('page');
         analyzeToken++;
         state.projection = null;
         state.projectionNote = '';
@@ -1570,6 +1579,7 @@
 
     box.value = next;
     jdAutoFilled = next;
+    markJdFresh('page');
     currentJdUrl = jd.url || '';
     state.projection = null;
     state.projectionNote = '';
@@ -1595,44 +1605,81 @@
     return true;
   }
 
+  /* 把读取/注入失败分类：以前一律当「没有权限」，用户按提示去点图标也修不好（E4） */
+  function classifyReadError(error) {
+    const text = String((error && (error.message || error)) || '');
+    if (/cannot access|not allowed|permission|denied|manifest|host permission/i.test(text)) return 'permission';
+    if (/could not establish connection|receiving end does not exist|no receiving end/i.test(text)) return 'not-connected';
+    if (/extension context invalidated|context invalidated/i.test(text)) return 'invalidated';
+    return 'unknown';
+  }
+
   /* 这个站点没在 manifest 的 matches 里声明，内容脚本不会被自动注入。
      用 activeTab（用户点过扩展图标就有时效授权）按需注入一次。 */
   async function injectContentScript(tabId) {
+    if (!chrome.scripting) return { ok: false, reason: 'unsupported', message: '这个浏览器不支持按需注入' };
     try {
-      if (!chrome.scripting) return 'unsupported';
       await chrome.scripting.executeScript({ target: { tabId: tabId }, files: ['content.js'] });
-      return 'ok';
+      return { ok: true, reason: 'ok', message: '' };
     } catch (e) {
-      return 'denied';
+      return { ok: false, reason: classifyReadError(e), message: String((e && e.message) || e) };
+    }
+  }
+
+  function showReadFailure(reason, diag) {
+    const bar = $('jdSource');
+    if (bar) { bar.hidden = false; bar.classList.add('empty'); }
+    /* 先说真实原因，再给兜底动作：把「未连接」一律说成权限，会让用户按错办法修（E4） */
+    const notPermission = '若仍读不到，点一下工具栏上的扩展图标再试——没有这个页面的读取权限时也会这样';
+    const hints = {
+      permission: '没有这个页面的读取权限 · 点一下浏览器工具栏上的扩展图标，再点「重新读取」',
+      'not-connected': '读取失败：页面脚本未连接（扩展刚更新或页面未刷新）· 刷新这个招聘页面后重试；' + notPermission,
+      invalidated: '读取失败：扩展刚更新过，页面里的脚本已失效 · 刷新这个招聘页面后重试；' + notPermission,
+      unsupported: '这个浏览器不支持按需注入 · 请手动粘贴 JD',
+      unknown: '读取失败：没拿到当前岗位 · 刷新页面后重试，或手动粘贴 JD；' + notPermission
+    };
+    const text = hints[reason] || hints.unknown;
+    const el = $('jdSourceText');
+    if (el) el.textContent = text + (diag ? '（关键词节点 ' + (diag.kw == null ? '?' : diag.kw) + '）' : '');
+    if (reason === 'permission' || reason === 'not-connected' || reason === 'invalidated') {
+      toast('刷新一下招聘页面，脚本才会生效');
     }
   }
 
   async function pullFromPage(force) {
     if (!IS_EXT) return null;
+    const rev = ++readRevision;
     let tabId = null;
     try {
       const tabs = await chrome.tabs.query({ active: true, currentWindow: true });
       tabId = tabs && tabs[0] ? tabs[0].id : null;
     } catch (e) { /* ignore */ }
+    if (!isCurrentRead(rev, tabId)) return null;
     if (!tabId) { updateSourceBar(null); return null; }
 
     let resp = null;
-    let noScript = false;
+    let failure = null;
 
     try {
       resp = await chrome.tabs.sendMessage(tabId, { type: 'GET_JD' });
     } catch (e) {
       /* 首选方案没接住 → 多半是没在这个站点声明内容脚本，按需注入再试一次 */
+      failure = classifyReadError(e);
       const inj = await injectContentScript(tabId);
-      if (inj === 'ok') {
+      if (inj.ok) {
         await new Promise(r => setTimeout(r, 150));
-        try { resp = await chrome.tabs.sendMessage(tabId, { type: 'GET_JD' }); }
-        catch (e2) { resp = null; }
+        try { resp = await chrome.tabs.sendMessage(tabId, { type: 'GET_JD' }); failure = null; }
+        catch (e2) { failure = classifyReadError(e2); }
+      } else {
+        failure = inj.reason;
       }
-      if (!resp) noScript = (inj === 'denied');
     }
 
+    /* 期间用户切了标签页、或又发起了一次读取：这次响应已经过期，不能回写（E2） */
+    if (!isCurrentRead(rev, tabId)) return null;
+
     if (resp && resp.jd) {
+      markJdFresh('page');
       setJdFromPage(resp.jd, { force: !!force });
       return resp.jd;
     }
@@ -1641,6 +1688,8 @@
     let sel = null;
     try { sel = await chrome.tabs.sendMessage(tabId, { type: 'GET_SELECTION' }); }
     catch (e) { sel = null; }
+    if (!isCurrentRead(rev, tabId)) return null;
+
     const selText = sel && sel.text ? String(sel.text).trim() : '';
 
     if (selText.length >= 60) {
@@ -1651,28 +1700,38 @@
         length: selText.length,
         from: 'selection'
       };
+      markJdFresh('page');
       setJdFromPage(selJd, { force: true });
       return selJd;
     }
 
-    if (noScript) {
-      const bar = $('jdSource');
-      if (bar) {
-        bar.hidden = false;
-        bar.classList.add('empty');
-        $('jdSourceText').textContent =
-          '没有这个页面的读取权限 · 点一下浏览器工具栏上的扩展图标，再点「重新读取」';
-      }
-      toast('刷新一下招聘页面，脚本才会生效');
-      return null;
-    }
-
-    updateSourceBar(null, resp && resp.diag);
+    /* 读不到当前岗位：草稿保留，但标成「不是当前页面读到的」，
+       并挡住「直接拿上一份自动读取的 JD 去分析」（E4） */
+    markJdFresh('stale');
+    showReadFailure(failure || 'unknown', resp && resp.diag);
     return null;
   }
 
   /* 这个面板属于哪个窗口：岗位推送只接受本窗口来的（D6） */
   let panelContext = { windowId: null, tabId: null };
+
+  /* 当前页面读取的版本号：每次读取 +1，迟到的旧响应直接丢弃（E2） */
+  let readRevision = 0;
+  function isCurrentRead(rev, tabId) {
+    if (rev !== readRevision) return false;
+    if (panelContext.tabId != null && tabId != null && tabId !== panelContext.tabId) return false;
+    return true;
+  }
+
+  /* 当前 JD 是怎么来的：
+     page    = 刚从当前页面读到
+     manual  = 用户自己粘贴或编辑过
+     stale   = 当前页面读取失败，输入框里还留着上一次自动读取的内容（E4） */
+  let jdFreshness = null;
+  function markJdFresh(kind) {
+    jdFreshness = kind;
+    updateAnalyzeHint();
+  }
 
   function isFromCurrentWindow(source) {
     if (!source) return true;                       // 内部路径 / 旧消息没带来源
@@ -2538,6 +2597,8 @@
     $('jdInput').addEventListener('input', () => {
       /* 只更新摘要，不自动开合折叠区：正在编辑时把输入框收起是最烦人的 */
       syncJdFold(false);
+      /* 用户自己动手改了：这份内容由他负责，不再算「页面读到的」 */
+      markJdFresh('manual');
       /* 手动改 JD = 输入变了：在途的分析结果已经对不上，直接作废（D2） */
       if (analyzing) analyzeToken++;
       markJdChanged();
@@ -2714,7 +2775,8 @@
       } else {
         const jd = await pullFromPage(false);
         if (!jd) {
-          updateSourceBar(null);
+          /* 读取失败时 pullFromPage 已经写了具体原因，别再拿「没识别到」把它盖掉 */
+          if (jdFreshness !== 'stale') updateSourceBar(null);
           renderResult();
         }
       }

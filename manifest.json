@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "职友 · 求职助手",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "看懂岗位，讲清自己。浏览招聘网站时自动识别当前岗位 JD，讲清该不该投、该突出什么、第一句话怎么说。",
   "minimum_chrome_version": "116",
 

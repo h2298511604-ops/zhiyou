@@ -16,11 +16,19 @@
      现在改成带版本号的控制器：同版本重复注入直接返回；版本不同则先 dispose，
      再挂载新实例，旧节点/计时器/监听器一并回收。 */
   const MOUNT_KEY = '__TQ30S_MOUNT__';
-  const SCRIPT_VERSION = '1.1.0';
+  /* 逻辑一改就要跟着 +1：同版本重复注入会被当成「已经挂载过」直接跳过，
+     旧实例留在页面里继续用旧算法应答 GET_JD（E3）。 */
+  const SCRIPT_VERSION = '1.2.0';
   const previousMount = window[MOUNT_KEY];
   if (previousMount && previousMount.version === SCRIPT_VERSION && typeof previousMount.dispose === 'function') return;
   if (previousMount && typeof previousMount.dispose === 'function') {
     try { previousMount.dispose(); } catch (e) { /* 旧实例清理失败不阻塞升级 */ }
+    /* 旧实例如果登记过消息监听器，一并摘掉：两个版本同时应答时，
+       先注册的那个会赢，就会出现「新版已挂载、读到的还是旧结果」。 */
+    if (previousMount.listener && chrome.runtime && chrome.runtime.onMessage &&
+        typeof chrome.runtime.onMessage.removeListener === 'function') {
+      try { chrome.runtime.onMessage.removeListener(previousMount.listener); } catch (e) { /* ignore */ }
+    }
   }
   try { delete window.__TQ30S_LOADED__; } catch (e) { window.__TQ30S_LOADED__ = false; }
   try {
@@ -211,7 +219,9 @@
   }
 
   function detailContainerOf(el) {
-    let cur = el;
+    /* 从父节点开始找：正文块自己（比如 .job-sec-text）常常也带 job-sec 字样，
+       若把块自身当成「详情容器」，同一岗位的多个块就会被拆成不同组而丢块（E1）。 */
+    let cur = el && el.parentElement;
     for (let depth = 0; depth < 6 && cur && cur !== document.body; depth++) {
       if (cur.tagName === 'SECTION' || /job-detail|job_detail|job-sec|detail/i.test(classOf(cur))) return cur;
       cur = cur.parentElement;
@@ -598,13 +608,19 @@
       try { window.removeEventListener('popstate', popstateHandler); } catch (e) { /* ignore */ }
       popstateHandler = null;
     }
+    if (messageListener && chrome.runtime && chrome.runtime.onMessage &&
+        typeof chrome.runtime.onMessage.removeListener === 'function') {
+      try { chrome.runtime.onMessage.removeListener(messageListener); } catch (e) { /* ignore */ }
+    }
+    messageListener = null;
     if (fabHost && fabHost.isConnected) {
       try { fabHost.remove(); } catch (e) { /* ignore */ }
     }
     fabHost = null;
   }
 
-  window[MOUNT_KEY] = { version: SCRIPT_VERSION, dispose };
+  let messageListener = null;
+  window[MOUNT_KEY] = { version: SCRIPT_VERSION, dispose, listener: null };
 
   /* ---------------- 诊断：识别失败时告诉调用方为什么 ---------------- */
 
@@ -642,7 +658,7 @@
 
   /* ---------------- 面板主动来取 JD ---------------- */
 
-  chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
+  messageListener = (msg, sender, sendResponse) => {
     if (msg && msg.type === 'GET_JD') {
       let jd = null;
       let diag = null;
@@ -669,7 +685,9 @@
       return false;
     }
     return false;
-  });
+  };
+  chrome.runtime.onMessage.addListener(messageListener);
+  window[MOUNT_KEY].listener = messageListener;
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', start, { once: true });
